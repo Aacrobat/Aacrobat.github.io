@@ -297,6 +297,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-12 13:37:31 / Modified: 16:44:17" itemprop="dateCreated datePublished" datetime="2018-11-12T13:37:31+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/tittle.png" title="slug [论文题目]">
+<p>  摘要：<br>      我们现在很多照片都是有手机得到的，虽然手机拍照传感器等在不断升级，但是和专业数码相机还是有差距。本文就是通过残差卷积网络来提供一个提高图像质量的算法。我们的损失函数不是用的标准均方误差，而是自定义了四方面：上下文，颜色，纹理，和平滑度。<br>  介绍：<br>      就是说由于硬件差异，手机拍的和DSLR的没法比。然后说虽然现在有很多自动图像增强算法，但是它们大多是关注域全局参数调节，比如全局调节对比度，明度。并没有提高纹理质量或事把照片信息考虑在内。此外，这些算法通常是基于一个先验规则，并没有考虑到不同设备之间的差异。<br>  相关工作：<br>      图像增强这一大问题在计算机视觉上没有很完美的解决，但是有很多相关的子问题现在有了不错的解决：图片分辨率增强(image super-resolution)，图片去雾化(image deblurring/dehazing)，去噪(image denoising/sparse inpainting)，图片上色(image colorization)，图片调整（image color/contrast/exposure adjustment).原文中有这些方面文章的简要报告，我就不写了。<br>  主要贡献：<br>          1）end-to-end的神经网络可用于增强图片质量<br>          2）6K张图片的数据库，这个数据库是由三张低质量的手机拍摄的图片和一张高质量的相机拍摄的图片组成的（后面提了一下这个数据库怎么来的，就是传感器远程控制四台设备同时同地点拍照，然后那些角度不同的再用算法对齐一下，然后还有数据增强，他们把图片分成了3<em>100</em>100的小块，并且说了他们试了再大也没什么用而且浪费计算资源）<br>          3）奇妙的合成损失函数<br>          4）成果对比<br>  损失函数设计：<br>      图片增强任务中，输入和目标相片不匹配是个很大问题，就是由于不同光学设备会给图片造成不同的非线性位移，所以一个个像素很难完全对齐，而且逐个像素检验差值这种方法对于视觉感觉质量上是否合适也不好说。所以本文提出了三个独立的衡量指标。分别是颜色质量，纹理，和上下文。我们现在为其独立设计损失函数，并且保证这些损失函数局部位移不变性。<br>      1:颜色损失<br>      这个颜色损失的计算是将临域内像素高斯模糊后的值算MSE，也就是相当于在卷积网络后面加一个固定参数的高斯核然后算均方差。<br>      2:纹理损失<br>      采用的另一个网络，就是生成对抗网络鉴别生成图片和目标图片之间的差距，作为损失函数<br>      3：上下文损失<br>      没有一个个像素比较，而是采用特征相似度比较。也就是用VGG-19这个CNN中激活函数的值差做衡量标准<br>      4:平滑度损失（TV loss）<br>      就是全局相片梯度变化损失，这个权重很小，所以不会伤害到高频边缘，而且有利于去掉椒盐噪声<br>      最后这些损失被给予不同权重<br>  整体网络设计<br>  <img src="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/network.png" title="slug [论文网络]"><br>  实验<br>      由于这种主观的东西比较难评判，笔者先总的说了下实验比较思路，也就是先列出相关的一些图像增强算法（Benchmark methods）然后用psnr 和ssim数据比较了一下然后就是用户主观比较哪个好。画了个图表。<br>  算法局限性<br>      首先是这种全自动的算法可能会导致颜色的偏差和局部过高饱和度，其次由于GANs的属性，有可能导致噪音的增强。这个问题主要出现在噪音较多的相片里。然后就是这个算法准备数据对很tedious</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/我的第一篇博客/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -424,152 +567,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/11/hello-world/" class="post-title-link" itemprop="http://yoursite.com/index.html">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-11 20:49:20" itemprop="dateCreated datePublished" datetime="2018-11-11T20:49:20+08:00">2018-11-11</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -630,7 +627,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
