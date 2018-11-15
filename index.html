@@ -297,6 +297,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Aesthetic-Driven Image Enhancement by Adversarial Learning</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-14 20:43:26" itemprop="dateCreated datePublished" datetime="2018-11-14T20:43:26+08:00">2018-11-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-15 10:25:14" itemprop="dateModified" datetime="2018-11-15T10:25:14+08:00">2018-11-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/tittle.png" title="slug [论文题目]">
+<p>摘要：<br>    我们介绍了一种增强版生成对抗网络（EnhanceGAN），以用来做图像增强。传统的图像增强一般都是训练一个强监督学习模型。这种模型的数据准备很复杂，需要把对齐的好图片和坏图片成堆匹配。而我们提出的这个网络只需要 weak supervision （只需要标明这个图片的美学质量）本文的图像增强是基于美学因素的。特别的，我们对比了一种分段式的色彩增强模型，和一种基于EnhanceGAN扩展模型学习的深度美学滤镜。我们的增强操作全部是可导的，所以可以端到端训练。然后我们这个网络还可以学习剪裁图片。衡量标准还是一些数字定义和让人们区分美术家增强的图片更好看还是网络增强的好看。<br>介绍：<br>    图片增强有很多范围，比如色彩调整，对比度调整，白平衡等。一般来说这些需要在专业软件下，由专业人士完成一系列操作。但现在更需要一种自动的快速的增强方式。先前这方面的工作由包括自动图片增强，风格前一，或者图像裁剪（image cropping）但是这些工作都是基于强监督学习的，但是这种标注的数据又很少。我们呢提供的方法就只需要标注一个图片美不美。我们用一个生成对抗网络来试图愚弄辨别器分辨生成的图片和美的图片之间的差距。这个生成器不是生成图片，而是生成一系列增强图片的操作。<br>    我们的主要贡献在于：<br>    一个弱监督学习的图像增强网络<br>    两种增强图片的方法（并进行了比较）<br>    操作可导，可以融合到其他网络中。<br>相关工作：<br>    美学质量评定；<br>    自动图片增强；（颜色增和图像重构）（不包括超分辨率，去雾化）<br>    色彩增强：传统色彩增强需要太多标注数据，就有工作做色彩迁移或者风格迁移了。但是这种迁移可能导致颜色或者风格不匹配。<br>    裁剪和re-targeting：从美学角度或者视觉注意力角度选择最合适的图片区域。基于美学的方法一般是给出一些候选区域通过评估一些低维度图像特征或者学习来的特点。而基于关注点的方法一般都选择图像信息最丰富的部分。这些工作很多也是强监督学习。而我们提供的也是弱监督学习方法。</p>
+<img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/network.png" title="slug [论文结构]">
+<p>网络结构：<br>    预备知识：<br>    有关GAN的基础知识。<br>    生成网络：<br>    我们的生成网络生成的是对图片的一系列操作（可导映射）。其结构和RseNet-101一样，只不过移去了最后的池化层和FC层。这个网络用来充当一个特征提取器。产生2048层f<em>f的特征图。这些特征随后被用来生成我们的参数。这些参数是用来：然后我们用两种方式去增强图片。还有一种图像裁剪方式。<br>    并行的两种色彩增强：<br>        1）分段的色彩增强：把图像转化到Lab色彩空间，亮度和对比度通过调节L通道。色彩通过调节ab通道。然后通过follow the idea of gamma correction定义了一个L通道的分段映射函数。其中各种参数是要学习的。并且是连续的。<br>        <img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/Lchannel.png" title="slug [L通道映射函数]"><br>        同样，他们又follow了另一种idea对ab通道也设计了一定的映射函数，参数需要学习。<br>        <img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/abchannel.png" title="slug [ab通道映射函数]"><br>        总之上述映射有6个需要学习的参数。然后呢，直接选择学习一套映射参数可能不合适，所以我们选择学习多套可能的映射参数。然后根据每套的可能性最后选择前K种参数的平均调节。所以网络结构就有七层，前6层是f</em>f种参数对，最后一层是每种参数对的可能性。然后再Top-K average pooling 一下。（我的启发是对于那种多可能性调整的参数系统可以采用学习多个参数对用top-k pooling)<br>        2）基于滤镜的深度增强器：上述的方法就是将原图进行了一系列先定的变化。同理我们可以假设原图经过一系列未知的，n次可导变化。在本实验中，我们尝试的变化是ps里面的三种滤镜（用三层卷积网络表示）。然后学习他们的参数。同理，更多种滤镜也可以。结果表明，这种基于滤镜的增强器效果更好一些。<br>    图像裁剪操作：和上述网络结构一样，只不过参数是四个（xywh）<br>    生成器的损失函数：<br>    对抗网络和regularization loss的加权和作为损失函数。对抗网络的损失函数是是fw（。）的评分和。正则化损失是原图和裁剪后图片的特征差。使用vgg网络fc7度特征图计算。最后，由于输出图应该比原图有更好的美学效果，所以fw（.)函数评分应该更低。然后就对这个指标加了一个l2损失值。然后这些损失加权。<br>鉴别网络：<br>    鉴别网络的结构和ResNet-101相同，移除了最后一层变成2个神经元的鉴别器。先用cross-entropy训练这个鉴别器。然后再加上一个一个神经元的FC层输出一个fw分数。<br>下文：<br>    讲了些网络细节，数据处理，和优秀的结果。最后一点有趣的是他们把他们增强后的图片的色彩盘画出来了，发现可能有些规律，就是趋向于变成什么样的色彩构架。<br>对我的启发：<br>    设定一些random weights 的 baseline的优化可能没有设置一个基于滤镜的深度网络好。还有这种提取特征，输出多种参数对的和其概率的模式。以及弱监督学习。<br>    有一个疑问，这个fw(.)输出的是响亮还是一个单纯的数字。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -359,7 +516,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-13 15:07:02" itemprop="dateModified" datetime="2018-11-13T15:07:02+08:00">2018-11-13</time>
+                <time title="Modified: 2018-11-14 20:46:32" itemprop="dateModified" datetime="2018-11-14T20:46:32+08:00">2018-11-14</time>
               
             
           </span>
@@ -779,7 +936,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -808,7 +965,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
