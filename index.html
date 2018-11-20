@@ -297,6 +297,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Exposure: A White-Box Photo Post-Processing Framework</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-19 15:36:06" itemprop="dateCreated datePublished" datetime="2018-11-19T15:36:06+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-20 17:25:36" itemprop="dateModified" datetime="2018-11-20T17:25:36+08:00">2018-11-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/tittle.png" title="slug [分块输入]">
+<p>0摘要：<br>图像的修复很重要。但是得到监督学习的成对图片很难。我们提出的方法可以使用非成对的图片，并且输出修复的图片和一系列有意义的修复操作。我们的系统使用深度学习网络学习如何在原图上执行一些列修复操作。这是通过建立一系列模型来模拟不同修复操作，然后投入网络训练而达到的。为了用正确的滤镜参数和顺序，我们使用了一个深度加强学习网络去学习下一步干什么。<br>1介绍：<br>人们对图片的喜好各有不同，所以图像修复的时候应该关注个人喜好，那么这个好的图片的参考可以来自这个人在网上找的图片或者他喜欢的摄影师的作品。这样才能生存最适合他自己的图片增强方式。<br>2我们的主要贡献：<br>一个端到端的网络和一系列可导的滤镜<br>在训练网络的过程，我们的网络可以产生一系列有意义的操作过程。<br>用GAN产生的非监督性学习网络<br>相关工作：<br>传统/深度学习总概括/我们学习的是一系列操作，并且用unpaired的图片。与我们有关的工作是 通过将输入图片语义匹配到一个大的数据库中，寻找到颜色和色调风格与输入图片相关的示例图片，然后把风格化后的图片映射到适合的色彩与亮度分布中去。如果参考图片选择的不当，这种方法会产生很奇怪的颜色。而我们的办法是学习总体风格，而不是单一图片的统计学数据。<br>一个叫Aperture的软件也可以自动修图，这个软件修饰提供一系列操作，用户可以更改。我们的系统也差不多，特别的，我们的工作解释了了深度神经网络下的潜在操作。<br>基于数据的图片生成：纹理合成，超分，都是通过映射数据库中的一小块图片做到的。在生成一种固定种类的图片任务中，自动编码机是很实用的。（learn a compressed latent)<br>GAN: 最初的gan就是从一个潜在的空间去映射到目标数据的分布。后来GAN有一个变体，就是输入原图对图片有一个条件约束。然后是cyclyGAN，就是鼓励编码解码的网络所输出的可以和另一个逆向网络相互反响操作，还原。还有adversarial inverse Graphics Network.<br>我们的系统也用了一种条件GAN，不同的是，它产生的不是一个图片，而是一系列滤镜的参数。应为滤镜的设计是保留原图片的，这种方法保持了原图的语义信息和空间信息。而且这个滤镜是分辨率独立的，所以可以apply到任意size的图片上。我们这个工作的各个滤镜参数是一体化优化的？<br>强化学习：RL提供做决策的模型和智能体（agent）与环境互动的模型。在我们的工作中，一系列的滤镜序列被建模成一系列决策制定问题，还有一个有GAN中discriminator扮演的图片质量评测器，充当环境。<br>3模型<br>与传统的一次性修复不同，更易于理解的是用多种不同操作一步步修复图片。对于人类来说也是这样，一步步修复，下一步基于前一步的结果。<br><img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/RL.png" title="slug [RL]"><br>因此模型也是，有一个函数将输入映射到一个输出，这个输出随后作为下一次的输入，再被一个函数映射。所求的就是累积的最大奖励，对应的变化策略。如原文中公式1所示。每次映射变化的评价奖励可能有不同权重。为了把我们的问题映射到RL框架中，我们把步骤分成两块。第一，选择一个离散的滤镜，第二，选择这个滤镜的连续性函数。策略同样也分成两块，一个是把状态输入，输出各种滤镜的概率分布，（比如决定选a1 filter）另一个是输入初状态和滤镜，产生输出。由于取样一个连续变量十分有挑战性，我们采用最近的实践处理连续滤镜参数决定性的。详见后文。<br>4滤镜设计<br>4.1.1滤镜需要是可导的。不是所有滤镜都能设计成基本神经网络层，所以我们采用分段线性函数代替。<br>4.1.2分辨率独立<br>首先产生的是滤镜参数，所以本来就是分辨率独立的，而且在这个训练网络的时候我们也是用的低分辨率的（64*64）RAM输入<br>4.1.3可理解的<br>4.2滤镜细节<br>设计了一系列，包括调整曝光，白平衡，色彩曲线等的滤镜。个别滤镜本应该是复杂函数，但是分段拟合成了线性函数。<br>5网络学习<br>在这节我们讨论深度神经网络怎么表示智能体（agent），这个网络是怎么被训练的。这个奖励是怎么由鉴别网络得出的。整个算法流程如下图：<br><img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/ALG.png" title="slug [RL]"><br>5.1用深度神经网络的函数估计<br>有两个策略网络用到了CNN，一个是把输入图片映射到可能的滤镜集合的概率。另一个是滤镜参数。我们优化有关参数为了得到最大的目标累积奖励。除此之外，我们还学习一个value network（评价网络），和一个鉴别器。所有的网络结构大体都是类似的，只不过输出内容不同可能会有不同个数的输出神经元。网络图如下图所示：<br><img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/network.png" title="slug [网络结构]"><br>为滤镜参数制定的决策网络共享这个卷积层，这样来减少计算/CNN主要用于分层视觉识别。我们发现简单的用CNN效果不是很满意，因此我们构建了一个额外的特征平面当做输入层辅助色彩通道。对于鉴别网络来说，这个额外的特征平面是整体图片的平均亮度，对比度和饱和度。对于选择滤镜和其参数的策略网络以及评价网络来说，这个额外的特征平面是（2个，其一：八个布尔值来表明哪一个滤镜已经使用过了。另一个特征平面表明从开始到现在我们已经做了多少步修改。<br>5.2策略网络的训练<br>用policy gradient 方法训练。由于策略中有两部分需要做决策，即滤镜和参数。它们是交错学习的。<br>对于滤镜的选择来说这个偏导数难以计算，所以我们采用policy gradient theorem 去得到一个与滤镜选择相关的累积奖励的无偏Monte Carlo估计。而对于滤镜参数优化，我们用deterministic policy gradient theorem。<br>对于奖励来说，我们设定奖励应该是一个逐渐提高的质量分数加上出发机制。对于奖励有一个权重殷泽，我们设为1.并且总的来说为输入图片设置五次修改。这个次数是平和计算量和模型简洁性的。此外，我们设定固定的修改步数为了让模型更稳定（相比起让他学习自己停止修改<br>5.3通过对抗网络实现的质量评估<br>本文中，我们用WGAN。这个网络营的事Earth Mover‘s Distance 来估计两种概率分布之间的差异。图片的评分就是鉴别网络中图像的分数。这个可以这样理解，鉴别网络想给原图高分，给生成图低分，而生成图就要要得到高分。<br>5.4训练策略<br>如何平衡是优化滤镜参数呢，还是选另一个潜能可能更大的滤镜呢？我们的策略是惩罚滤镜选择，如果滤镜选择的提议过于集中，我们的惩罚就大一点。也就是奖励就比原来小一点。此外，我们发现agent又可能会连续两步用同一个滤镜，为了避免这种操作我们记住上一次滤镜的操作。这样也有利于让智能体去多尝试不同滤镜。<br>无序训练：大概就是不是从一开始训练到结束，而是训练一个阶段后放入缓冲，随机取再训练？如算法流程图。<br>对我的启发：<br>也许基于滤镜的能更好保护原图信息，但是这个滤镜设计的比较简单是那种全局调整的吧？这个和上一篇的滤镜对比有什么区别呢？</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/我的毕设思路v0/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1080,7 +1235,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1111,7 +1266,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
