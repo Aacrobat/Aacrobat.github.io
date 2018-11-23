@@ -297,6 +297,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Deconvolution and Checkerboard Artifacts</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-23 22:06:08 / Modified: 22:33:14" itemprop="dateCreated datePublished" datetime="2018-11-23T22:06:08+08:00">2018-11-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>paper讲的很清楚<br><a href="https://distill.pub/2016/deconv-checkerboard/?utm_source=mybridge&amp;utm_medium=blog&amp;utm_campaign=read_more" target="_blank" rel="noopener">https://distill.pub/2016/deconv-checkerboard/?utm_source=mybridge&amp;utm_medium=blog&amp;utm_campaign=read_more</a></p>
+<p>这篇文章的主要内容是说，我们在生成图片的时候，会产生奇怪的纹理（棋盘）这样的点。尤其是那些深色（strong color/ bright color）<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example1.png" title="slug [奇怪的点]"><br>这个现象的主要原因就是在deconvolution的时候有不均匀的overlap，简单的说，生成图就是有的点接收到高层语义的一个数据，有的点则接收到2个，4个或者其他个数据，这样导致有的点天然大。而且这个现象在2d中更明显如下图：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example2.png" title="slug [奇怪的点]"><br>当然，如果stride和filter size匹配可以减轻这个问题：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example3.png" title="slug [奇怪的点]"><br>但是一层层下来，它还是个很严重的问题：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example4.png" title="slug [奇怪的点]"><br>虽然我们可以通过学习映射中的权重来解决这个问题，但是这是个很难平衡的问题。而且权重不是平衡结果本身的缺陷的啊。所以我们提出了更好的上采样办法，就是先把小的层扩充大，然后再做卷积，扩充的方法很多，nearest-neighbor interpolation就很好。如下图，虽然我没太看懂下面的矩阵什么意思。。<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example5.png" title="slug [扩充方法]"><br>简单的说，就是做如下变化：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example6.png" title="slug [代码]"><br>最终结果令人满意</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -359,7 +502,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-20 19:59:48" itemprop="dateModified" datetime="2018-11-20T19:59:48+08:00">2018-11-20</time>
+                <time title="Modified: 2018-11-20 20:02:45" itemprop="dateModified" datetime="2018-11-20T20:02:45+08:00">2018-11-20</time>
               
             
           </span>
@@ -1235,7 +1378,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1268,7 +1411,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
