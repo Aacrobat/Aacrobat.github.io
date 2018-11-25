@@ -297,6 +297,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Deep Residual Learning for Image Recognition‘ </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-25 22:34:55 / Modified: 23:23:15" itemprop="dateCreated datePublished" datetime="2018-11-25T22:34:55+08:00">2018-11-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+<p>摘要：<br>深度神经网络很难训练，所以我们提出了一个残差网络。对于传统的网络，虽然理论上越深表达能力越强，但是实际上由于难以训练，越深反而表现越不好。为了解决这个问题，以及梯度消失，我们提出残差网，而且在各大比赛中，我们成绩优异。<br>介绍：<br>深度网络一层层分析聚集处不同层次的信息。最后进过分类器的处理。最近的研究也表明深度对于一个网络很重要。网络越深越好么？会有梯度爆炸或者消失的问题，不过这个通过BN可以解决。但更深的网络被训练时，还会有退化的问题。就是网络一点点变深，准确率先是提高，然后饱和。然后下降。这个退化还不是由于过拟合导致的，因为在训练集上的错误率就上升了。<br>一个对比实验是，一个浅层网络，和与之配对的深层网络，深层网络就是在浅层的基础上加了几层恒等映射，理论上深层网络不会比浅层差，但是事实上就是有时会差。<br>我们提出的残差网络是这样的：我们希望深度堆叠的非线性网络学习一个残差表达，而不是直接学习潜在映射。也就是深度网络学习一个改变的变化。最终映射由恒等映射和残差映射组合而成。我们觉得这个残差网络更好优化，比如说，如果我们最终期望的目标就是一个恒等映射，那我们只需要把残差网络那边参数全部学为零。这比让一个单纯的深度网络学习一个恒等映射简单的多。而且我们这个残差网络深的越深表现越好，这也给更深的网络设计提供的可行性。（原来太深了反而训练不好）残差单元如下图：<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/resblock.png" title="slug [残差单元]"><br>注意，这个skip connection需要跳至少两块，应为一块的话其实和给滤镜层参数加一没区别。<br>相关工作：<br>残差表达：大概就是说残差表达比直接映射好优化还是效率高啥的。<br>short connection：有相关的短连接获得了成功，我们的短连接也没有引入新的更多的参数和计算复杂度。与我们工作同时进行的还有highway network。<br>深度残差网络：<br>我们学习的是一个残差映射：比如原来映射是H(x),现在我们学习的是H(x)-x;因为我们通过一些深度加深学习退化的现象猜想stack nultipul nonlinear layers表达恒等映射困难。<br>恒等映射：<br>需要至少跳两层。<br>网络结构：<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/net.png" title="slug [网络结构]"><br>这里提了一下映射中的细节，在层数不对映的时候，它们给了两种种方案，第一种就是直接映射，缺少的层数就填零，另一种就是用1*1的卷积扩展层数。当恒等映射层大小比卷积层大的时候，就用stride=2 在网络实现的时候，没有用dropout，原因是BN有dropout的功效，（每一个残差块都在BN）<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/example.png" title="slug [深度对比图]"><br>上图表明普通网络中深度越深不一定好，残差网是深度深了更好，但是也有上限，比如1000层就不行了。而且残差网总的来说比普通网收敛块，准确率高。<br>在网络实现细节中值得一提的是他们实验了一下那个恒等映射是直接映射过去，还是在层数不对应的时候加个卷积变化一下，还是任何时候都变化一下，发现虽然任何时候都变化一下可能更好，但是没必要。具体看第六页。还有就是为了简化，残差单元采用下图：<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/example2.png" title="slug [代替残差单元]"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1378,7 +1521,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1413,7 +1556,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
