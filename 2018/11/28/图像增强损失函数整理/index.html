@@ -108,28 +108,29 @@
 
 
 
-  <meta name="description" content="第一版翻译摘要：    本文讲了一种像素级别的语音识别分割网络。这个网络包含编码，解码部分和一个像素点的分类层。从拓扑学角度看，这个编码器的结构和VGG16的前13层一样。解码器的主要功能在于把低分辨率的以编码的特征映射回原分辨率的图片以获得像素级别的分割。这个SegNet的创新带你在于解码器用的是对应编码器的最大池化层的参数来计算的上采样数据。这样消除了学习上采样的必要。这个有位置索引构成的稀">
-<meta name="keywords" content="毕设工作,论文解析,图像分割,SegNet">
+  <meta name="description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2">
+<meta name="keywords" content="毕设工作,图像增强,有监督学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文解析之SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation">
-<meta property="og:url" content="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/index.html">
+<meta property="og:title" content="图像增强损失函数整理">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/index.html">
 <meta property="og:site_name" content="Acrobat的求学之路">
-<meta property="og:description" content="第一版翻译摘要：    本文讲了一种像素级别的语音识别分割网络。这个网络包含编码，解码部分和一个像素点的分类层。从拓扑学角度看，这个编码器的结构和VGG16的前13层一样。解码器的主要功能在于把低分辨率的以编码的特征映射回原分辨率的图片以获得像素级别的分割。这个SegNet的创新带你在于解码器用的是对应编码器的最大池化层的参数来计算的上采样数据。这样消除了学习上采样的必要。这个有位置索引构成的稀">
+<meta property="og:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/tittle.png">
-<meta property="og:image" content="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/network.png">
-<meta property="og:updated_time" content="2018-11-14T12:46:32.380Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/3.png">
+<meta property="og:updated_time" content="2018-11-28T08:44:34.900Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="论文解析之SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation">
-<meta name="twitter:description" content="第一版翻译摘要：    本文讲了一种像素级别的语音识别分割网络。这个网络包含编码，解码部分和一个像素点的分类层。从拓扑学角度看，这个编码器的结构和VGG16的前13层一样。解码器的主要功能在于把低分辨率的以编码的特征映射回原分辨率的图片以获得像素级别的分割。这个SegNet的创新带你在于解码器用的是对应编码器的最大池化层的参数来计算的上采样数据。这样消除了学习上采样的必要。这个有位置索引构成的稀">
-<meta name="twitter:image" content="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/tittle.png">
+<meta name="twitter:title" content="图像增强损失函数整理">
+<meta name="twitter:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/28/图像增强损失函数整理/">
 
 
 
@@ -139,7 +140,7 @@
   };
 </script>
 
-  <title>论文解析之SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation | Acrobat的求学之路</title>
+  <title>图像增强损失函数整理 | Acrobat的求学之路</title>
   
 
 
@@ -304,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/图像增强损失函数整理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Acrobat">
@@ -321,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">论文解析之SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation
+          <h1 class="post-title" itemprop="name headline">图像增强损失函数整理
               
             
           </h1>
@@ -346,24 +347,12 @@
                 
               
 
-              <time title="Created: 2018-11-12 21:36:22" itemprop="dateCreated datePublished" datetime="2018-11-12T21:36:22+08:00">2018-11-12</time>
+              <time title="Created: 2018-11-28 14:40:29 / Modified: 16:44:34" itemprop="dateCreated datePublished" datetime="2018-11-28T14:40:29+08:00">2018-11-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-11-14 20:46:32" itemprop="dateModified" datetime="2018-11-14T20:46:32+08:00">2018-11-14</time>
               
             
           </span>
@@ -396,10 +385,8 @@
       
 
       
-        <img src="/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/tittle.png" title="slug [论文题目]">
-<p>第一版翻译<br>摘要：<br>    本文讲了一种像素级别的语音识别分割网络。这个网络包含编码，解码部分和一个像素点的分类层。从拓扑学角度看，这个编码器的结构和VGG16的前13层一样。解码器的主要功能在于把低分辨率的以编码的特征映射回原分辨率的图片以获得像素级别的分割。这个SegNet的创新带你在于解码器用的是对应编码器的最大池化层的参数来计算的上采样数据。这样消除了学习上采样的必要。这个有位置索引构成的稀疏上采样图随后被用可训练的卷积滤镜去产生稠密的特征图。我们比较了我们的结构和FCN，DeconvNet等知名结构。这些比较也阐释了好多分割性能与内存之间的权衡。<br>    SegNet主要是用来做场景理解的。所以它需要在推断时做到快速和内存经济化。这个网络相比起其他网络来说，需要训练的参数明显变少。而且可以采用随机梯度下降法端对端训练。最后我们用数据论证实验结果。<br>介绍：<br>    语音分割应用范围很广，比如场景理解，推断物体之间的支持关系以及自动驾驶。原来的基于低层级的视觉线索的语音理解很快被机器学习所替代。但是如果直接把深度学习的框架套在像素点的分割上，虽然结果不错，但是边缘很粗糙。我们之所以设计这恶搞网络就是为了更好的把低分辨率特征反映射给原图，这样做更好的像素分类分割。最初呢，这个网络的工作主要是是由街道场景理解应用所促进的。这就要求理解街道场景，产生光滑的分割，保持边缘信息。并且内存和时间上在合理范围。<br>    这个网络用encoder等的indices而不是全部数据的好处主要有：提高边缘准确性，减少参数，be incorporated easily.<br>    这篇文章还分析了SegNet网络和FCN网络，这样来说明一下分割准确度和系统设计之间的权衡。然后分析了最近流行的各种网络结构。总之这些结构参数太多，形形色色的训练方法。<br>    作者提出，在衡量分割准性的时候Pascal VOC12这个数据库倾向于对那种基于分类的分割算法好，应为它就是变化的背景上有一两个前景。而室内分割有多种前景，可能会更难分割。</p>
-   <img src="/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/network.png" title="slug [SegNet结构]">
-<p>网络结构：<br>    最大池化这个操作可以实现避免小的空间位移所带来的变化。记得用BN。如果内存不受限制，还是把全部encoder信息保存下来好。这个网络结构输出的维度和原图不太一样，比如原图N<em>N</em>3，这个网络输出更多维度特征。N<em>N</em>3+。然后共同进入softmax分类器去训练反馈。<br>给我的启发：<br>    虽然我不知道这个U-net的快捷连接到底是连接了边缘信息还是有更多信息，不过我如果不要求准确分割（图像增强光照对比度什么的不需要边界分明）是不是不需要全部encoder层信息，不过这个SegNet传递的是位置信息，感觉对图像原本色彩信息没什么帮助呀？    </p>
+        
+<p>1: l1,l2距离<br>不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。<br>2: vgg损失<br>很多论文用<br>3: GAN网络<br>GAN网络损失的不稳定导致l1也需要一起考虑<br>4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损失高斯模糊了。也就是算以该像素点为中心的区域的加权平均颜色。并且通过这种模糊消除掉纹理的影响<br><img src="/2018/11/28/图像增强损失函数整理/1.png" title="slug [模糊后的颜色损失]"><br>5: 平滑损失<br>计算整体图像在x,y方向上的变化度。<br><img src="/2018/11/28/图像增强损失函数整理/2.png" title="slug [TV-loss]"><br>6: ssim/ms-ssim<br>ssim从视觉的角度分析两幅图片的亮度，对比度，结构相似性。而ms-ssim则从多个尺度计算ssim。代码可见<a href="https://www.e-learn.cn/content/wangluowenzhang/249870" target="_blank" rel="noopener">https://www.e-learn.cn/content/wangluowenzhang/249870</a><br><img src="/2018/11/28/图像增强损失函数整理/3.png" title="slug [TV-loss]"><br>7: 下一篇论文解析将会翻译一篇损失函数的文章</p>
 
       
     </div>
@@ -425,11 +412,9 @@
           
             <a href="/tags/毕设工作/" rel="tag"># 毕设工作</a>
           
-            <a href="/tags/论文解析/" rel="tag"># 论文解析</a>
+            <a href="/tags/图像增强/" rel="tag"># 图像增强</a>
           
-            <a href="/tags/图像分割/" rel="tag"># 图像分割</a>
-          
-            <a href="/tags/SegNet/" rel="tag"># SegNet</a>
+            <a href="/tags/有监督学习/" rel="tag"># 有监督学习</a>
           
         </div>
       
@@ -442,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/" rel="next" title="论文解读DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks">
-                <i class="fa fa-chevron-left"></i> 论文解读DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks
+              <a href="/2018/11/27/图像增强评价标准小节/" rel="next" title="图像增强评价标准小节">
+                <i class="fa fa-chevron-left"></i> 图像增强评价标准小节
               </a>
             
           </div>
@@ -451,10 +436,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/" rel="prev" title="论文解读之Aesthetic-Driven Image Enhancement by Adversarial Learning">
-                论文解读之Aesthetic-Driven Image Enhancement by Adversarial Learning <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
