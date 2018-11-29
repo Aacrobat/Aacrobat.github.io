@@ -108,21 +108,21 @@
 
 
 
-  <meta name="description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2">
+  <meta name="description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损">
 <meta name="keywords" content="毕设工作,图像增强,有监督学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像增强损失函数整理">
 <meta property="og:url" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/index.html">
 <meta property="og:site_name" content="Acrobat的求学之路">
-<meta property="og:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2">
+<meta property="og:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/1.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/2.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/3.png">
-<meta property="og:updated_time" content="2018-11-28T08:44:34.900Z">
+<meta property="og:updated_time" content="2018-11-29T05:24:13.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像增强损失函数整理">
-<meta name="twitter:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2">
+<meta name="twitter:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/1.png">
 
 
@@ -347,12 +347,24 @@
                 
               
 
-              <time title="Created: 2018-11-28 14:40:29 / Modified: 16:44:34" itemprop="dateCreated datePublished" datetime="2018-11-28T14:40:29+08:00">2018-11-28</time>
+              <time title="Created: 2018-11-28 14:40:29" itemprop="dateCreated datePublished" datetime="2018-11-28T14:40:29+08:00">2018-11-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-29 13:24:13" itemprop="dateModified" datetime="2018-11-29T13:24:13+08:00">2018-11-29</time>
               
             
           </span>
@@ -385,8 +397,7 @@
       
 
       
-        
-<p>1: l1,l2距离<br>不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。<br>2: vgg损失<br>很多论文用<br>3: GAN网络<br>GAN网络损失的不稳定导致l1也需要一起考虑<br>4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损失高斯模糊了。也就是算以该像素点为中心的区域的加权平均颜色。并且通过这种模糊消除掉纹理的影响<br><img src="/2018/11/28/图像增强损失函数整理/1.png" title="slug [模糊后的颜色损失]"><br>5: 平滑损失<br>计算整体图像在x,y方向上的变化度。<br><img src="/2018/11/28/图像增强损失函数整理/2.png" title="slug [TV-loss]"><br>6: ssim/ms-ssim<br>ssim从视觉的角度分析两幅图片的亮度，对比度，结构相似性。而ms-ssim则从多个尺度计算ssim。代码可见<a href="https://www.e-learn.cn/content/wangluowenzhang/249870" target="_blank" rel="noopener">https://www.e-learn.cn/content/wangluowenzhang/249870</a><br><img src="/2018/11/28/图像增强损失函数整理/3.png" title="slug [TV-loss]"><br>7: 下一篇论文解析将会翻译一篇损失函数的文章</p>
+        <p>1: l1,l2距离<br>不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。<br>2: vgg损失<br>很多论文用<br>3: GAN网络<br>GAN网络损失的不稳定导致l1也需要一起考虑<br>4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损失高斯模糊了。也就是算以该像素点为中心的区域的加权平均颜色。并且通过这种模糊消除掉纹理的影响<br><img src="/2018/11/28/图像增强损失函数整理/1.png" title="slug [模糊后的颜色损失]"><br>5: 平滑损失<br>计算整体图像在x,y方向上的变化度。<br><img src="/2018/11/28/图像增强损失函数整理/2.png" title="slug [TV-loss]"><br>6: ssim/ms-ssim<br>ssim从视觉的角度分析两幅图片的亮度，对比度，结构相似性。而ms-ssim则从多个尺度计算ssim。代码可见<a href="https://www.e-learn.cn/content/wangluowenzhang/249870" target="_blank" rel="noopener">https://www.e-learn.cn/content/wangluowenzhang/249870</a><br><img src="/2018/11/28/图像增强损失函数整理/3.png" title="slug [TV-loss]"><br>7: 下一篇论文解析将会翻译一篇损失函数的文章</p>
 
       
     </div>
@@ -436,6 +447,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/" rel="prev" title="论文解读之Loss Functions for Image Restoration with Neural Networks">
+                论文解读之Loss Functions for Image Restoration with Neural Networks <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -496,7 +511,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -535,7 +550,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

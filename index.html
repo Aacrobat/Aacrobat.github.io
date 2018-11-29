@@ -297,6 +297,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Loss Functions for Image Restoration with Neural Networks</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-29 13:23:09 / Modified: 18:59:16" itemprop="dateCreated datePublished" datetime="2018-11-29T13:23:09+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+<p>摘要：<br>神经网络在CV和图像处理问题中取得了很大成就，也有很多新的网络结构由此提出。然而，对于神经网络损失函数的研究并没有得到很大重视。一般都是在用l2损失。这篇文章，我们就把注意力放在不同损失函数的选择上。我们展示了不同损失函数可能导致不同的视觉效果，这也就鼓励人们根据验证集的反馈更改损失函数。此外，我们还提出了一种新的合成型损失函数。在不改变网络结果的情况下，我们提出的损失函数效果更好。<br>介绍：<br>神经网络对于机器视觉这方面的研究很多放在不同问题设计不同的网络结构。或者是在理解神经网络内在的机理，内在的一些限制。但是损失函数，本应该是指导学习的很重要因素，却没有被重视。人们大多数都用l2作为损失函数。当然这也很可以理解，因为l2有很多优点，caffe甚至只提供了l2一种标准损失函数。但是l2还是有很多缺点的。比如l2和人视觉感知到的质量不太一样。这是因为l2假设人眼对噪声的敏感程度是独立的，也就是对于不同区域敏感程度相同，但是实际上，HVS表明人眼对噪音的铭感程度和亮度，对比度，结构等是有关的。l2还假设有白噪声。<br>我们关注点在于图像重建工作（image restoration）我们主要对比了l2损失和l1，SSIM，MS-SSIM损失函数。我们在超分辨率，去马赛克噪音，和去除jpeg噪音的任务上进行实验。此外，我们还分析了不同损失函数的一些特点，然后提出了我们自己的损失函数。<br>相关工作：<br>与图像修复有关的神经网络：包括去噪，去模糊，超分辨率等，他们的损失函数都是l2为指导的。我们想展示的就是选择一个更好的损失函数对最后图像修复结果有很好的促进。此外，在训练过程中，即使最后的评价指标是l2，但是训练时替换成其他相关的损失函数，比如l1，也能使最后的实验结果更好（就是l2损失更低）。<br>图像质量评估：l2损失是一个可论证的主导性损失指标，在很多领域，例如回归问题，模式识别，信号处理等都是十分流行的一种选择。l2计算的是独立同分布高斯噪音下的最大似然估计。l2还有很多好处，参考文献16详细列出了这些好处。但是大家都觉得l2损失还有与之类似的PSNR不是很符合人们的视觉感知系统。与人类视觉感知系统比较一致的是SSIM，SSIM在评估图像相似性是考虑了HVS对局部结构变化的敏感性。参考文献14在观察到不同尺度下分析结构影响对视觉评价也有好处，进一步改进了SSIM，从而提出了MS-SSIM。MS-SSIM是多尺度下的SSIM分析。这种算法在美学评估上比l2更加合理，所以也被广泛使用。但是就我们所知，现在SSIM还没有被用作损失函数指导神经网络。最近，还有一些新的图像质量评价标准，比如IW——SSIM（information weighted ssim）就是和局部图像信息量有关的加权MS——SSIM；VIF，主要是计算受损图像和原图之间的信息量；还有GMSD，FSIM，FSIMc等，但是这些有的不可导，所以也没法用在损失函数上。<br>先思考一下神经网络，就是输入，经过一系列计算，输出，这个输出和gt有一个差距，这个差距比如是l，然后不断调节参数使得这个l变小。那怎么调节参数使得l变小呢？比如5x=y，那么y比ytrue大，那这个5就调节的小一点。但是怎么知道的；如何调节网络输出就可以让损失函数变小？（这应该是要求损失函数可导的原因，但是这又不在网络中计算吧？）<br>损失函数的列举和设计：<br>先放一张由不同损失函数指导的图片：<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/1.png" title="slug [不同损失函数指导图]"><br>由上图可以看出，l2指导的d图，虽然在平滑的区域减轻了噪声，但是引入了一些奇怪的点。这是应为l2惩罚大的错误，却对小的错误由更大的容忍度（由平方导致）。而且这种惩罚策略和区域无关，也就是在天空这种纹理少的地方也能容忍小的错误，但是人们的视觉系统在天空这种纹理少的地方对小错误容忍度更低了。从k图可以看出，同样是l2点容忍度，在纹理多的地方，我们看起来那些奇怪的点就少了很多。并且这个边缘也比较清晰，值得注意的是，那些奇怪的点虽然人眼可见，但是可能没有被损失函数很好的观测到。这也就是说为了让损失函数更好的观测到损失，在训练时可能需要不同的损失函数来帮助最终损失函数度过局部最小。<br>a：l1损失：l1与l2不同的是，他不加倍惩罚大的错误，也不缩小惩罚小的错误。而且实验结果看他似乎比l2损失要好一些。<br>b：SSIM：这个损失函数主要是从视觉感知方面考虑的，ssim的定义百度可以找到，损失就是1-ssim。需要注意到的是ssim计算一个像素的损失时需要用到周围像素的值这一般是用高斯滤波计算出来的。但是这个高斯滤波的参数的选定就比较有趣了。大了的话，也就是更加重视一块的信息，那么对于去噪音或者奇怪的点比较好，但是对于边缘就不好了；或者小了会导致奇怪的噪音点。如下图所示：<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/2.png" title="slug [高斯滤波参数对ssim的影响]"><br>c：msssim：就是由于高斯滤波的参数不好平衡，就用了不同尺度的ssim作为损失函数。就是整体的亮度信息乘不同尺度下对比度和结构的评分。为了简化计算采用了多种办法这里就不详细讲了。<br>d: MS-SSIM+l1:SSIM以及MS——SSIM对整体偏移不太敏感，这就会导致色彩或者亮度的整体偏差。但是MS-SSIM在高频区域保持对比度的效果比其他损失函数好。另一方面，l1不管结构的计算亮度色彩偏差。所以，我们把这两种损失函数结合在一起。<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/3.png" title="slug [新损失函数]"><br>a=0.84.注意这里把l1损失也加了个高斯权重。理由是为了和ssim对应。<br>结果：<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/4.png" title="slug [不同损失函数指导超分问题]"><br>上图现实的是不同损失函数指导超分问题的结果，可以看出l2会在边缘产生奇怪纹理<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/5.png" title="slug [不同损失函数指导jpeg压缩问题]"><br>上图是不同算是函数指导jpge压缩问题的结果，总是l1其实效果比l2好，这些实验的网络结构都是比较传统的。其实我就觉得不同网络结构的设计可能就是为了避免这些失误，不过我又觉得网络结构加几层少几层可能没有损失函数重要？<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/6.png" title="slug [不同损失函数指导去噪]"><br>上图比较明显的证明了1：人眼对纹理少的地方的噪音更敏感；2:ssim会导致整体色彩偏离；3:l2会产生奇怪的点<br>讨论：<br>关于损失函数的收敛<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/7.png" title="slug [损失函数数据对比]"><br>这张表表明，我想得到最低的l2，不一定损失函数就是l2，l1指导的训练可能得到更低的l2指标。<br><img src="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/8.png" title="slug [l1，l2交替指导图]"><br>上图表明，为了得到最低的l2，用l1，l2交替指导效果也会更好。我个人觉得这个原因可能是l1先给定了一个更适合l1的结果，然后l2进行弥补，当然比只用一种好。而且这种结合的用法甚至比新提出的MIX好。不过我个人觉得，这也就表明l1，l2结合就够了，其他的没多大差。<br>关于是否犯了inverse crime，这个问题大体的意思就是人文降低图片质量时太过简单了，不能模拟自然的低质量图片，导致网络学习到的可能只是人为亮度降低10这种简单信息，推广能力不强。作者的论证是，虽然理论上是这样，但是首先我们人为降低图片质量时比较细心模拟自然，其次，我们研究的是损失函数，不是最终结果，我们要的只是不同损失函数的对比，不是最后的数值。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/图像增强损失函数整理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -342,12 +485,24 @@
                 
               
 
-              <time title="Created: 2018-11-28 14:40:29 / Modified: 16:44:34" itemprop="dateCreated datePublished" datetime="2018-11-28T14:40:29+08:00">2018-11-28</time>
+              <time title="Created: 2018-11-28 14:40:29" itemprop="dateCreated datePublished" datetime="2018-11-28T14:40:29+08:00">2018-11-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-29 13:24:13" itemprop="dateModified" datetime="2018-11-29T13:24:13+08:00">2018-11-29</time>
               
             
           </span>
@@ -382,8 +537,7 @@
       
         
           
-            
-<p>1: l1,l2距离<br>不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。<br>2: vgg损失<br>很多论文用<br>3: GAN网络<br>GAN网络损失的不稳定导致l1也需要一起考虑<br>4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损失高斯模糊了。也就是算以该像素点为中心的区域的加权平均颜色。并且通过这种模糊消除掉纹理的影响<br><img src="/2018/11/28/图像增强损失函数整理/1.png" title="slug [模糊后的颜色损失]"><br>5: 平滑损失<br>计算整体图像在x,y方向上的变化度。<br><img src="/2018/11/28/图像增强损失函数整理/2.png" title="slug [TV-loss]"><br>6: ssim/ms-ssim<br>ssim从视觉的角度分析两幅图片的亮度，对比度，结构相似性。而ms-ssim则从多个尺度计算ssim。代码可见<a href="https://www.e-learn.cn/content/wangluowenzhang/249870" target="_blank" rel="noopener">https://www.e-learn.cn/content/wangluowenzhang/249870</a><br><img src="/2018/11/28/图像增强损失函数整理/3.png" title="slug [TV-loss]"><br>7: 下一篇论文解析将会翻译一篇损失函数的文章</p>
+            <p>1: l1,l2距离<br>不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。<br>2: vgg损失<br>很多论文用<br>3: GAN网络<br>GAN网络损失的不稳定导致l1也需要一起考虑<br>4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损失高斯模糊了。也就是算以该像素点为中心的区域的加权平均颜色。并且通过这种模糊消除掉纹理的影响<br><img src="/2018/11/28/图像增强损失函数整理/1.png" title="slug [模糊后的颜色损失]"><br>5: 平滑损失<br>计算整体图像在x,y方向上的变化度。<br><img src="/2018/11/28/图像增强损失函数整理/2.png" title="slug [TV-loss]"><br>6: ssim/ms-ssim<br>ssim从视觉的角度分析两幅图片的亮度，对比度，结构相似性。而ms-ssim则从多个尺度计算ssim。代码可见<a href="https://www.e-learn.cn/content/wangluowenzhang/249870" target="_blank" rel="noopener">https://www.e-learn.cn/content/wangluowenzhang/249870</a><br><img src="/2018/11/28/图像增强损失函数整理/3.png" title="slug [TV-loss]"><br>7: 下一篇论文解析将会翻译一篇损失函数的文章</p>
 
           
         
@@ -1621,151 +1775,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/我的第一篇博客/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/11/我的第一篇博客/" class="post-title-link" itemprop="http://yoursite.com/index.html">我的第一篇博客</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-11 23:05:57 / Modified: 23:10:53" itemprop="dateCreated datePublished" datetime="2018-11-11T23:05:57+08:00">2018-11-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我只画个手手<br><img src="/2018/11/11/我的第一篇博客/shou1.png" title="手手"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1806,7 +1822,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1845,7 +1861,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
