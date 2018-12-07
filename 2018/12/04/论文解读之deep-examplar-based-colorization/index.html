@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：我们提出了一个基于参考图像上色的算法。此外，我门还提供了一个推荐参考图片的系统，这个系统是基于图片语义信息和亮度信息推荐的。我们的算法有很好的鲁棒性，即使提供的参考图像和上色图像不符合也能得到很好的结果。更重要的是，我门这个算法可以让用户自己选择上色的风格，而且没有太多繁琐的交互过程。此外，我们的算法可以用来给视频上色。介绍：给灰度图片上色总的来说是一个病态的问题，应为没有一个准确的对错，">
+<meta name="keywords" content="毕设工作,论文解析,图像上色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文解读之deep examplar-based colorization">
+<meta property="og:url" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/index.html">
+<meta property="og:site_name" content="Acrobat的求学之路">
+<meta property="og:description" content="摘要：我们提出了一个基于参考图像上色的算法。此外，我门还提供了一个推荐参考图片的系统，这个系统是基于图片语义信息和亮度信息推荐的。我们的算法有很好的鲁棒性，即使提供的参考图像和上色图像不符合也能得到很好的结果。更重要的是，我门这个算法可以让用户自己选择上色的风格，而且没有太多繁琐的交互过程。此外，我们的算法可以用来给视频上色。介绍：给灰度图片上色总的来说是一个病态的问题，应为没有一个准确的对错，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/4.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/5.png">
+<meta property="og:updated_time" content="2018-12-05T07:33:52.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文解读之deep examplar-based colorization">
+<meta name="twitter:description" content="摘要：我们提出了一个基于参考图像上色的算法。此外，我门还提供了一个推荐参考图片的系统，这个系统是基于图片语义信息和亮度信息推荐的。我们的算法有很好的鲁棒性，即使提供的参考图像和上色图像不符合也能得到很好的结果。更重要的是，我门这个算法可以让用户自己选择上色的风格，而且没有太多繁琐的交互过程。此外，我们的算法可以用来给视频上色。介绍：给灰度图片上色总的来说是一个病态的问题，应为没有一个准确的对错，">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>论文解读之deep examplar-based colorization | Acrobat的求学之路</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Acrobat的求学之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">论文解读之deep examplar-based colorization
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-04 22:16:59" itemprop="dateCreated datePublished" datetime="2018-12-04T22:16:59+08:00">2018-12-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-05 15:33:52" itemprop="dateModified" datetime="2018-12-05T15:33:52+08:00">2018-12-05</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2018/12/04/论文解读之deep-examplar-based-colorization/1.png" title="slug [论文题目]">
+<p>摘要：<br>我们提出了一个基于参考图像上色的算法。此外，我门还提供了一个推荐参考图片的系统，这个系统是基于图片语义信息和亮度信息推荐的。我们的算法有很好的鲁棒性，即使提供的参考图像和上色图像不符合也能得到很好的结果。更重要的是，我门这个算法可以让用户自己选择上色的风格，而且没有太多繁琐的交互过程。此外，我们的算法可以用来给视频上色。<br>介绍：<br>给灰度图片上色总的来说是一个病态的问题，应为没有一个准确的对错，只要用户眼睛看上去好看合理就是最高的追求。人工信息的提供主要有两种方式，一种是人工指导绘制，另一种是一个样例参考图片。人工绘制很麻烦而且对人技术要求高，参考图像上色算法如果给的参考不好的话会出现不匹配等奇怪颜色。<br>一个更合理的解决办法就是建立一个大的颜色参考数据库，为相似的像素找到最合理的上色办法，这就是最近深度学习发展的算法。总是也是吧上色当成分类问题或者回归问题，但是这些方法的缺点就是数据库必须包含所有等待上色的物品。<br>总是就是上色问题的前世今生，懒得翻译了。<br>在本文中，我们提供了另一种杂交的解决办法，我们在深度学习的基础上还容许用户提供参考色彩（这个参考图片可以和原图有关，也可以无关）。例如下图所示，天空和桥的部分有参考就参考了，人没参考也能很好上色（深度学习）<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/2.png" title="slug [参考上色]"><br>为了完成这个目标，我们提出了一个CNN去直接从一个对齐的参考图片中，选择，传播，预测灰度图的颜色。我们的算法比现有的基于参考的方法好，这个好主要是来源两个有创新性的子网络。<br>首先，我门有一个计算相似性的子网络，这个子网络是一个预处理。它用一个在灰度图上训练好的VGG-19网络去衡量参考图和目标图片语义上的相似性。这个基于感知的相似性计算比传统那种基于低层语义的更有鲁棒性和视觉正确性。<br>随后，上色的子网络提供了一个更有通用性的上色算法，不管是对于相似的像素还是不相似的像素。这个子网络采用多任务学习方法去训练连个不同的分量，但是都公用一个网络和权重，不过有不同的损失函数。对于一致性损失，鼓励的是对于相似像素：输出图片和参考图片颜色相似。对于感官损失，鼓励的是对于不相似的像素：预测结果和数据库真实值吻合。也正是通过这个办法，我门的算法不需要特别准确的参考图像。<br>我们的主要贡献在于：<br>1）第一个基于深度学习的，基于参考的图像上色办法。<br>2）一个新颖的，edn-to-end, double-branch 网络结构，这个网络结构既能重视参考图像，又能在没有合适参考的时候很好上色<br>3）一个推荐系统，有了这个图片推荐系统，可以实现全自动上色<br>4）这个网络可以给非自然图片上色（虽然他的训练数据集是自然图片）<br>5）可以扩展到视频上色<br>相关工作：<br>基于手绘指导的上色算法：这种方法需要用户给出一些色点，并且颜色的传播基于低层次特征。<br>基于例子的上色算法：整体统计学特征映射，学习特征相同部分的映射。但是都对参照图片有较高的要求。<br>基于学习的上色：居于深度学习和巨大的数据库<br>杂交办法：继承了基于手绘基础的方法和基于学习的办法，或者是提供几个上色点。而我们认为还是提供图片上色对用户来说更简单。<br>我们的系统：<br>我们想要实现的时候在有语音相似的地方实现映射学习，在没有语义相似的部分居于深度学习。有两个主要挑战，首先，很难衡量参考图片和上色图片之间语义的相似关系，尤其是参考图片是彩色，目标上色图是黑白。为了解决这个问题，我门用了一个黑白的vgg19来提取两幅黑白图片的特征相似（把参考图片转化成黑白）；第二个难点：选择参考颜色并且基于图片的手绘（纹理）特征（语义相似性）正确传播它们。取而代之，我们提出了end-to-end的神经网络学习如何选择和传播参考颜色。网络总体结构如下：<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/3.png" title="slug [网络结构]"><br>我们系统的输入是是一个灰度图和一个彩色图，以及它们的双向映射函数。这个双向行摄函数是一个空间转换函数。它返回值是输入像素位置映射到彩色图片中的像素位置。我们的网络中similarity sub-net就是计算参考图片和目标图片之间的相似性，输出这个像素的双向映射关系。而colorization sub-net输入映射关系，参考图片和目标图片，输出预测的ab通道信息。最后和l通道信息结合，输出彩色图片。<br>similarity sub-network<br>在计算像素相似性之前，参考图片和目标图片需要对齐。在我们的工作中，我们采用了最先进的deep analogy算法做dense matching 应为它可以对齐视觉上不同但是语义接近的图片。我们的任务受启发与最近的CNN网络可以从低尺度到高尺度到编码图像信息。这中高尺度信息很好的避免了由于灯光，时间，视角造成的同样物品低尺度特征不同的缺陷。<br>首先我们用灰度图训练了一下VGG-19，然后讲两幅灰度图输入，得到它们前五层特征参数，这个特征是用relu层得到的。值得注意的是，层数越高，特征的分辨率信息越低。我门上采样了所有特征到与输入图片相同的分辨率。像素之间的相似性就由他们的特征距离来定义（采用cosine距离）如下图。注意，t-&gt;r是已经由Deep Image Anal- ogy [Liao et al. 2017] for dense matching得到的了。这步只是算个相似性。<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/4.png" title="slug [相似性计算]"><br>colorization sub-network<br>loss:直接衡量参考图片和目标图片的差距不合理。我们既要鼓励目标图片和参考图片相似，又要鼓励目标图片上色自然。为了实现这两个目标，我们提出了一个包含两个分支的多任务网络：色度色差分支和感知分支。这两个分支都用相同的网络和权重，如下图：<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/5.png" title="slug [网络结构]"><br>在chrominance branch 中，网络根据目标和参照物之间的匹配性学习颜色映射。但是训练这样的网络并不容易：一方面这个网络不能直接有弯曲后的参考图片当作惩罚训练，应为对应的上色部分不知道，另一方面，它也不能直接用GT来训练，应为这样的话它就不会学习参考图片的信息了。因此，我们采用双向映射函数再重建一个假的参考图片。假的参考图片中一个像素得到的方法是，先看目标图片映射到参考图片的像素，再把这个像素映射到目标图片，经过这两次的映射，相似语义的颜色部分更可能还保持原来的位置。然后，这个‘假的’参考图片和上色图片被输入进这个网络，产生预测的结果P.还有一个平滑的L1距离项，<br>perceptual branch: 衡量和深度学习生成图片的l2距离（这个是计算的vgg网络的特征距离）最后两个损失一平衡。<br>我的不解：其实我这篇文章有很多不太懂的地方，记录下来如果有人看到可以给我发邮箱讨论（<a href="mailto:1091819660@qq.com" target="_blank" rel="noopener">1091819660@qq.com</a>）<br>1）上色的网络算损失都是根据深度学习预测的GT算的吧？那既然目标都一样，岂不是优化结构都是最接近目标？<br>2）两个batch应该是输入不同，首先像素变化之间的相似度是怎么用的（就直接作为输入当层输入层用的）<br>3）其次，为什么感知损失时输入的是参考图片，而色调损失时输入的是变化的GT，变化的GT是什么样子的，不管是什么样它应该不包含参考图像的颜色吧？<br>4）他那个产生‘fake’ reference 的映射是什么含义，那个假设：正确的颜色在fake reference 中很可能和在对齐过的参考图片中位置相同。他那个映射会导致，有很好匹配的点采用GT的颜色（而不是reference的颜色）没有很好匹配的点采用奇怪的颜色？但是他的实验结果很明显的看出来chrominance branch only 是和参考图像有关的啊？这怎么产生的关系啊！</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/毕设工作/" rel="tag"># 毕设工作</a>
+          
+            <a href="/tags/论文解析/" rel="tag"># 论文解析</a>
+          
+            <a href="/tags/图像上色/" rel="tag"># 图像上色</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/03/论文解读之colorful-image-colorization/" rel="next" title="论文解读之colorful image colorization">
+                <i class="fa fa-chevron-left"></i> 论文解读之colorful image colorization
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/" rel="prev" title="论文解读之Deep Retinex Decomposition for Low-Light Enhancement">
+                论文解读之Deep Retinex Decomposition for Low-Light Enhancement <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Acrobat</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Acrobat</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.5.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -297,6 +297,470 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Deep Retinex Decomposition for Low-Light Enhancement</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-06 22:10:21" itemprop="dateCreated datePublished" datetime="2018-12-06T22:10:21+08:00">2018-12-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-07 11:08:55" itemprop="dateModified" datetime="2018-12-07T11:08:55+08:00">2018-12-07</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/4.png" title="slug [颜色再平衡公式]">
+<p>摘要：<br>retinex模型对于低光照增强来说十分有用。它的基本理论是我们观察的的物体可以分成这个物体本身的反射（reflectance）和场景光（illumination）大多数基于此的模型都是在根据图像纹理内容（hand-crafted）限制来分解这个病态问题。这样以来对各种场景的适应性都不会很好。我们的文章里这几了一个基于此的深度学习网络，主要包含分解模型，和增强模型。当然，我们还制造了一个低光照高光照配对的数据库（由500张拍照，对齐后的图片）以及更多人工合成图片（为了增强数据）组合而成。在训练分解网络的时候，没有GT，只有损失函数，这个损失函数是限制了一些假设条件。这个假设就是低光照正常光照的物体对有着相同的反射。还有就是illumination应该是平滑的。基于这个分解网络，增强网络增强了低光照图分解出的光照分量，并且还对反射分量做了一个去噪。最后合成最终效果图。这个retinex-net是end-to-end训练的。所以学习到的分解结果自然是适用亮度调整的结果。也因此，我门的实验也得到了一个更合理的图像分解模型结果。（基于传统理论（深度学习调参），以及（深度学习meet增强光照需求）<br>介绍：<br>什么直方图均衡化，去雾化模型；还有retinex theory以及其变体。虽然这些办法在一些情况下能得到不错的结果，但是由于分解模型的固有限制，它们适用的情况不多并且增强光照那一步很依赖参数的调节。所以我们提出了这个模型。这个模型在分解的时候主要基于理论是：正常光照下和低光下物体的反射是一样的。illumination是平滑的，但是有基本的物体结构（这个是又结构敏感的tv平滑损失得到的）。这个模型在增强的时候维持大范围的光照一致性，但是精修一些细节（这个是有不同尺度的拼合实现的）。由于在增强光照的同时，经常把噪音方法，所以我们对反射模型去噪。<br>我们的主要贡献在于：数据库；网络；结构敏感的TV损失；<br>系统：<br>传统的Retinex理论认为S=R<em>I（s是我们看到的，r是反射，i是光照）低光照环境下主要是i出来问题，i太低并且分布不均匀。受此启发，我们设计了Retinex-net；这个网络主要包含三步：分解，调整i；重建。在分解阶段，我们得到r，i；在调整阶段，我们用多尺度连接去维持整体一致性并且调整了局部的一些光照分布。并且给r去噪。最后element-wise乘法得到重建图形。<br>结构图如下：<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/1.png" title="slug [网络结构]"><br>基于数据的图片分解：<br>如上图所示，分解网络输入低光照图和正常图，估计它们各自的r和i。损失函数分为三项（如图二），第一项是重构损失；第二项是反射损失；第三项是光照的平滑损失；<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/2.png" title="slug [分解网络的损失函数]"><br>重构损失的设计观念是，both r-for-low and r-for-high can resonstruct the image with the corresponding i;<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/3.png" title="slug [重构损失]"><br>反射损失约束的是r-for-low和r-for-high应该相同<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/4.png" title="slug [反射损失]"><br>而最后的结构敏感型光照平滑损失追求的是在不同纹理细节处光照一样，但是保留整体结构特性。所以不能简单的用total variation minimization，所以我们构建了如下公式，就是在反射图梯度大的时候，光照图梯度惩罚变小。<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/5.png" title="slug [光照平滑损失]"><br>多尺度的光照调整<br>光照调整网络整体上用的是编码解码网络，应为这种结构可以在大尺度上聚合信息，这样的话网络可以得到一个大尺度的光照分布，并进行调整。当上采样的时候，在有一些skip connections从低层语义区直接映射过来，这样使得网络学习残差映射；为了使得不同尺度调节光照：如果有m个上采样块，每个上采样块得到c channel 的 特征映射图，我们用临近填充在不同尺度上resize这些特征,最后拼成c</em>m个通道的特征图。然后，用1<em>1的卷积层将特征图降到c通道；并且再用3</em>3卷积层重构illumination map。loss function 是光照平滑损失和重建损失，光照平滑损失和上面说的一样，重建损失如下图<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/6.png" title="slug [网络结构]"><br>反射部分的去噪：<br>在分解的时候，我们用了和光照相关的去噪方法，但是具体实现没说。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/论文解读之deep-examplar-based-colorization/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/04/论文解读之deep-examplar-based-colorization/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之deep examplar-based colorization</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-04 22:16:59" itemprop="dateCreated datePublished" datetime="2018-12-04T22:16:59+08:00">2018-12-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-05 15:33:52" itemprop="dateModified" datetime="2018-12-05T15:33:52+08:00">2018-12-05</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/2018/12/04/论文解读之deep-examplar-based-colorization/1.png" title="slug [论文题目]">
+<p>摘要：<br>我们提出了一个基于参考图像上色的算法。此外，我门还提供了一个推荐参考图片的系统，这个系统是基于图片语义信息和亮度信息推荐的。我们的算法有很好的鲁棒性，即使提供的参考图像和上色图像不符合也能得到很好的结果。更重要的是，我门这个算法可以让用户自己选择上色的风格，而且没有太多繁琐的交互过程。此外，我们的算法可以用来给视频上色。<br>介绍：<br>给灰度图片上色总的来说是一个病态的问题，应为没有一个准确的对错，只要用户眼睛看上去好看合理就是最高的追求。人工信息的提供主要有两种方式，一种是人工指导绘制，另一种是一个样例参考图片。人工绘制很麻烦而且对人技术要求高，参考图像上色算法如果给的参考不好的话会出现不匹配等奇怪颜色。<br>一个更合理的解决办法就是建立一个大的颜色参考数据库，为相似的像素找到最合理的上色办法，这就是最近深度学习发展的算法。总是也是吧上色当成分类问题或者回归问题，但是这些方法的缺点就是数据库必须包含所有等待上色的物品。<br>总是就是上色问题的前世今生，懒得翻译了。<br>在本文中，我们提供了另一种杂交的解决办法，我们在深度学习的基础上还容许用户提供参考色彩（这个参考图片可以和原图有关，也可以无关）。例如下图所示，天空和桥的部分有参考就参考了，人没参考也能很好上色（深度学习）<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/2.png" title="slug [参考上色]"><br>为了完成这个目标，我们提出了一个CNN去直接从一个对齐的参考图片中，选择，传播，预测灰度图的颜色。我们的算法比现有的基于参考的方法好，这个好主要是来源两个有创新性的子网络。<br>首先，我门有一个计算相似性的子网络，这个子网络是一个预处理。它用一个在灰度图上训练好的VGG-19网络去衡量参考图和目标图片语义上的相似性。这个基于感知的相似性计算比传统那种基于低层语义的更有鲁棒性和视觉正确性。<br>随后，上色的子网络提供了一个更有通用性的上色算法，不管是对于相似的像素还是不相似的像素。这个子网络采用多任务学习方法去训练连个不同的分量，但是都公用一个网络和权重，不过有不同的损失函数。对于一致性损失，鼓励的是对于相似像素：输出图片和参考图片颜色相似。对于感官损失，鼓励的是对于不相似的像素：预测结果和数据库真实值吻合。也正是通过这个办法，我门的算法不需要特别准确的参考图像。<br>我们的主要贡献在于：<br>1）第一个基于深度学习的，基于参考的图像上色办法。<br>2）一个新颖的，edn-to-end, double-branch 网络结构，这个网络结构既能重视参考图像，又能在没有合适参考的时候很好上色<br>3）一个推荐系统，有了这个图片推荐系统，可以实现全自动上色<br>4）这个网络可以给非自然图片上色（虽然他的训练数据集是自然图片）<br>5）可以扩展到视频上色<br>相关工作：<br>基于手绘指导的上色算法：这种方法需要用户给出一些色点，并且颜色的传播基于低层次特征。<br>基于例子的上色算法：整体统计学特征映射，学习特征相同部分的映射。但是都对参照图片有较高的要求。<br>基于学习的上色：居于深度学习和巨大的数据库<br>杂交办法：继承了基于手绘基础的方法和基于学习的办法，或者是提供几个上色点。而我们认为还是提供图片上色对用户来说更简单。<br>我们的系统：<br>我们想要实现的时候在有语音相似的地方实现映射学习，在没有语义相似的部分居于深度学习。有两个主要挑战，首先，很难衡量参考图片和上色图片之间语义的相似关系，尤其是参考图片是彩色，目标上色图是黑白。为了解决这个问题，我门用了一个黑白的vgg19来提取两幅黑白图片的特征相似（把参考图片转化成黑白）；第二个难点：选择参考颜色并且基于图片的手绘（纹理）特征（语义相似性）正确传播它们。取而代之，我们提出了end-to-end的神经网络学习如何选择和传播参考颜色。网络总体结构如下：<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/3.png" title="slug [网络结构]"><br>我们系统的输入是是一个灰度图和一个彩色图，以及它们的双向映射函数。这个双向行摄函数是一个空间转换函数。它返回值是输入像素位置映射到彩色图片中的像素位置。我们的网络中similarity sub-net就是计算参考图片和目标图片之间的相似性，输出这个像素的双向映射关系。而colorization sub-net输入映射关系，参考图片和目标图片，输出预测的ab通道信息。最后和l通道信息结合，输出彩色图片。<br>similarity sub-network<br>在计算像素相似性之前，参考图片和目标图片需要对齐。在我们的工作中，我们采用了最先进的deep analogy算法做dense matching 应为它可以对齐视觉上不同但是语义接近的图片。我们的任务受启发与最近的CNN网络可以从低尺度到高尺度到编码图像信息。这中高尺度信息很好的避免了由于灯光，时间，视角造成的同样物品低尺度特征不同的缺陷。<br>首先我们用灰度图训练了一下VGG-19，然后讲两幅灰度图输入，得到它们前五层特征参数，这个特征是用relu层得到的。值得注意的是，层数越高，特征的分辨率信息越低。我门上采样了所有特征到与输入图片相同的分辨率。像素之间的相似性就由他们的特征距离来定义（采用cosine距离）如下图。注意，t-&gt;r是已经由Deep Image Anal- ogy [Liao et al. 2017] for dense matching得到的了。这步只是算个相似性。<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/4.png" title="slug [相似性计算]"><br>colorization sub-network<br>loss:直接衡量参考图片和目标图片的差距不合理。我们既要鼓励目标图片和参考图片相似，又要鼓励目标图片上色自然。为了实现这两个目标，我们提出了一个包含两个分支的多任务网络：色度色差分支和感知分支。这两个分支都用相同的网络和权重，如下图：<br><img src="/2018/12/04/论文解读之deep-examplar-based-colorization/5.png" title="slug [网络结构]"><br>在chrominance branch 中，网络根据目标和参照物之间的匹配性学习颜色映射。但是训练这样的网络并不容易：一方面这个网络不能直接有弯曲后的参考图片当作惩罚训练，应为对应的上色部分不知道，另一方面，它也不能直接用GT来训练，应为这样的话它就不会学习参考图片的信息了。因此，我们采用双向映射函数再重建一个假的参考图片。假的参考图片中一个像素得到的方法是，先看目标图片映射到参考图片的像素，再把这个像素映射到目标图片，经过这两次的映射，相似语义的颜色部分更可能还保持原来的位置。然后，这个‘假的’参考图片和上色图片被输入进这个网络，产生预测的结果P.还有一个平滑的L1距离项，<br>perceptual branch: 衡量和深度学习生成图片的l2距离（这个是计算的vgg网络的特征距离）最后两个损失一平衡。<br>我的不解：其实我这篇文章有很多不太懂的地方，记录下来如果有人看到可以给我发邮箱讨论（<a href="mailto:1091819660@qq.com" target="_blank" rel="noopener">1091819660@qq.com</a>）<br>1）上色的网络算损失都是根据深度学习预测的GT算的吧？那既然目标都一样，岂不是优化结构都是最接近目标？<br>2）两个batch应该是输入不同，首先像素变化之间的相似度是怎么用的（就直接作为输入当层输入层用的）<br>3）其次，为什么感知损失时输入的是参考图片，而色调损失时输入的是变化的GT，变化的GT是什么样子的，不管是什么样它应该不包含参考图像的颜色吧？<br>4）他那个产生‘fake’ reference 的映射是什么含义，那个假设：正确的颜色在fake reference 中很可能和在对齐过的参考图片中位置相同。他那个映射会导致，有很好匹配的点采用GT的颜色（而不是reference的颜色）没有很好匹配的点采用奇怪的颜色？但是他的实验结果很明显的看出来chrominance branch only 是和参考图像有关的啊？这怎么产生的关系啊！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/论文解读之colorful-image-colorization/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/03/论文解读之colorful-image-colorization/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之colorful image colorization</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-03 22:44:08" itemprop="dateCreated datePublished" datetime="2018-12-03T22:44:08+08:00">2018-12-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-04 22:19:31" itemprop="dateModified" datetime="2018-12-04T22:19:31+08:00">2018-12-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>摘要：<br>那一张灰度图片做输入，这篇文章所解决的问题是吧这个灰度图片转化成视觉上可信的彩色图片。这个问题显然是有限制的，所以以前的结局办法大多依赖于用户的交互，或是得到的图片饱和度等都不高。我们提供了一种全自动的上色办法，这个算法可以产生生动并且真实的上色结果。由于这是一个不确定的问题，所以我们把它当成一个分类任务，并且在训练过程中重新平衡了一下颜色分布，增加稀有颜色的权重，这样使得结果图片色彩丰富。这个系统是采用feed-forward卷积神经网络结构，有上万张彩色图片训练出来的。我们测试的办法是让人们区分哪个图片是上色的哪个是自然的。我们的算法愚弄了人类超过32%的判断，这比以前的算法高出了很多。此外，我们证明了这个算法对于自监督学习是一个很好的预处理，可以当作交叉通道编码器的角色。这个可以在很多feature learning 先进的算法上得到应用验证。<br>介绍：乍一看给黑白图片上色十分困难，但是仔细看看发现场景的语音信息和物品的纹理给图片上色问题提供了很多信息。比如草一般都是绿色的，天空一般都是蓝色的。但是有时候也不是这么觉得，比如皮球，有的皮球是红色的，有的是黑色的，蓝色的都有可能。不过本篇文章关注的是产生一个视觉上可信的彩色图像，而不一定要和ground ture一样。因此，我们的任务就是：根据大量数据建立灰度图中纹理，语音相对应的色彩信息。然后基于这个模型上色。<br>我们这个任务的数据库很好的到，任何彩色图片都可以，只要把其l通道取出来，ab通道作为监督信息就可以训练。不过以前的工作做个颜色预测，可是效果不太好，一种解释是，它们鼓励的是一种保守的估计，这种损失函数继承了标准的回归问题，也就是找到和gt之间的最小欧拉距离，这样会导致颜色的混合，低饱和度等。<br>我门用了损失函数是专门为这种不确定性，多可能的上色问题量身定制的。为了更合理的模拟这种多可能性的问题，我门对每一个像素都预测了一个可能的颜色分布概率。此外，我门还重新分配了颜色空间的权重，让稀有的颜色权重提高，这样做使得我门可能在图片中出现更丰富的色彩：比如说亮灰色在自然界数据库中很少出现，那他的比重太低了，在上色的时候肯定上不到它。即使纹理十分匹配。如果我门增加亮灰色的权重，这样就使得图片中可能出现亮灰色了。最后，我门根据每个像素色彩的可能选择综合上色。<br>我门还会展示，我们的上色系统足够真实，可以用咋子downstream任务上。尤其在目标分类上。<br>我们的主要贡献在：1）设计一个上色算法 2）提出一个检测上色问题的好办法 3）训练了很多很多数据以的到这个模型，而且这个模型可以当作是很多监督学习的很好的预处理<br>相关工作：<br>prior work on colorrization:上色算法的主要区别在于人们在建立灰度图和色彩图映射关系时怎么得到并且处理数据的。对于那些没有参数的方法，给出一个灰色图片，先要定义一个或者多个颜色参考图片（这个参考图片由用户或者系统自动推荐）然后，进行灰的图到彩色图的颜色转化。有参数的方法，从大量的自然数据库中学习预测函数。这样就把问题转化成了回归问题或者分类问题。我们的解决办法也是把它当成一个分类问题，但是我们用了更大的网络和数据库，并且在损失函数的部分做了些修改。<br>concurrent work on colorization: 与我们这篇paper同时进行的一个工作是不同的CNN网络结构和损失函数，我门用的是是一个分类损失，并且重新平衡了稀有的颜色了别。与我们同时进行的工作没有重新平衡颜色分类，并且他们用的是回归损失。总之网络结构有些不同。<br>我们的网络结构如下图：<br><img src="/2018/12/03/论文解读之colorful-image-colorization/1.png" title="slug [网络结构]"><br>问题解决办法：<br>目标函数：<br>首先我们用了最传统的L2距离。但是这个损失不够鲁棒，尤其对于这种多颜色可能性的问题。比如一个目标可能有一系列ab颜色值，这时欧拉距离就会建模成他们的平均色彩。在颜色预测问题上，这种平均颜色的现象就会导致泛灰，低饱和度的结果。此外，如果现实中某个物品颜色的可能分布不是一个凸集，那么预测值就会在可能范围覆盖的区域之外，产生一种非常梦幻的效果。<br>因此，我们把这个问题当成一个多项的分类问题。我们把ab的输出量化在一个如下图a所示的空间内，所有可能的的ab分布结果有313中。对于一个输入X，我门学习一种分布映射，这个映射就是这313种选择方案的可能性。<br><img src="/2018/12/03/论文解读之colorful-image-colorization/2.png" title="slug [颜色映射模型]"><br>至于对比预测值和GT，我门定义了一个函数把GT的颜色转化到一个容器Z种，这个容器Z也是313种可能选择的概率分布（soft-encoding 采用了个高斯模糊得到的）然后损失函数如下定义。v（～）指的是一个依据颜色稀有度平衡损失的权重项（接下来会讲）有了每个像素的颜色分布概率，我们接下来会讲怎么把它具体转化成颜色。<br><img src="/2018/12/03/论文解读之colorful-image-colorization/3.png" title="slug [损失函数]"><br>颜色再平衡：<br>自然界中ab颜色值的分布大多数都是低ab值。这主要由于大片颜色比如云，天空，雾，墙，马路等。颜色映射模型图中b展示了经验上ab颜色分布等概率。很明显，大多数颜色都是低饱和颜色。此外，颜色模型也是一种鼓励低饱和的模型。因此，我门从新平衡了颜色的分布权重。这个办法就是传统的从新采样训练颜色集合。每一个像素都被一个因子W重新赋予权重，这个权重基于这个像素最接近的ab容器的对应值。大概类似于软化一下可能性。让高可能和低可能差距不那么大。<br><img src="/2018/12/03/论文解读之colorful-image-colorization/4.png" title="slug [颜色再平衡公式]"><br>颜色的概率分布到颜色的点估计：<br>把预测的概率模型映射到实际的颜色，其中一种办法就是每个像素直接取最大可能颜色。例如下图最右边的两个图。这会残生一个鲜艳的，但是有时候有不连续的奇怪点的结果。另一方面，如果用预测分布的平均值，会产生一个连续的，但是不够鲜艳的颜色图。例如下图最左边的图，风格奇异。然后我们采用的方式就是再软化一下分布，然后算平均。例如公式5<br><img src="/2018/12/03/论文解读之colorful-image-colorization/5.png" title="slug [不同温度软化]"><br><img src="/2018/12/03/论文解读之colorful-image-colorization/6.png" title="slug [公式5]"><br>（其实昂，我的感觉就是它虽然对应到了一个概率，但是实际上就是得到概率之后更精细的做了个平均，其实我的感想是这时候不如考虑一下全局，就是周围像素的颜色，而不是只关注那一个像素的颜色）<br>实验部分：<br>对比了把这个问题当成回归，当成分类，当成无平衡色彩的分类，以及GT。也就是实验不仅仅对比其他人办法，也对比自己办法的几种优化思路。<br>衡量感知真实性（AMT）标记<br>衡量分类准确度，就是未上色，上色了之后分类准确的有没有提升（vgg网络）<br>直接计算L2距离。<br>大概就是这个上色工作为分类，分割等都提供了好的帮助。<br>在真正的老照片上测试上色准确度（以前都是彩色图片变成灰的图）</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1306,475 +1770,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Aesthetic-Driven Image Enhancement by Adversarial Learning</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-14 20:43:26" itemprop="dateCreated datePublished" datetime="2018-11-14T20:43:26+08:00">2018-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-11-15 10:25:14" itemprop="dateModified" datetime="2018-11-15T10:25:14+08:00">2018-11-15</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/tittle.png" title="slug [论文题目]">
-<p>摘要：<br>    我们介绍了一种增强版生成对抗网络（EnhanceGAN），以用来做图像增强。传统的图像增强一般都是训练一个强监督学习模型。这种模型的数据准备很复杂，需要把对齐的好图片和坏图片成堆匹配。而我们提出的这个网络只需要 weak supervision （只需要标明这个图片的美学质量）本文的图像增强是基于美学因素的。特别的，我们对比了一种分段式的色彩增强模型，和一种基于EnhanceGAN扩展模型学习的深度美学滤镜。我们的增强操作全部是可导的，所以可以端到端训练。然后我们这个网络还可以学习剪裁图片。衡量标准还是一些数字定义和让人们区分美术家增强的图片更好看还是网络增强的好看。<br>介绍：<br>    图片增强有很多范围，比如色彩调整，对比度调整，白平衡等。一般来说这些需要在专业软件下，由专业人士完成一系列操作。但现在更需要一种自动的快速的增强方式。先前这方面的工作由包括自动图片增强，风格前一，或者图像裁剪（image cropping）但是这些工作都是基于强监督学习的，但是这种标注的数据又很少。我们呢提供的方法就只需要标注一个图片美不美。我们用一个生成对抗网络来试图愚弄辨别器分辨生成的图片和美的图片之间的差距。这个生成器不是生成图片，而是生成一系列增强图片的操作。<br>    我们的主要贡献在于：<br>    一个弱监督学习的图像增强网络<br>    两种增强图片的方法（并进行了比较）<br>    操作可导，可以融合到其他网络中。<br>相关工作：<br>    美学质量评定；<br>    自动图片增强；（颜色增和图像重构）（不包括超分辨率，去雾化）<br>    色彩增强：传统色彩增强需要太多标注数据，就有工作做色彩迁移或者风格迁移了。但是这种迁移可能导致颜色或者风格不匹配。<br>    裁剪和re-targeting：从美学角度或者视觉注意力角度选择最合适的图片区域。基于美学的方法一般是给出一些候选区域通过评估一些低维度图像特征或者学习来的特点。而基于关注点的方法一般都选择图像信息最丰富的部分。这些工作很多也是强监督学习。而我们提供的也是弱监督学习方法。</p>
-<img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/network.png" title="slug [论文结构]">
-<p>网络结构：<br>    预备知识：<br>    有关GAN的基础知识。<br>    生成网络：<br>    我们的生成网络生成的是对图片的一系列操作（可导映射）。其结构和RseNet-101一样，只不过移去了最后的池化层和FC层。这个网络用来充当一个特征提取器。产生2048层f<em>f的特征图。这些特征随后被用来生成我们的参数。这些参数是用来：然后我们用两种方式去增强图片。还有一种图像裁剪方式。<br>    并行的两种色彩增强：<br>        1）分段的色彩增强：把图像转化到Lab色彩空间，亮度和对比度通过调节L通道。色彩通过调节ab通道。然后通过follow the idea of gamma correction定义了一个L通道的分段映射函数。其中各种参数是要学习的。并且是连续的。<br>        <img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/Lchannel.png" title="slug [L通道映射函数]"><br>        同样，他们又follow了另一种idea对ab通道也设计了一定的映射函数，参数需要学习。<br>        <img src="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/abchannel.png" title="slug [ab通道映射函数]"><br>        总之上述映射有6个需要学习的参数。然后呢，直接选择学习一套映射参数可能不合适，所以我们选择学习多套可能的映射参数。然后根据每套的可能性最后选择前K种参数的平均调节。所以网络结构就有七层，前6层是f</em>f种参数对，最后一层是每种参数对的可能性。然后再Top-K average pooling 一下。（我的启发是对于那种多可能性调整的参数系统可以采用学习多个参数对用top-k pooling)<br>        2）基于滤镜的深度增强器：上述的方法就是将原图进行了一系列先定的变化。同理我们可以假设原图经过一系列未知的，n次可导变化。在本实验中，我们尝试的变化是ps里面的三种滤镜（用三层卷积网络表示）。然后学习他们的参数。同理，更多种滤镜也可以。结果表明，这种基于滤镜的增强器效果更好一些。<br>    图像裁剪操作：和上述网络结构一样，只不过参数是四个（xywh）<br>    生成器的损失函数：<br>    对抗网络和regularization loss的加权和作为损失函数。对抗网络的损失函数是是fw（。）的评分和。正则化损失是原图和裁剪后图片的特征差。使用vgg网络fc7度特征图计算。最后，由于输出图应该比原图有更好的美学效果，所以fw（.)函数评分应该更低。然后就对这个指标加了一个l2损失值。然后这些损失加权。<br>鉴别网络：<br>    鉴别网络的结构和ResNet-101相同，移除了最后一层变成2个神经元的鉴别器。先用cross-entropy训练这个鉴别器。然后再加上一个一个神经元的FC层输出一个fw分数。<br>下文：<br>    讲了些网络细节，数据处理，和优秀的结果。最后一点有趣的是他们把他们增强后的图片的色彩盘画出来了，发现可能有些规律，就是趋向于变成什么样的色彩构架。<br>对我的启发：<br>    设定一些random weights 的 baseline的优化可能没有设置一个基于滤镜的深度网络好。还有这种提取特征，输出多种参数对的和其概率的模式。以及弱监督学习。<br>    有一个疑问，这个fw(.)输出的是响亮还是一个单纯的数字。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解析之SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-12 21:36:22" itemprop="dateCreated datePublished" datetime="2018-11-12T21:36:22+08:00">2018-11-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-11-14 20:46:32" itemprop="dateModified" datetime="2018-11-14T20:46:32+08:00">2018-11-14</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <img src="/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/tittle.png" title="slug [论文题目]">
-<p>第一版翻译<br>摘要：<br>    本文讲了一种像素级别的语音识别分割网络。这个网络包含编码，解码部分和一个像素点的分类层。从拓扑学角度看，这个编码器的结构和VGG16的前13层一样。解码器的主要功能在于把低分辨率的以编码的特征映射回原分辨率的图片以获得像素级别的分割。这个SegNet的创新带你在于解码器用的是对应编码器的最大池化层的参数来计算的上采样数据。这样消除了学习上采样的必要。这个有位置索引构成的稀疏上采样图随后被用可训练的卷积滤镜去产生稠密的特征图。我们比较了我们的结构和FCN，DeconvNet等知名结构。这些比较也阐释了好多分割性能与内存之间的权衡。<br>    SegNet主要是用来做场景理解的。所以它需要在推断时做到快速和内存经济化。这个网络相比起其他网络来说，需要训练的参数明显变少。而且可以采用随机梯度下降法端对端训练。最后我们用数据论证实验结果。<br>介绍：<br>    语音分割应用范围很广，比如场景理解，推断物体之间的支持关系以及自动驾驶。原来的基于低层级的视觉线索的语音理解很快被机器学习所替代。但是如果直接把深度学习的框架套在像素点的分割上，虽然结果不错，但是边缘很粗糙。我们之所以设计这恶搞网络就是为了更好的把低分辨率特征反映射给原图，这样做更好的像素分类分割。最初呢，这个网络的工作主要是是由街道场景理解应用所促进的。这就要求理解街道场景，产生光滑的分割，保持边缘信息。并且内存和时间上在合理范围。<br>    这个网络用encoder等的indices而不是全部数据的好处主要有：提高边缘准确性，减少参数，be incorporated easily.<br>    这篇文章还分析了SegNet网络和FCN网络，这样来说明一下分割准确度和系统设计之间的权衡。然后分析了最近流行的各种网络结构。总之这些结构参数太多，形形色色的训练方法。<br>    作者提出，在衡量分割准性的时候Pascal VOC12这个数据库倾向于对那种基于分类的分割算法好，应为它就是变化的背景上有一两个前景。而室内分割有多种前景，可能会更难分割。</p>
-   <img src="/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/network.png" title="slug [SegNet结构]">
-<p>网络结构：<br>    最大池化这个操作可以实现避免小的空间位移所带来的变化。记得用BN。如果内存不受限制，还是把全部encoder信息保存下来好。这个网络结构输出的维度和原图不太一样，比如原图N<em>N</em>3，这个网络输出更多维度特征。N<em>N</em>3+。然后共同进入softmax分类器去训练反馈。<br>给我的启发：<br>    虽然我不知道这个U-net的快捷连接到底是连接了边缘信息还是有更多信息，不过我如果不要求准确分割（图像增强光照对比度什么的不需要边界分明）是不是不需要全部encoder层信息，不过这个SegNet传递的是位置信息，感觉对图像原本色彩信息没什么帮助呀？    </p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-12 13:37:31" itemprop="dateCreated datePublished" datetime="2018-11-12T13:37:31+08:00">2018-11-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-11-13 15:09:58" itemprop="dateModified" datetime="2018-11-13T15:09:58+08:00">2018-11-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <img src="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/tittle.png" title="slug [论文题目]">
-<p>  摘要：<br>      我们现在很多照片都是有手机得到的，虽然手机拍照传感器等在不断升级，但是和专业数码相机还是有差距。本文就是通过残差卷积网络来提供一个提高图像质量的算法。我们的损失函数不是用的标准均方误差，而是自定义了四方面：上下文，颜色，纹理，和平滑度。<br>  介绍：<br>      就是说由于硬件差异，手机拍的和DSLR的没法比。然后说虽然现在有很多自动图像增强算法，但是它们大多是关注域全局参数调节，比如全局调节对比度，明度。并没有提高纹理质量或事把照片信息考虑在内。此外，这些算法通常是基于一个先验规则，并没有考虑到不同设备之间的差异。<br>  相关工作：<br>      图像增强这一大问题在计算机视觉上没有很完美的解决，但是有很多相关的子问题现在有了不错的解决：图片分辨率增强(image super-resolution)，图片去雾化(image deblurring/dehazing)，去噪(image denoising/sparse inpainting)，图片上色(image colorization)，图片调整（image color/contrast/exposure adjustment).原文中有这些方面文章的简要报告，我就不写了。<br>  主要贡献：<br>          1）end-to-end的神经网络可用于增强图片质量<br>          2）6K张图片的数据库，这个数据库是由三张低质量的手机拍摄的图片和一张高质量的相机拍摄的图片组成的（后面提了一下这个数据库怎么来的，就是传感器远程控制四台设备同时同地点拍照，然后那些角度不同的再用算法对齐一下，然后还有数据增强，他们把图片分成了3<em>100</em>100的小块，并且说了他们试了再大也没什么用而且浪费计算资源）<br>          3）奇妙的合成损失函数<br>          4）成果对比<br>  损失函数设计：<br>      图片增强任务中，输入和目标相片不匹配是个很大问题，就是由于不同光学设备会给图片造成不同的非线性位移，所以一个个像素很难完全对齐，而且逐个像素检验差值这种方法对于视觉感觉质量上是否合适也不好说。所以本文提出了三个独立的衡量指标。分别是颜色质量，纹理，和上下文。我们现在为其独立设计损失函数，并且保证这些损失函数局部位移不变性。<br>      1:颜色损失<br>      这个颜色损失的计算是将临域内像素高斯模糊后的值算MSE，也就是相当于在卷积网络后面加一个固定参数的高斯核然后算均方差。<br>      2:纹理损失<br>      采用的另一个网络，就是生成对抗网络鉴别生成图片和目标图片之间的差距，作为损失函数<br>      3：上下文损失<br>      没有一个个像素比较，而是采用特征相似度比较。也就是用VGG-19这个CNN中激活函数的值差做衡量标准<br>      4:平滑度损失（TV loss）<br>      就是全局相片梯度变化损失，这个权重很小，所以不会伤害到高频边缘，而且有利于去掉椒盐噪声<br>      最后这些损失被给予不同权重<br>  整体网络设计<br>  <img src="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/network.png" title="slug [论文网络]"><br>  实验<br>      由于这种主观的东西比较难评判，笔者先总的说了下实验比较思路，也就是先列出相关的一些图像增强算法（Benchmark methods）然后用psnr 和ssim数据比较了一下然后就是用户主观比较哪个好。画了个图表。<br>  算法局限性<br>      首先是这种全自动的算法可能会导致颜色的偏差和局部过高饱和度，其次由于GANs的属性，有可能导致噪音的增强。这个问题主要出现在噪音较多的相片里。然后就是这个算法准备数据对很tedious<br>  给我的启示：<br>    算误差的时候确实要考虑GT和input可能本来就有一些位移。不需要整张图片去训练，分成合适大小的小块也可以</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1822,7 +1817,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1865,7 +1860,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
