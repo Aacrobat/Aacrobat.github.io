@@ -108,20 +108,29 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Acrobat的求学之路">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不">
+<meta name="keywords" content="毕设工作,论文解读,网络结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文解读之batch normalization">
+<meta property="og:url" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/index.html">
 <meta property="og:site_name" content="Acrobat的求学之路">
+<meta property="og:description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/2.png">
+<meta property="og:updated_time" content="2019-01-03T14:47:51.965Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Acrobat的求学之路">
+<meta name="twitter:title" content="论文解读之batch normalization">
+<meta name="twitter:description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/page/2/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/03/论文解读之batch-normalization/">
 
 
 
@@ -131,7 +140,7 @@
   };
 </script>
 
-  <title>Archive | Acrobat的求学之路</title>
+  <title>论文解读之batch normalization | Acrobat的求学之路</title>
   
 
 
@@ -180,7 +189,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -234,7 +243,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -255,19 +264,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -293,292 +289,177 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/论文解读之batch-normalization/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">论文解读之batch normalization
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-03 17:45:42 / Modified: 22:47:51" itemprop="dateCreated datePublished" datetime="2019-01-03T17:45:42+08:00">2019-01-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        Um..! 17 posts in total. Keep on posting.
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/" itemprop="url">
-              
-                <span itemprop="name">论文解读之Deconvolution and Checkerboard Artifacts</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-23T22:06:08+08:00" content="2018-11-23">
-          11-23
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/" itemprop="url">
-              
-                <span itemprop="name">论文解读之Exposure: A White-Box Photo Post-Processing Framework</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-19T15:36:06+08:00" content="2018-11-19">
-          11-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/15/我的毕设思路v0/" itemprop="url">
-              
-                <span itemprop="name">我的毕设思路v0</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-15T13:08:45+08:00" content="2018-11-15">
-          11-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [title]">
+<p>题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift<br>嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…<br>我会按照我认识bn的层次来介绍这篇论文。<br>首先，什么是batch normalization：<br>就是把输入的每一个batch的数据标准化一下，因为激活函数不是有一定范围么，卷积层也是，希望看到分布相同的数据。如果输入的数据整体偏移了，可能导致激活函数失效，所以我们尽量把整体输入数据缩放到均值0方差1的区域。注意这可以用在每一层中，不仅仅是最初始的输入。当然，这种缩放丢失了很多数据信息，所以我们还需要酌情恢复数据的均值和方差，也就是在标准化后再缩放，平移。<br>batch normalization具体怎么做：<br><img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [数学做法]"><br><img src="/2019/01/03/论文解读之batch-normalization/2.png" title="slug [程序流程]"><br>在训练阶段，先将每一个batch的数据normalize，注意每一个纬度分别标准化。然后再讯息scale和shift，这个scale和shift就像是一层的权重一样。<br>测试阶段，将测试数据标准化，但是这个数据减的均值和除的方差是训练数据的均值。和测试数据无关。然后再用训练时学习到的scale和shift对标准化后的数据缩放。<br>对于卷积神经网络，比如输入第一层计算卷积输入之前先bn一下是3<em>n</em>n，batch_size=m，那么会有三个bn层，每层包含一个计算的batch的均值，方差，还有学习的偏移和缩放。每层计算均值时是n<em>n</em>m个数据一起算的。这样bn处理后，还是三层，不过没层数据都减了均值，缩放了方差，然后又进行了shift和scale（初始是0，1，然后一点点学习）<br>bn的好处：<br>1.能让网络不对初始参数那么敏感，试想如果一开始的初始参数不太合理，可能没几层网络就梯度消失或者爆炸了，有了很多bn层，保证了数据基本分布在0附近，方差是1.这种很好的分布。当然偏移缩放是按需学习的<br>2.避免梯度消失和爆炸<br>3.稳定网络，加快收敛速度。因为原来网络后一层输入随着前一层参数改变而改变分布，如果让输入的分布都比较稳定，就能更快学习网络了<br>4.减少了dropout的使用，应为batch normalization的每一个输入都被归一化了，减少了很多特异性，也防止网络过拟合这些特异性。<br>猜想：<br>scale和shift是为了保证数据还有原来的信息，不然输入不同经过标准化就不可复原的变成一样了，所以要后期再根据需要学习一下scale和shift。有了缩放和偏移，这个bn反正是可以表示直接映射了，但是如果没有这个层就表示不了直接映射。但是呢？这个网络层的自然而然还是让数据均值0方差1，后期的偏移和缩放学习的比较被动。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/14/论文解读之Aesthetic-Driven-Image-Enhancement-by-Adversarial-Learning/" itemprop="url">
-              
-                <span itemprop="name">论文解读之Aesthetic-Driven Image Enhancement by Adversarial Learning</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-14T20:43:26+08:00" content="2018-11-14">
-          11-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/12/论文解析之SegNet-A-Deep-Convolutional-Encoder-Decoder-Architecture-for-Image-Segmentation/" itemprop="url">
-              
-                <span itemprop="name">论文解析之SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-12T21:36:22+08:00" content="2018-11-12">
-          11-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/12/论文解读DSLR-Quality-Photos-on-Mobile-Devices-with-Deep-Convolutional-Networks/" itemprop="url">
-              
-                <span itemprop="name">论文解读DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-12T13:37:31+08:00" content="2018-11-12">
-          11-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/11/我的第一篇博客/" itemprop="url">
-              
-                <span itemprop="name">我的第一篇博客</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-11T23:05:57+08:00" content="2018-11-11">
-          11-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/毕设工作/" rel="tag"># 毕设工作</a>
+          
+            <a href="/tags/论文解读/" rel="tag"># 论文解读</a>
+          
+            <a href="/tags/网络结构/" rel="tag"># 网络结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/" rel="next" title="论文解读Fast Image Processing with Fully-Convolutional Networks">
+                <i class="fa fa-chevron-left"></i> 论文解读Fast Image Processing with Fully-Convolutional Networks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -819,6 +700,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
 
   
 

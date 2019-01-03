@@ -108,29 +108,27 @@
 
 
 
-  <meta name="description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损">
-<meta name="keywords" content="毕设工作,图像增强,有监督学习">
+  <meta name="description" content="0摘要：我们提出来一个可以加速很多图像处理操作的办法。我们这个办法用的是全卷积神经网络。并且用有监督的办法训练来模拟不同的图像处理操作。我们训练的简化版图像处理操作运行在原分辨率上，并且速度很快。我们平衡了网络结构，操作准确性，内存限制等。通过模拟十种比较流行的操作（都非深度学习模型）来表明我们提出的办法比原来的模拟办法好得多。这里注意是和prior approximation schemes相比">
+<meta name="keywords" content="毕设工作,图像增强,论文解读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图像增强损失函数整理">
-<meta property="og:url" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/index.html">
+<meta property="og:title" content="论文解读Fast Image Processing with Fully-Convolutional Networks">
+<meta property="og:url" content="http://yoursite.com/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/index.html">
 <meta property="og:site_name" content="Acrobat的求学之路">
-<meta property="og:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损">
+<meta property="og:description" content="0摘要：我们提出来一个可以加速很多图像处理操作的办法。我们这个办法用的是全卷积神经网络。并且用有监督的办法训练来模拟不同的图像处理操作。我们训练的简化版图像处理操作运行在原分辨率上，并且速度很快。我们平衡了网络结构，操作准确性，内存限制等。通过模拟十种比较流行的操作（都非深度学习模型）来表明我们提出的办法比原来的模拟办法好得多。这里注意是和prior approximation schemes相比">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/2.png">
-<meta property="og:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/3.png">
-<meta property="og:updated_time" content="2018-11-29T05:24:13.437Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/1.png">
+<meta property="og:updated_time" content="2019-01-03T09:48:36.138Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="图像增强损失函数整理">
-<meta name="twitter:description" content="1: l1,l2距离不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。2: vgg损失很多论文用3: GAN网络GAN网络损失的不稳定导致l1也需要一起考虑4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损">
-<meta name="twitter:image" content="http://yoursite.com/2018/11/28/图像增强损失函数整理/1.png">
+<meta name="twitter:title" content="论文解读Fast Image Processing with Fully-Convolutional Networks">
+<meta name="twitter:description" content="0摘要：我们提出来一个可以加速很多图像处理操作的办法。我们这个办法用的是全卷积神经网络。并且用有监督的办法训练来模拟不同的图像处理操作。我们训练的简化版图像处理操作运行在原分辨率上，并且速度很快。我们平衡了网络结构，操作准确性，内存限制等。通过模拟十种比较流行的操作（都非深度学习模型）来表明我们提出的办法比原来的模拟办法好得多。这里注意是和prior approximation schemes相比">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/28/图像增强损失函数整理/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/">
 
 
 
@@ -140,7 +138,7 @@
   };
 </script>
 
-  <title>图像增强损失函数整理 | Acrobat的求学之路</title>
+  <title>论文解读Fast Image Processing with Fully-Convolutional Networks | Acrobat的求学之路</title>
   
 
 
@@ -305,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/图像增强损失函数整理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Acrobat">
@@ -322,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">图像增强损失函数整理
+          <h1 class="post-title" itemprop="name headline">论文解读Fast Image Processing with Fully-Convolutional Networks
               
             
           </h1>
@@ -347,7 +345,7 @@
                 
               
 
-              <time title="Created: 2018-11-28 14:40:29" itemprop="dateCreated datePublished" datetime="2018-11-28T14:40:29+08:00">2018-11-28</time>
+              <time title="Created: 2018-12-20 21:17:13" itemprop="dateCreated datePublished" datetime="2018-12-20T21:17:13+08:00">2018-12-20</time>
             
 
             
@@ -364,7 +362,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-29 13:24:13" itemprop="dateModified" datetime="2018-11-29T13:24:13+08:00">2018-11-29</time>
+                <time title="Modified: 2019-01-03 17:48:36" itemprop="dateModified" datetime="2019-01-03T17:48:36+08:00">2019-01-03</time>
               
             
           </span>
@@ -397,7 +395,7 @@
       
 
       
-        <p>1: l1,l2距离<br>不过l1,l2距离会导致图像模糊，而且过于绝对，不注重整体感知。一般不在美学角度范围内。<br>2: vgg损失<br>很多论文用<br>3: GAN网络<br>GAN网络损失的不稳定导致l1也需要一起考虑<br>4: 针对于图片有可能有不对齐的情况，DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中设计的是将颜色的l2损失高斯模糊了。也就是算以该像素点为中心的区域的加权平均颜色。并且通过这种模糊消除掉纹理的影响<br><img src="/2018/11/28/图像增强损失函数整理/1.png" title="slug [模糊后的颜色损失]"><br>5: 平滑损失<br>计算整体图像在x,y方向上的变化度。<br><img src="/2018/11/28/图像增强损失函数整理/2.png" title="slug [TV-loss]"><br>6: ssim/ms-ssim<br>ssim从视觉的角度分析两幅图片的亮度，对比度，结构相似性。而ms-ssim则从多个尺度计算ssim。代码可见<a href="https://www.e-learn.cn/content/wangluowenzhang/249870" target="_blank" rel="noopener">https://www.e-learn.cn/content/wangluowenzhang/249870</a><br><img src="/2018/11/28/图像增强损失函数整理/3.png" title="slug [TV-loss]"><br>7: 下一篇论文解析将会翻译一篇损失函数的文章</p>
+        <p>0摘要：<br>我们提出来一个可以加速很多图像处理操作的办法。我们这个办法用的是全卷积神经网络。并且用有监督的办法训练来模拟不同的图像处理操作。我们训练的简化版图像处理操作运行在原分辨率上，并且速度很快。我们平衡了网络结构，操作准确性，内存限制等。通过模拟十种比较流行的操作（都非深度学习模型）来表明我们提出的办法比原来的模拟办法好得多。这里注意是和prior approximation schemes相比。我们还展示了我们的办法有跨数据库和多分辨率通用性。此外，我们还对自己的工作提出了一些扩展。<br><img src="/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/1.png" title="slug [title]"><br>1介绍<br>在图像处理方面，已经有了很多先进的操作可以产生令人震惊的效果。主要的操作包括动态增强细节部分，把图像风格转换成摄影师风格，平滑图像，去雾化等。这些是有很多算法完成的，这些算法包括在梯度域处理，高纬度滤镜等。这些算法的计算复杂度和时间都较长，有些操作，比如双边滤波，得到了很多加速的优化。但是对于高分辨率图片，还需要一定时间才能处理。虽然，现存的技术可以由专家给出充足的开发时间来得到加速，可是这样的加速通常需要大量的专业知识，并且对于不同的操作并不通用。<br>一个通用的加速图像处理的方法是下采样图像，在低分辩率图像上执行处理操作，然后再上采样恢复分辨率。这种办法有两种关键的缺点，第一，原来的操作必须还在低分辩率图像上评测。第二，这种操作从来没有在原分辨率上评测过，这样高频部分的图像没有很好的被建模，这样也限制了我们模拟的准确性。<br>本文，我们调查了一种加速图像处理的办法，类似于下采样-求值-上采样这样的策略，我们的办法也是估计模拟图像处理原来的操作（比如模拟美图秀秀的一键美颜）但是不同的是，我们的实在原分辨率上进行操作的。<br>我们调查了不同网络结构在图像处理中，性能，时间，紧凑性这三个性质。并且提出来一个新的结构满足这三方面的需求。也证明了我们的结构可以精确的加速图像处理。我们在去雾化，去噪等方面做了评估，反正比下采样这种办法好。<br>我们还提出了我们的方法可以应用于创造参数化网络，这个参数化网络显示可以用来交互控制图像处理影响的参数（比如美颜指标这种可以手动调节的参数）；可以只训练一个网络来实现多种图像处理操作；视频处理。<br>2相关工作:<br>加速图像处理操作的办法很多，比如有很多双边滤波的优化策略。还有很多策略是用来加速中值滤波或者其变体的。其他工作已经检验了多种办法的加速，虽然他们很好的加速了它试图加速的那种（那类算法）但是没有通用性。<br>一个有通用性的办法就是downsample图像，在低分辩率上处理图像，然后在upsample。这个办法有通用性但是要求原来的图像处理操作不是空间变化的那种，这样原来分辨率的图片才能指导恢复upsampling的过程。我们的提出的办法和这个也有很多类似处，可以使用很多图像处理操作，是一个估计值不是准确值，假设原来的操作不是空间斌华操作。但是我们的办法有更好的参数化特性可以更好的建模高分辨率图像（图像高频部分）当然，我们的办法也比upsample的办法更快更准确。<br>其他的加速办法考虑的是系统基本结构和编程语言。<br>和我们工作最类似的是一个用深度神经网络加速包边滤镜的，但是由于是在梯度处理的，需要很多麻烦的操作而且没有通用性。<br>3方法：<br>3.1准备：<br>i是原图（rgb通道），多分辨率。f（很多种）是原滤镜操作，我们要用f‘来模拟加速f。<br>多种经验表明，（比如基于高层信息的图像处理操作在简单任务上表现更好）我们要获得高层次，全局信息来指导我们的种种操作。<br>3.2上下文聚集网络<br>网络一共有d层，每层的分辨率都是不变的，但是深度不一样。做卷积的办法是空洞卷积，空洞的参数每加一层翻倍一次（理论上可以聚集更大区域的纹理信息而不带来分辨率丢失）。然后用LReLU激活，用自适应BN，所谓自适应BN就是BN和直接映射之间的一种平衡。<br>3.3训练：<br>用l2损失指导训练，我们也尝试了用其他损失，比如感知损失，对抗网络等指导训练，但是发现这些high level的特性也没让网络有更优秀的表现。为了让网络有适应不同分辨率的能力，我门用多种分辨率的图像训练网络。就都随机resize到320p到1440p之间。<br>4实验：<br>我们模拟了十种图像处理操作，用了两个数据库，一个是MIT-Adobe 5K，另一个是RAISE，训练的时候在一个数据库，测试的时候在另一个数据库，这样也可以验证跨数据能力。<br>我们实验的baseline是bilateral guided upsampling（BGU）这是一种通过在低分辩率输入输出对种学习滤镜特性，然后应用到高分辨率输入中，产生高分辨率的输出的算法。我们的实验对比的另一种算法是deep edge filter；这是一种用深度学习网络来模拟不同种类的的边缘敏感的传统滤镜的算法。<br>我们还把其他网络结构和我们设计的空洞卷积加ibn结构做了对比，就是同样层数的普通卷积（感知域更小了）同样层次的u-net等。结果证明用空洞卷积比较好。<br>我们还做了一个实验关于多分辨率验证和多数据库验证（但是为什么这个网络能有跨数据库等能力呢？）<br>5扩展：<br>5.1参数化操作：<br>一个图像处理操作可以由参数控制它的效果，比如很多图像平滑操作有一个参数控制平滑程度。我们的办法可以很自然的扩展到创造参数化模拟器来展示自由度。为了这个目的，我们在输入层加入了一个channel，对于每一一个我们想expose的参数，我门加了一个channel。在训练的时候，我们用各种不同的参数值来训练网络，这样来告诉这个网络不同参数的作用。（也就是在输入层多加几个channel来代表平滑程度/高光程度等指标，这样在测试的时候就能由用户指定参数产生图片了）<br>5.2用一个网络去表示所有操作<br>这个和参数那个很类似，就是加了十层来指示用那个操作<br>5.3视频处理</p>
 
       
     </div>
@@ -425,7 +423,7 @@
           
             <a href="/tags/图像增强/" rel="tag"># 图像增强</a>
           
-            <a href="/tags/有监督学习/" rel="tag"># 有监督学习</a>
+            <a href="/tags/论文解读/" rel="tag"># 论文解读</a>
           
         </div>
       
@@ -438,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/27/图像增强评价标准小节/" rel="next" title="图像增强评价标准小节">
-                <i class="fa fa-chevron-left"></i> 图像增强评价标准小节
+              <a href="/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/" rel="next" title="论文解读Deep Photo Enhancer: Unpaired Learning for Image Enhancement from Photographs with GANs">
+                <i class="fa fa-chevron-left"></i> 论文解读Deep Photo Enhancer: Unpaired Learning for Image Enhancement from Photographs with GANs
               </a>
             
           </div>
@@ -448,8 +446,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/29/论文解读之Loss-Functions-for-Image-Restoration-with-NeuralNetworks/" rel="prev" title="论文解读之Loss Functions for Image Restoration with Neural Networks">
-                论文解读之Loss Functions for Image Restoration with Neural Networks <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/03/论文解读之batch-normalization/" rel="prev" title="论文解读之batch normalization">
+                论文解读之batch normalization <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

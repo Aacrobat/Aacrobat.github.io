@@ -297,6 +297,303 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/论文解读之batch-normalization/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/01/03/论文解读之batch-normalization/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之batch normalization</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-03 17:45:42 / Modified: 22:47:51" itemprop="dateCreated datePublished" datetime="2019-01-03T17:45:42+08:00">2019-01-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [title]">
+<p>题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift<br>嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…<br>我会按照我认识bn的层次来介绍这篇论文。<br>首先，什么是batch normalization：<br>就是把输入的每一个batch的数据标准化一下，因为激活函数不是有一定范围么，卷积层也是，希望看到分布相同的数据。如果输入的数据整体偏移了，可能导致激活函数失效，所以我们尽量把整体输入数据缩放到均值0方差1的区域。注意这可以用在每一层中，不仅仅是最初始的输入。当然，这种缩放丢失了很多数据信息，所以我们还需要酌情恢复数据的均值和方差，也就是在标准化后再缩放，平移。<br>batch normalization具体怎么做：<br><img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [数学做法]"><br><img src="/2019/01/03/论文解读之batch-normalization/2.png" title="slug [程序流程]"><br>在训练阶段，先将每一个batch的数据normalize，注意每一个纬度分别标准化。然后再讯息scale和shift，这个scale和shift就像是一层的权重一样。<br>测试阶段，将测试数据标准化，但是这个数据减的均值和除的方差是训练数据的均值。和测试数据无关。然后再用训练时学习到的scale和shift对标准化后的数据缩放。<br>对于卷积神经网络，比如输入第一层计算卷积输入之前先bn一下是3<em>n</em>n，batch_size=m，那么会有三个bn层，每层包含一个计算的batch的均值，方差，还有学习的偏移和缩放。每层计算均值时是n<em>n</em>m个数据一起算的。这样bn处理后，还是三层，不过没层数据都减了均值，缩放了方差，然后又进行了shift和scale（初始是0，1，然后一点点学习）<br>bn的好处：<br>1.能让网络不对初始参数那么敏感，试想如果一开始的初始参数不太合理，可能没几层网络就梯度消失或者爆炸了，有了很多bn层，保证了数据基本分布在0附近，方差是1.这种很好的分布。当然偏移缩放是按需学习的<br>2.避免梯度消失和爆炸<br>3.稳定网络，加快收敛速度。因为原来网络后一层输入随着前一层参数改变而改变分布，如果让输入的分布都比较稳定，就能更快学习网络了<br>4.减少了dropout的使用，应为batch normalization的每一个输入都被归一化了，减少了很多特异性，也防止网络过拟合这些特异性。<br>猜想：<br>scale和shift是为了保证数据还有原来的信息，不然输入不同经过标准化就不可复原的变成一样了，所以要后期再根据需要学习一下scale和shift。有了缩放和偏移，这个bn反正是可以表示直接映射了，但是如果没有这个层就表示不了直接映射。但是呢？这个网络层的自然而然还是让数据均值0方差1，后期的偏移和缩放学习的比较被动。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读Fast Image Processing with Fully-Convolutional Networks</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-20 21:17:13" itemprop="dateCreated datePublished" datetime="2018-12-20T21:17:13+08:00">2018-12-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-03 17:48:36" itemprop="dateModified" datetime="2019-01-03T17:48:36+08:00">2019-01-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>0摘要：<br>我们提出来一个可以加速很多图像处理操作的办法。我们这个办法用的是全卷积神经网络。并且用有监督的办法训练来模拟不同的图像处理操作。我们训练的简化版图像处理操作运行在原分辨率上，并且速度很快。我们平衡了网络结构，操作准确性，内存限制等。通过模拟十种比较流行的操作（都非深度学习模型）来表明我们提出的办法比原来的模拟办法好得多。这里注意是和prior approximation schemes相比。我们还展示了我们的办法有跨数据库和多分辨率通用性。此外，我们还对自己的工作提出了一些扩展。<br><img src="/2018/12/20/论文解读Fast-Image-Processing-with-Fully-Convolutional-Networks/1.png" title="slug [title]"><br>1介绍<br>在图像处理方面，已经有了很多先进的操作可以产生令人震惊的效果。主要的操作包括动态增强细节部分，把图像风格转换成摄影师风格，平滑图像，去雾化等。这些是有很多算法完成的，这些算法包括在梯度域处理，高纬度滤镜等。这些算法的计算复杂度和时间都较长，有些操作，比如双边滤波，得到了很多加速的优化。但是对于高分辨率图片，还需要一定时间才能处理。虽然，现存的技术可以由专家给出充足的开发时间来得到加速，可是这样的加速通常需要大量的专业知识，并且对于不同的操作并不通用。<br>一个通用的加速图像处理的方法是下采样图像，在低分辩率图像上执行处理操作，然后再上采样恢复分辨率。这种办法有两种关键的缺点，第一，原来的操作必须还在低分辩率图像上评测。第二，这种操作从来没有在原分辨率上评测过，这样高频部分的图像没有很好的被建模，这样也限制了我们模拟的准确性。<br>本文，我们调查了一种加速图像处理的办法，类似于下采样-求值-上采样这样的策略，我们的办法也是估计模拟图像处理原来的操作（比如模拟美图秀秀的一键美颜）但是不同的是，我们的实在原分辨率上进行操作的。<br>我们调查了不同网络结构在图像处理中，性能，时间，紧凑性这三个性质。并且提出来一个新的结构满足这三方面的需求。也证明了我们的结构可以精确的加速图像处理。我们在去雾化，去噪等方面做了评估，反正比下采样这种办法好。<br>我们还提出了我们的方法可以应用于创造参数化网络，这个参数化网络显示可以用来交互控制图像处理影响的参数（比如美颜指标这种可以手动调节的参数）；可以只训练一个网络来实现多种图像处理操作；视频处理。<br>2相关工作:<br>加速图像处理操作的办法很多，比如有很多双边滤波的优化策略。还有很多策略是用来加速中值滤波或者其变体的。其他工作已经检验了多种办法的加速，虽然他们很好的加速了它试图加速的那种（那类算法）但是没有通用性。<br>一个有通用性的办法就是downsample图像，在低分辩率上处理图像，然后在upsample。这个办法有通用性但是要求原来的图像处理操作不是空间变化的那种，这样原来分辨率的图片才能指导恢复upsampling的过程。我们的提出的办法和这个也有很多类似处，可以使用很多图像处理操作，是一个估计值不是准确值，假设原来的操作不是空间斌华操作。但是我们的办法有更好的参数化特性可以更好的建模高分辨率图像（图像高频部分）当然，我们的办法也比upsample的办法更快更准确。<br>其他的加速办法考虑的是系统基本结构和编程语言。<br>和我们工作最类似的是一个用深度神经网络加速包边滤镜的，但是由于是在梯度处理的，需要很多麻烦的操作而且没有通用性。<br>3方法：<br>3.1准备：<br>i是原图（rgb通道），多分辨率。f（很多种）是原滤镜操作，我们要用f‘来模拟加速f。<br>多种经验表明，（比如基于高层信息的图像处理操作在简单任务上表现更好）我们要获得高层次，全局信息来指导我们的种种操作。<br>3.2上下文聚集网络<br>网络一共有d层，每层的分辨率都是不变的，但是深度不一样。做卷积的办法是空洞卷积，空洞的参数每加一层翻倍一次（理论上可以聚集更大区域的纹理信息而不带来分辨率丢失）。然后用LReLU激活，用自适应BN，所谓自适应BN就是BN和直接映射之间的一种平衡。<br>3.3训练：<br>用l2损失指导训练，我们也尝试了用其他损失，比如感知损失，对抗网络等指导训练，但是发现这些high level的特性也没让网络有更优秀的表现。为了让网络有适应不同分辨率的能力，我门用多种分辨率的图像训练网络。就都随机resize到320p到1440p之间。<br>4实验：<br>我们模拟了十种图像处理操作，用了两个数据库，一个是MIT-Adobe 5K，另一个是RAISE，训练的时候在一个数据库，测试的时候在另一个数据库，这样也可以验证跨数据能力。<br>我们实验的baseline是bilateral guided upsampling（BGU）这是一种通过在低分辩率输入输出对种学习滤镜特性，然后应用到高分辨率输入中，产生高分辨率的输出的算法。我们的实验对比的另一种算法是deep edge filter；这是一种用深度学习网络来模拟不同种类的的边缘敏感的传统滤镜的算法。<br>我们还把其他网络结构和我们设计的空洞卷积加ibn结构做了对比，就是同样层数的普通卷积（感知域更小了）同样层次的u-net等。结果证明用空洞卷积比较好。<br>我们还做了一个实验关于多分辨率验证和多数据库验证（但是为什么这个网络能有跨数据库等能力呢？）<br>5扩展：<br>5.1参数化操作：<br>一个图像处理操作可以由参数控制它的效果，比如很多图像平滑操作有一个参数控制平滑程度。我们的办法可以很自然的扩展到创造参数化模拟器来展示自由度。为了这个目的，我们在输入层加入了一个channel，对于每一一个我们想expose的参数，我门加了一个channel。在训练的时候，我们用各种不同的参数值来训练网络，这样来告诉这个网络不同参数的作用。（也就是在输入层多加几个channel来代表平滑程度/高光程度等指标，这样在测试的时候就能由用户指定参数产生图片了）<br>5.2用一个网络去表示所有操作<br>这个和参数那个很类似，就是加了十层来指示用那个操作<br>5.3视频处理</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1481,304 +1778,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Deconvolution and Checkerboard Artifacts</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-23 22:06:08 / Modified: 22:33:14" itemprop="dateCreated datePublished" datetime="2018-11-23T22:06:08+08:00">2018-11-23</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>paper讲的很清楚<br><a href="https://distill.pub/2016/deconv-checkerboard/?utm_source=mybridge&amp;utm_medium=blog&amp;utm_campaign=read_more" target="_blank" rel="noopener">https://distill.pub/2016/deconv-checkerboard/?utm_source=mybridge&amp;utm_medium=blog&amp;utm_campaign=read_more</a></p>
-<p>这篇文章的主要内容是说，我们在生成图片的时候，会产生奇怪的纹理（棋盘）这样的点。尤其是那些深色（strong color/ bright color）<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example1.png" title="slug [奇怪的点]"><br>这个现象的主要原因就是在deconvolution的时候有不均匀的overlap，简单的说，生成图就是有的点接收到高层语义的一个数据，有的点则接收到2个，4个或者其他个数据，这样导致有的点天然大。而且这个现象在2d中更明显如下图：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example2.png" title="slug [奇怪的点]"><br>当然，如果stride和filter size匹配可以减轻这个问题：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example3.png" title="slug [奇怪的点]"><br>但是一层层下来，它还是个很严重的问题：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example4.png" title="slug [奇怪的点]"><br>虽然我们可以通过学习映射中的权重来解决这个问题，但是这是个很难平衡的问题。而且权重不是平衡结果本身的缺陷的啊。所以我们提出了更好的上采样办法，就是先把小的层扩充大，然后再做卷积，扩充的方法很多，nearest-neighbor interpolation就很好。如下图，虽然我没太看懂下面的矩阵什么意思。。<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example5.png" title="slug [扩充方法]"><br>简单的说，就是做如下变化：<br><img src="/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/example6.png" title="slug [代码]"><br>最终结果令人满意</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读之Exposure: A White-Box Photo Post-Processing Framework</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-19 15:36:06" itemprop="dateCreated datePublished" datetime="2018-11-19T15:36:06+08:00">2018-11-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-11-20 20:02:45" itemprop="dateModified" datetime="2018-11-20T20:02:45+08:00">2018-11-20</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/tittle.png" title="slug [分块输入]">
-<p>0摘要：<br>图像的修复很重要。但是得到监督学习的成对图片很难。我们提出的方法可以使用非成对的图片，并且输出修复的图片和一系列有意义的修复操作。我们的系统使用深度学习网络学习如何在原图上执行一些列修复操作。这是通过建立一系列模型来模拟不同修复操作，然后投入网络训练而达到的。为了用正确的滤镜参数和顺序，我们使用了一个深度加强学习网络去学习下一步干什么。<br>1介绍：<br>人们对图片的喜好各有不同，所以图像修复的时候应该关注个人喜好，那么这个好的图片的参考可以来自这个人在网上找的图片或者他喜欢的摄影师的作品。这样才能生存最适合他自己的图片增强方式。<br>2我们的主要贡献：<br>一个端到端的网络和一系列可导的滤镜<br>在训练网络的过程，我们的网络可以产生一系列有意义的操作过程。<br>用GAN产生的非监督性学习网络<br>相关工作：<br>传统/深度学习总概括/我们学习的是一系列操作，并且用unpaired的图片。与我们有关的工作是 通过将输入图片语义匹配到一个大的数据库中，寻找到颜色和色调风格与输入图片相关的示例图片，然后把风格化后的图片映射到适合的色彩与亮度分布中去。如果参考图片选择的不当，这种方法会产生很奇怪的颜色。而我们的办法是学习总体风格，而不是单一图片的统计学数据。<br>一个叫Aperture的软件也可以自动修图，这个软件修饰提供一系列操作，用户可以更改。我们的系统也差不多，特别的，我们的工作解释了了深度神经网络下的潜在操作。<br>基于数据的图片生成：纹理合成，超分，都是通过映射数据库中的一小块图片做到的。在生成一种固定种类的图片任务中，自动编码机是很实用的。（learn a compressed latent)<br>GAN: 最初的gan就是从一个潜在的空间去映射到目标数据的分布。后来GAN有一个变体，就是输入原图对图片有一个条件约束。然后是cyclyGAN，就是鼓励编码解码的网络所输出的可以和另一个逆向网络相互反响操作，还原。还有adversarial inverse Graphics Network.<br>我们的系统也用了一种条件GAN，不同的是，它产生的不是一个图片，而是一系列滤镜的参数。应为滤镜的设计是保留原图片的，这种方法保持了原图的语义信息和空间信息。而且这个滤镜是分辨率独立的，所以可以apply到任意size的图片上。我们这个工作的各个滤镜参数是一体化优化的？<br>强化学习：RL提供做决策的模型和智能体（agent）与环境互动的模型。在我们的工作中，一系列的滤镜序列被建模成一系列决策制定问题，还有一个有GAN中discriminator扮演的图片质量评测器，充当环境。<br>3模型<br>与传统的一次性修复不同，更易于理解的是用多种不同操作一步步修复图片。对于人类来说也是这样，一步步修复，下一步基于前一步的结果。<br><img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/RL.png" title="slug [RL]"><br>因此模型也是，有一个函数将输入映射到一个输出，这个输出随后作为下一次的输入，再被一个函数映射。所求的就是累积的最大奖励，对应的变化策略。如原文中公式1所示。每次映射变化的评价奖励可能有不同权重。为了把我们的问题映射到RL框架中，我们把步骤分成两块。第一，选择一个离散的滤镜，第二，选择这个滤镜的连续性函数。策略同样也分成两块，一个是把状态输入，输出各种滤镜的概率分布，（比如决定选a1 filter）另一个是输入初状态和滤镜，产生输出。由于取样一个连续变量十分有挑战性，我们采用最近的实践处理连续滤镜参数决定性的。详见后文。<br>4滤镜设计<br>4.1.1滤镜需要是可导的。不是所有滤镜都能设计成基本神经网络层，所以我们采用分段线性函数代替。<br>4.1.2分辨率独立<br>首先产生的是滤镜参数，所以本来就是分辨率独立的，而且在这个训练网络的时候我们也是用的低分辨率的（64<em>64）RAM输入<br>4.1.3可理解的<br>4.2滤镜细节<br>设计了一系列，包括调整曝光，白平衡，色彩曲线等的滤镜。个别滤镜本应该是复杂函数，但是分段拟合成了线性函数。<br>5网络学习<br>在这节我们讨论深度神经网络怎么表示智能体（agent），这个网络是怎么被训练的。这个奖励是怎么由鉴别网络得出的。整个算法流程如下图：<br><img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/ALG.png" title="slug [RL]"><br>5.1用深度神经网络的函数估计<br>有两个策略网络用到了CNN，一个是把输入图片映射到可能的滤镜集合的概率。另一个是滤镜参数。我们优化有关参数为了得到最大的目标累积奖励。除此之外，我们还学习一个value network（评价网络），和一个鉴别器。所有的网络结构大体都是类似的，只不过输出内容不同可能会有不同个数的输出神经元。网络图如下图所示：<br><img src="/2018/11/19/论文解读之Exposure-A-White-Box-Photo-Post-Processing-Framework/network.png" title="slug [网络结构]"><br>为滤镜参数制定的决策网络共享这个卷积层，这样来减少计算/CNN主要用于分层视觉识别。我们发现简单的用CNN效果不是很满意，因此我们构建了一个额外的特征平面当做输入层辅助色彩通道。对于鉴别网络来说，这个额外的特征平面是整体图片的平均亮度，对比度和饱和度。对于选择滤镜和其参数的策略网络以及评价网络来说，这个额外的特征平面是（2个，其一：八个布尔值来表明哪一个滤镜已经使用过了。另一个特征平面表明从开始到现在我们已经做了多少步修改。<br>5.2策略网络的训练<br>用policy gradient 方法训练。由于策略中有两部分需要做决策，即滤镜和参数。它们是交错学习的。<br>对于滤镜的选择来说这个偏导数难以计算，所以我们采用policy gradient theorem 去得到一个与滤镜选择相关的累积奖励的无偏Monte Carlo估计。而对于滤镜参数优化，我们用deterministic policy gradient theorem。<br>对于奖励来说，我们设定奖励应该是一个逐渐提高的质量分数加上出发机制。对于奖励有一个权重殷泽，我们设为1.并且总的来说为输入图片设置五次修改。这个次数是平和计算量和模型简洁性的。此外，我们设定固定的修改步数为了让模型更稳定（相比起让他学习自己停止修改<br>5.3通过对抗网络实现的质量评估<br>本文中，我们用WGAN。这个网络营的事Earth Mover‘s Distance 来估计两种概率分布之间的差异。图片的评分就是鉴别网络中图像的分数。这个可以这样理解，鉴别网络想给原图高分，给生成图低分，而生成图就要要得到高分。<br>5.4训练策略<br>如何平衡是优化滤镜参数呢，还是选另一个潜能可能更大的滤镜呢？我们的策略是惩罚滤镜选择，如果滤镜选择的提议过于集中，我们的惩罚就大一点。也就是奖励就比原来小一点。此外，我们发现agent又可能会连续两步用同一个滤镜，为了避免这种操作我们记住上一次滤镜的操作。这样也有利于让智能体去多尝试不同滤镜。<br>无序训练：大概就是不是从一开始训练到结束，而是训练一个阶段后放入缓冲，随机取再训练？如算法流程图。<br>对我的启发：<br>也许基于滤镜的能更好保护原图信息，但是这个滤镜设计的比较简单是那种全局调整的吧？这个和上一篇的滤镜对比有什么区别呢？上一篇的两种方法是这样的，第一种方法是根据经验定义了一种在l通道的调节函数，和一个在ab通道上的调节函数。然后学习这个函数的一些参数。第一种方法是用三层卷积层估计adobe里面的三种典型滤镜，然后训练参数。得到3</em>3layers的滤镜。这个也就是相当于限定顺序和类别的执行这篇文章中的算法了。我想知道基于深度网络估计的滤镜和手工估计的滤镜有哪些不同</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1826,7 +1825,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1875,7 +1874,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
