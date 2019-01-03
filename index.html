@@ -297,6 +297,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/" class="post-title-link" itemprop="http://yoursite.com/index.html">论文解读Deep Photo Enhancer: Unpaired Learning for Image Enhancement from Photographs with GANs</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-14 09:35:56" itemprop="dateCreated datePublished" datetime="2018-12-14T09:35:56+08:00">2018-12-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-20 21:18:00" itemprop="dateModified" datetime="2018-12-20T21:18:00+08:00">2018-12-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>摘要：<br>这篇文章提出的是不匹配图片的图像增强。我们的得到一些有喜欢特征风格的图片，我们提出的方法学习的是把输入图片增强到那些用户喜欢分风格图片的水平。我们的方法基于two-way GANs并且对这个网络有一些提高。首先，我们用全局特征增强了U-net，并且展示这样的做法是很有用的。这种有全局监视信息的U-net作为我们GAN网络中的生成器。其次我们尝试用自适应权重的策略改进WGAN，这种改进可是使得网络训练并且收敛的更快，并且相比于WGAN-GP对参数更加不敏感。最后，我门提出针对于two-way GAN用独立的BN层。这种改进有助于我们更好的适应不同的输入分布。总的来说，我们很显著的提高了GAN的稳定性。结果表明我们在质量和主观感受上都对图片有了很大的提升。<br>介绍：<br>现在由于相机的各种限制，图片总会有噪音，颜色不完整，分辨率限制等。此外，相机的传感器对于输入的光线是线性记录的，但是人眼对光的敏感度不是线性的。因此，用户也许会对拍出来的照片不满意。所以图像增强就是解决这个问题的，并且包括颜色调整和图像锐化（color rendition）。<br>这篇文章提出了一个基于学习摄影师的图像增强方案。输入是一系列好的图片，我们用一个结构类似于CycleGAN的2-way GAN （为了GAN网络的稳定性）来实现这个问题，为了进一步提高GAN的稳定性，我们又做了一些改进。首先，GAN网络的生成器是用一个有全局特征的U-net实现的。这些全局信息包括场景，整体光线，或者是目标的类别（我在想它怎么能保证它确实学到了这些东西，而不是通过类似resnet的多尺度拼合得到的增益？）这些全局信息对局部采用什么操作增强有帮助。第二点，我门提出了一个自适应权重的策略针对于WGAN。WGAN用权重裁剪来增强Lipschitz的稳定性。随后发现这并不好，并且用梯度惩罚来加强网络稳定性。然而，我们发现这张办法对权重十分铭感。因此，我门提出了一种姿势用权重的策略来提高WGAN的训练。最后，大多数2-wayGAN在前向和反向传播中用相同的生成器（因为这个生成器在前向和反向传播中，都是把input映射到output的域。然而我们发现，虽然是相同的domain，这input实际上来源于不同的原，一个是直接的输入原，一个是生成的（假的）输入。这中不同可能对生成器有影响。我们提出了用不同的BN层来解决这个问题，就是生成器其他的都一样，但是BN层不一样。这样，生成器可以更好的适应输入数据的分布。通过上述的提高，我们的方法可以提高算法的性能。而且这种包含全局信息的U-net，自适应权重的WGAN，还有独立的BN层对于其他的问题也有效。<br>相关工作：<br>我们的办法是基于生成对抗网络的。虽然生成对抗网络十分强大，但是它在训练时十分不稳定。很多方法都是用来提高GAN网络稳定性的。WGAN用了一种新的距离指标来衡量输入与输出之间的距离标准，这样新的损失策略极大的提高了训练的稳定性。然后WGAN-GP也是为了提高稳定性，在WGAN的基础上加上了梯度惩罚。随后为了保证循环一致性，2-way GANS被提出来。比较有名的2-way GAN包括cyclGAN，DualGAN和discogan。<br>顺便附上几个GAN网络对比文章：其实我也没太看懂也不想看…<br><a href="https://zhuanlan.zhihu.com/p/25071913" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/25071913</a><br><a href="https://www.jianshu.com/p/64bf39804c80" target="_blank" rel="noopener">https://www.jianshu.com/p/64bf39804c80</a><br><a href="https://blog.csdn.net/qq_25737169/article/details/78857788" target="_blank" rel="noopener">https://blog.csdn.net/qq_25737169/article/details/78857788</a><br>总述：<br>我们的目标是发现用户提供的好的图片集Y中的公共点，然后增强原始输入X，让其具备Y的特点（我这时在想你提取出的Y的公共点是不是包含了不仅仅是风格，还有纹理内容的信息，所以这个模拟是不是本来就有些问题。在模拟中怎么平衡内容不变性和风格质量迁移）<br>下图a中给的是一个1-way GAN。为了保证循环一致性，前辈们提出了2-way GAN。他们要求生成器生成的Y还能在逆变换回输入。2-way GAN往往包括两个方向的映射，也就是b图中左边的和右边两个圈。（我的疑问是x-&gt;y’-&gt;x’’就够了吧？为什么一定要有y-&gt;x’-&gt;y’’呢。对于左边的来说，Gx的损失是鉴别器Dy的真实程度。G‘y的损失是X，X’的差异。Dy的损失是Y‘与Y的真伪差距。就算是有了第二个pass，损失函数也不会有本质提升吧？）<br><img src="/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/1.png" title="slug [GAN&2-way GAN]"><br>生成器设计：<br>我们认为U-net不包含整体特征指导，而现实中大多数相机，人眼都是对整体特征有认识的。全局的特征对局部的调整应该是有指导意义的。因此我们的U-net包含global features。<br>为了保证模型的效率，整体特征的提取利用的就是U-net编码部分的全五层。然后在单独压缩到1<em>1</em>128，在U-net解码部分再复制32份，拼接到32<em>32</em>128的层里。这样，这32<em>32</em>256的层就既包括全局信息，也包括局部信息。最后他们还设计了个残差连接，不过就一个残差skip，有用么？结构如下图：<br><img src="/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/2.png" title="slug [生成器结构]"><br>数据集：<br>我们用MIT-Adobe 5K训练和测试，数据集被分成三个部分，第一个部分包含2250张图片和其对应的修复图片，为了这部分的训练对于那些要求不匹配的训练，我们用另外2250部分的修复作为训练。最后的500张图片是用来测试的。<br>实验部分：<br>我们评测了几种生成器的网络结构。包括DPED，8RESBLK，FCN，CRN，U-net，残差的增益都被加入这些网络结构了。这些网络结构统一用psnr作为损失函数。<br>one-way GAN：<br>上面的部分我们用有监督配对数据训练的网络，主要是为了证明我们的网络结构优秀，接下来我们介绍我们的GAN。上图中的b是我们鉴别器的构架。用上图的生成器和鉴别器，我们构建了我们的一路生成对抗网络。有很多的GAN种类，我们尝试了很多种改进GAN，在我们的实现中WGAN-GP表现比较突出。但是WGAN-GP的性能和其超参数有关，WGAN-GP比WGAN-GP多了一个梯度规范限制。一个超参数A来控制梯度损失和原本损失之间的比重。如果A太小了，原本的Lipschitz损失就得不到保证。如果A太大了，收敛会很慢，也就是梯度损失加的没什么权重。这么来说A的选择很重要，因此我们用如下损失来限制梯度<br><img src="/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/3.png" title="slug [改进的WGAN损失]"><br><img src="/2018/12/14/论文解读Deep-Photo-Enhancer-Unpaired-Learning-for-Image-Enhancement-from-Photographs-with-GANs/4.png" title="slug [原本的WGAN损失]"><br>这种改进了的损失更好的反映了Lipschitz需要惩罚那些梯度大于1的（小于1和大于1不都是相对的么？），更重要的是我们用了一个自适应的权重机制来调节A，这个机制选择了一个合适的权重让梯度限制在【1.001，1.05】之间。如果滑动窗口中平均梯度大于上线了，也就是表明现在的A太小了，需要增大传统相惩罚的比重了。这时候A就double，反之。然后通过实验数据拟合证明了我们提出的AWGAN更好的使用不同的初始化参数A。<br>2-way GAN：<br>大多数的2-way GAN用相同的Gx和G‘x。应为这两个都是把输入从X域映射到Y域。然而，x其实和x’是有不同的。因此，如果Gx和G‘x适应他们各自的输入将会更好。我们对此的办法是用不同的BN层。也就是Gx和G’x除了BN层不同之外其他的都相同。<br>总的来说，我们的目标函数包含几种损失，首先是一致性损失，就是生成的和原来的是一样的。还有循环一致性损失。对抗损失。（有一个疑问就是生成器不是有两个（四个嘛）那训练时损失不分开么，都一样的损失？那有的部分就是常数呀）<br>结果：<br>在训练的过程中，除了使用MIT的数据集，我们也用了HDR的数据集。问题是，没有整体数据集的对比，论文中的图片是择优选取的吧？测试的figure4，5是在HDR数据库上还是MIT，如果在HDR数据库上的话，那肯定训练集是HDR的效果好。最后手机拍照的说明通用性还可以，但是也不是数据集也可能择优</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -359,7 +513,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-07 11:08:55" itemprop="dateModified" datetime="2018-12-07T11:08:55+08:00">2018-12-07</time>
+                <time title="Modified: 2018-12-14 09:36:52" itemprop="dateModified" datetime="2018-12-14T09:36:52+08:00">2018-12-14</time>
               
             
           </span>
@@ -394,8 +548,7 @@
       
         
           
-            <img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/4.png" title="slug [颜色再平衡公式]">
-<p>摘要：<br>retinex模型对于低光照增强来说十分有用。它的基本理论是我们观察的的物体可以分成这个物体本身的反射（reflectance）和场景光（illumination）大多数基于此的模型都是在根据图像纹理内容（hand-crafted）限制来分解这个病态问题。这样以来对各种场景的适应性都不会很好。我们的文章里这几了一个基于此的深度学习网络，主要包含分解模型，和增强模型。当然，我们还制造了一个低光照高光照配对的数据库（由500张拍照，对齐后的图片）以及更多人工合成图片（为了增强数据）组合而成。在训练分解网络的时候，没有GT，只有损失函数，这个损失函数是限制了一些假设条件。这个假设就是低光照正常光照的物体对有着相同的反射。还有就是illumination应该是平滑的。基于这个分解网络，增强网络增强了低光照图分解出的光照分量，并且还对反射分量做了一个去噪。最后合成最终效果图。这个retinex-net是end-to-end训练的。所以学习到的分解结果自然是适用亮度调整的结果。也因此，我门的实验也得到了一个更合理的图像分解模型结果。（基于传统理论（深度学习调参），以及（深度学习meet增强光照需求）<br>介绍：<br>什么直方图均衡化，去雾化模型；还有retinex theory以及其变体。虽然这些办法在一些情况下能得到不错的结果，但是由于分解模型的固有限制，它们适用的情况不多并且增强光照那一步很依赖参数的调节。所以我们提出了这个模型。这个模型在分解的时候主要基于理论是：正常光照下和低光下物体的反射是一样的。illumination是平滑的，但是有基本的物体结构（这个是又结构敏感的tv平滑损失得到的）。这个模型在增强的时候维持大范围的光照一致性，但是精修一些细节（这个是有不同尺度的拼合实现的）。由于在增强光照的同时，经常把噪音方法，所以我们对反射模型去噪。<br>我们的主要贡献在于：数据库；网络；结构敏感的TV损失；<br>系统：<br>传统的Retinex理论认为S=R<em>I（s是我们看到的，r是反射，i是光照）低光照环境下主要是i出来问题，i太低并且分布不均匀。受此启发，我们设计了Retinex-net；这个网络主要包含三步：分解，调整i；重建。在分解阶段，我们得到r，i；在调整阶段，我们用多尺度连接去维持整体一致性并且调整了局部的一些光照分布。并且给r去噪。最后element-wise乘法得到重建图形。<br>结构图如下：<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/1.png" title="slug [网络结构]"><br>基于数据的图片分解：<br>如上图所示，分解网络输入低光照图和正常图，估计它们各自的r和i。损失函数分为三项（如图二），第一项是重构损失；第二项是反射损失；第三项是光照的平滑损失；<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/2.png" title="slug [分解网络的损失函数]"><br>重构损失的设计观念是，both r-for-low and r-for-high can resonstruct the image with the corresponding i;<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/3.png" title="slug [重构损失]"><br>反射损失约束的是r-for-low和r-for-high应该相同<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/4.png" title="slug [反射损失]"><br>而最后的结构敏感型光照平滑损失追求的是在不同纹理细节处光照一样，但是保留整体结构特性。所以不能简单的用total variation minimization，所以我们构建了如下公式，就是在反射图梯度大的时候，光照图梯度惩罚变小。<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/5.png" title="slug [光照平滑损失]"><br>多尺度的光照调整<br>光照调整网络整体上用的是编码解码网络，应为这种结构可以在大尺度上聚合信息，这样的话网络可以得到一个大尺度的光照分布，并进行调整。当上采样的时候，在有一些skip connections从低层语义区直接映射过来，这样使得网络学习残差映射；为了使得不同尺度调节光照：如果有m个上采样块，每个上采样块得到c channel 的 特征映射图，我们用临近填充在不同尺度上resize这些特征,最后拼成c</em>m个通道的特征图。然后，用1<em>1的卷积层将特征图降到c通道；并且再用3</em>3卷积层重构illumination map。loss function 是光照平滑损失和重建损失，光照平滑损失和上面说的一样，重建损失如下图<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/6.png" title="slug [网络结构]"><br>反射部分的去噪：<br>在分解的时候，我们用了和光照相关的去噪方法，但是具体实现没说。</p>
+            <p>摘要：<br>retinex模型对于低光照增强来说十分有用。它的基本理论是我们观察的的物体可以分成这个物体本身的反射（reflectance）和场景光（illumination）大多数基于此的模型都是在根据图像纹理内容（hand-crafted）限制来分解这个病态问题。这样以来对各种场景的适应性都不会很好。我们的文章里这几了一个基于此的深度学习网络，主要包含分解模型，和增强模型。当然，我们还制造了一个低光照高光照配对的数据库（由500张拍照，对齐后的图片）以及更多人工合成图片（为了增强数据）组合而成。在训练分解网络的时候，没有GT，只有损失函数，这个损失函数是限制了一些假设条件。这个假设就是低光照正常光照的物体对有着相同的反射。还有就是illumination应该是平滑的。基于这个分解网络，增强网络增强了低光照图分解出的光照分量，并且还对反射分量做了一个去噪。最后合成最终效果图。这个retinex-net是end-to-end训练的。所以学习到的分解结果自然是适用亮度调整的结果。也因此，我门的实验也得到了一个更合理的图像分解模型结果。（基于传统理论（深度学习调参），以及（深度学习meet增强光照需求）<br>介绍：<br>什么直方图均衡化，去雾化模型；还有retinex theory以及其变体。虽然这些办法在一些情况下能得到不错的结果，但是由于分解模型的固有限制，它们适用的情况不多并且增强光照那一步很依赖参数的调节。所以我们提出了这个模型。这个模型在分解的时候主要基于理论是：正常光照下和低光下物体的反射是一样的。illumination是平滑的，但是有基本的物体结构（这个是又结构敏感的tv平滑损失得到的）。这个模型在增强的时候维持大范围的光照一致性，但是精修一些细节（这个是有不同尺度的拼合实现的）。由于在增强光照的同时，经常把噪音方法，所以我们对反射模型去噪。<br>我们的主要贡献在于：数据库；网络；结构敏感的TV损失；<br>系统：<br>传统的Retinex理论认为S=R<em>I（s是我们看到的，r是反射，i是光照）低光照环境下主要是i出来问题，i太低并且分布不均匀。受此启发，我们设计了Retinex-net；这个网络主要包含三步：分解，调整i；重建。在分解阶段，我们得到r，i；在调整阶段，我们用多尺度连接去维持整体一致性并且调整了局部的一些光照分布。并且给r去噪。最后element-wise乘法得到重建图形。<br>结构图如下：<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/1.png" title="slug [网络结构]"><br>基于数据的图片分解：<br>如上图所示，分解网络输入低光照图和正常图，估计它们各自的r和i。损失函数分为三项（如图二），第一项是重构损失；第二项是反射损失；第三项是光照的平滑损失；<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/2.png" title="slug [分解网络的损失函数]"><br>重构损失的设计观念是，both r-for-low and r-for-high can resonstruct the image with the corresponding i;<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/3.png" title="slug [重构损失]"><br>反射损失约束的是r-for-low和r-for-high应该相同<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/4.png" title="slug [反射损失]"><br>而最后的结构敏感型光照平滑损失追求的是在不同纹理细节处光照一样，但是保留整体结构特性。所以不能简单的用total variation minimization，所以我们构建了如下公式，就是在反射图梯度大的时候，光照图梯度惩罚变小。<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/5.png" title="slug [光照平滑损失]"><br>多尺度的光照调整<br>光照调整网络整体上用的是编码解码网络，应为这种结构可以在大尺度上聚合信息，这样的话网络可以得到一个大尺度的光照分布，并进行调整。当上采样的时候，在有一些skip connections从低层语义区直接映射过来，这样使得网络学习残差映射；为了使得不同尺度调节光照：如果有m个上采样块，每个上采样块得到c channel 的 特征映射图，我们用临近填充在不同尺度上resize这些特征,最后拼成c</em>m个通道的特征图。然后，用1<em>1的卷积层将特征图降到c通道；并且再用3</em>3卷积层重构illumination map。loss function 是光照平滑损失和重建损失，光照平滑损失和上面说的一样，重建损失如下图<br><img src="/2018/12/06/论文解读之Deep-Retinex-Decomposition-for-Low-Light-Enhancement/6.png" title="slug [网络结构]"><br>反射部分的去噪：<br>在分解的时候，我们用了和光照相关的去噪方法，但是具体实现没说。</p>
 
           
         
@@ -1626,150 +1779,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/我的毕设思路v0/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Acrobat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Acrobat的求学之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/15/我的毕设思路v0/" class="post-title-link" itemprop="http://yoursite.com/index.html">我的毕设思路v0</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-15 13:08:45 / Modified: 14:13:47" itemprop="dateCreated datePublished" datetime="2018-11-15T13:08:45+08:00">2018-11-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>实验目标：<br>    针对自然图片（没有太强噪声和过于失败的拍照技术）<br>    调整全局和局部的曝光，保证色彩正常（与原图差别不大）。<br>    根据调节光线之后的效果看是否需要加滤镜（色彩与原来可以有偏移）</p>
-<p>实验思路：<br>    数据准备：目前是MIT-Adobe FiveK Dataset 这个数据库数据比较正常，修图后的结果没有太强的风格化，美学评判指标不知道。我可能在训练的时候先k临近聚类一下，保证训练集的丰富。顺便再看看训练集有没有特别奇异的图片。<br>    网络设计：<br>    1）不实用传统预定义模型。一方面我理论知识不足以提出更好的模型，第二，根据Aesthetic-Driven Image Enhancement by Adversarial Learning这篇论文的结果看，用基于滤镜的深度学习网络效果比预定模型调节参数强。这个参数还是学习的来的。如果是预定一些参数岂不是更不合适。这个滤镜的设计可能会参考到传统知识自己设计，也可能参考现有photoshop里的一些滤镜。<br>    2）可能会分开两个网络，一个调节曝光，一些调整色彩风格。那这个风格可能用到美学评定的数据库。目前我先考虑第一个主要调节光线，对比度，饱和度这个的网络。<br>    3）网络结构应该是U-net，反正肯定有特征提取和生成，还有skip，但是具体还没想好。池化层可能改一下。理由也是恢复原图像恢复的好一些，而且这种编码解码的方式可能能得到语义理解。不过这个需要可视化检测一下，看看最后提取出来的特征都是些什么东西。整个调整可能在lab通道下调整。但是这方面的滤镜不知道有没有。通过神经网络，而不是预定模型看能不能实现语义理解的亮度调整。<br>    4）损失函数应该关注图 像特征方面（vgg特征激活层）；图像不存在位移，所以逐个像素比GT差异也可取，与原图比较色彩ab还是与修图后的比呢？；噪声控制（保证有纹理但又没有放大噪音）；整体光照平滑度（区域对比度很重要）。<br>    5）分担网络压力所以把亮度和色彩分开调节。但是我觉得我这一个网络压力也不是很大，可能会把U-net的连接信息搞得稍微少一点，如果我发现网络压力太大。但是我怎么知道网络压力大不大？<br>    5）训练技巧</p>
-<p>改进：<br>    1）根据训练出的结果看一下对局部光效调整结果，如过还存在过度曝光可能调节几个损失函数的比重？初始比重我也不会设置。<br>    2）一个风格化美学滤镜可能弥补一些光照失误<br>    3）我不明白的一点是，我训练时应该是把图像分成小块。但是我最后检验的时候是整张图输入？然后如果我把图片分成块输入后拼接输出，会和整体输入输出结果一样么？<br>    <img src="/2018/11/15/我的毕设思路v0/example.png" title="slug [分块输入]"><br>    就比如上图，两个框框输入到网络中，最后对亮度的调整肯定不同，假设云部分平均亮度增加-10%，身体部分平均亮度增加30%。那么如果我整体输入，这两个小部分对亮度的增加也肯定不同，但是会不会差异变小，应为在高纬度下的激活函数或者池化层缩小了这种差异</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1817,7 +1826,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1905,7 +1914,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
