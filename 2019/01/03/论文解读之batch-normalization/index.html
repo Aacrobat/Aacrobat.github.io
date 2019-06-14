@@ -108,21 +108,20 @@
 
 
 
-  <meta name="description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不">
+  <meta name="description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不是">
 <meta name="keywords" content="毕设工作,论文解读,网络结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文解读之batch normalization">
 <meta property="og:url" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/index.html">
 <meta property="og:site_name" content="Acrobat的求学之路">
-<meta property="og:description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不">
+<meta property="og:description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不是">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/1.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/2.png">
-<meta property="og:updated_time" content="2019-01-03T14:47:51.965Z">
+<meta property="og:updated_time" content="2019-01-03T14:50:41.277Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文解读之batch normalization">
-<meta name="twitter:description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不">
+<meta name="twitter:description" content="题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…我会按照我认识bn的层次来介绍这篇论文。首先，什么是batch normalization：就是把输入的每一个batch的数据标准化一下，因为激活函数不是">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/03/论文解读之batch-normalization/1.png">
 
 
@@ -347,7 +346,7 @@
                 
               
 
-              <time title="Created: 2019-01-03 17:45:42 / Modified: 22:47:51" itemprop="dateCreated datePublished" datetime="2019-01-03T17:45:42+08:00">2019-01-03</time>
+              <time title="Created: 2019-01-03 17:45:42 / Modified: 22:50:41" itemprop="dateCreated datePublished" datetime="2019-01-03T17:45:42+08:00">2019-01-03</time>
             
 
             
@@ -385,8 +384,7 @@
       
 
       
-        <img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [title]">
-<p>题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift<br>嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…<br>我会按照我认识bn的层次来介绍这篇论文。<br>首先，什么是batch normalization：<br>就是把输入的每一个batch的数据标准化一下，因为激活函数不是有一定范围么，卷积层也是，希望看到分布相同的数据。如果输入的数据整体偏移了，可能导致激活函数失效，所以我们尽量把整体输入数据缩放到均值0方差1的区域。注意这可以用在每一层中，不仅仅是最初始的输入。当然，这种缩放丢失了很多数据信息，所以我们还需要酌情恢复数据的均值和方差，也就是在标准化后再缩放，平移。<br>batch normalization具体怎么做：<br><img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [数学做法]"><br><img src="/2019/01/03/论文解读之batch-normalization/2.png" title="slug [程序流程]"><br>在训练阶段，先将每一个batch的数据normalize，注意每一个纬度分别标准化。然后再讯息scale和shift，这个scale和shift就像是一层的权重一样。<br>测试阶段，将测试数据标准化，但是这个数据减的均值和除的方差是训练数据的均值。和测试数据无关。然后再用训练时学习到的scale和shift对标准化后的数据缩放。<br>对于卷积神经网络，比如输入第一层计算卷积输入之前先bn一下是3<em>n</em>n，batch_size=m，那么会有三个bn层，每层包含一个计算的batch的均值，方差，还有学习的偏移和缩放。每层计算均值时是n<em>n</em>m个数据一起算的。这样bn处理后，还是三层，不过没层数据都减了均值，缩放了方差，然后又进行了shift和scale（初始是0，1，然后一点点学习）<br>bn的好处：<br>1.能让网络不对初始参数那么敏感，试想如果一开始的初始参数不太合理，可能没几层网络就梯度消失或者爆炸了，有了很多bn层，保证了数据基本分布在0附近，方差是1.这种很好的分布。当然偏移缩放是按需学习的<br>2.避免梯度消失和爆炸<br>3.稳定网络，加快收敛速度。因为原来网络后一层输入随着前一层参数改变而改变分布，如果让输入的分布都比较稳定，就能更快学习网络了<br>4.减少了dropout的使用，应为batch normalization的每一个输入都被归一化了，减少了很多特异性，也防止网络过拟合这些特异性。<br>猜想：<br>scale和shift是为了保证数据还有原来的信息，不然输入不同经过标准化就不可复原的变成一样了，所以要后期再根据需要学习一下scale和shift。有了缩放和偏移，这个bn反正是可以表示直接映射了，但是如果没有这个层就表示不了直接映射。但是呢？这个网络层的自然而然还是让数据均值0方差1，后期的偏移和缩放学习的比较被动。</p>
+        <p>题目：Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift<br>嗯 这篇论文不做翻译了，反正翻译出来的还没有英文容易理解…<br>我会按照我认识bn的层次来介绍这篇论文。<br>首先，什么是batch normalization：<br>就是把输入的每一个batch的数据标准化一下，因为激活函数不是有一定范围么，卷积层也是，希望看到分布相同的数据。如果输入的数据整体偏移了，可能导致激活函数失效，所以我们尽量把整体输入数据缩放到均值0方差1的区域。注意这可以用在每一层中，不仅仅是最初始的输入。当然，这种缩放丢失了很多数据信息，所以我们还需要酌情恢复数据的均值和方差，也就是在标准化后再缩放，平移。<br>batch normalization具体怎么做：<br><img src="/2019/01/03/论文解读之batch-normalization/1.png" title="slug [数学做法]"><br><img src="/2019/01/03/论文解读之batch-normalization/2.png" title="slug [程序流程]"><br>在训练阶段，先将每一个batch的数据normalize，注意每一个纬度分别标准化。然后再讯息scale和shift，这个scale和shift就像是一层的权重一样。<br>测试阶段，将测试数据标准化，但是这个数据减的均值和除的方差是训练数据的均值。和测试数据无关。然后再用训练时学习到的scale和shift对标准化后的数据缩放。<br>对于卷积神经网络，比如输入第一层计算卷积输入之前先bn一下是3<em>n</em>n，batch_size=m，那么会有三个bn层，每层包含一个计算的batch的均值，方差，还有学习的偏移和缩放。每层计算均值时是n<em>n</em>m个数据一起算的。这样bn处理后，还是三层，不过没层数据都减了均值，缩放了方差，然后又进行了shift和scale（初始是0，1，然后一点点学习）<br>bn的好处：<br>1.能让网络不对初始参数那么敏感，试想如果一开始的初始参数不太合理，可能没几层网络就梯度消失或者爆炸了，有了很多bn层，保证了数据基本分布在0附近，方差是1.这种很好的分布。当然偏移缩放是按需学习的<br>2.避免梯度消失和爆炸<br>3.稳定网络，加快收敛速度。因为原来网络后一层输入随着前一层参数改变而改变分布，如果让输入的分布都比较稳定，就能更快学习网络了<br>4.减少了dropout的使用，应为batch normalization的每一个输入都被归一化了，减少了很多特异性，也防止网络过拟合这些特异性。<br>猜想：<br>scale和shift是为了保证数据还有原来的信息，不然输入不同经过标准化就不可复原的变成一样了，所以要后期再根据需要学习一下scale和shift。有了缩放和偏移，这个bn反正是可以表示直接映射了，但是如果没有这个层就表示不了直接映射。但是呢？这个网络层的自然而然还是让数据均值0方差1，后期的偏移和缩放学习的比较被动。</p>
 
       
     </div>
@@ -436,6 +434,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/30/论文解读-Fsat-spatio-temporal-residual-network-for-video-SR/" rel="prev" title="论文解读 Fsat spatio-temporal residual network for video SR">
+                论文解读 Fsat spatio-temporal residual network for video SR <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -496,7 +498,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -547,7 +549,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

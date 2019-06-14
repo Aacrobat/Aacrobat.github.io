@@ -297,6 +297,291 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/图像增强评价标准小节/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/27/图像增强评价标准小节/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">图像增强评价标准小节</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-27 14:28:16 / Modified: 20:53:27" itemprop="dateCreated datePublished" datetime="2018-11-27T14:28:16+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>v1<br>本文总结一下评价图像增强的一些算法，不算是全面总结，更侧重我可能会用得到一些指标。<br>1: ssim<br>在DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中用到。首先说这篇文章是提高手机拍摄的照片到数码相机的水准的文章<br>ssim 结构相似性指标。比相比起传统所使用的影像品质衡量指标（psnr），ssim更符合人眼对影像品质的判断。它从亮度，对比度，饱和度三个角度来计算。具体计算如下图<br><img src="/2018/11/27/图像增强评价标准小节/ssim.png" title="slug [ssim]"><br>2: psnr<br>在DSLR-Quality Photos on Mobile Devices with Deep Convolutional Networks一文中用到。首先说这篇文章是提高手机拍摄的照片到数码相机的水准的文章<br>psnr 峰值信噪比，是一个表示信号最大可能功率和影响它的表示京都的破坏性噪声功率的比值的术语。从计算中可以看出，就是两幅图片mse根据信号最大数值所缩放后的一个衡量指标，具体计算如下图：<br><img src="/2018/11/27/图像增强评价标准小节/psnr.png" title="slug [psnr]"><br>3: 信息保真度VIF<br>在应振强师兄论文中使用，该论文主要是提高图像美学特征。<br>首先需要简单了解一下人类视觉系统模型，大概等意思就是人类对不同频率的色彩信息敏感程度不同，然后就把人眼看成多个频率的通道模型，所以对信息的处理是累积多个通道进行计算的。其次，人眼获得到的信息也是通过一个模型建立模拟的。vif衡量的就是人眼在两幅图片中获得到的有效信息的比例。<br>4:色彩失真<br>在应振强师兄论文中使用，该论文主要是提高图像美学特征。<br>在lab通道上计算变化图和标准图的L2距离，有趣的是，他计算的不是整幅图的偏差，而是选择了一个调色板，把调色板中一个色块的颜色算个均值代表这个色块。然后计算不同增强算法对这个调色板颜色的改变的误差（24个色块的误差均值）。思考一下这个算法的意义在何？我觉得这是更均匀的衡量了不同颜色的改变误差。尤其避免产生过饱和等失真奇怪颜色。但是是不是有些不考虑语义？我还没有找到色板数据集在哪<br>5: 用户标注打分<br>6: 直方图重合度<br>在Exposure: A White-Box Photo Post-Processing Framework一文中，作者采用亮度，饱和度，和对比度三个数据的直方图重合度来衡量修图和GT。首先说这个文章也是针对图像修图的。<br>这个直方图重合度定义的就很奇怪，就是算一堆图片的原图和修图后的直方图分布的重合度。对，每张图片有一个饱和度，亮度，对比度。可是你这样衡量还不如衡量这些图片的与GT的平均差距呢，为什么要衡量直方图重合度。这不配对啊。<br>7:lab通道的l2距离（执行语义分割后）这个主要是证明它们的增强办法可以实现不同区域不同效果。Automatic Photo Adjustment Using Deep Neural Networks<br>8:用一些公开的的网络去评价美学指标。比如RANK 和 DAN，来源于文章ShuKong,XiaohuiShen,ZheLin,RadomirMech,andCharlessFowlkes.2016. Photo aesthetics ranking network with attributes and content adaptation. In ECCV. Springer.和Yubin Deng, Chen Change Loy, and Xiaoou Tang. 2017. Image Aesthetic Assess- ment: An Experimental Survey. IEEE Signal Processing Magazine 34, 4 (2017),<br>80–106<br>9: 在美学图片增强中，用到GAN网络生成的评价器。<br>*：还有明暗度关系失真，（应）；</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Acrobat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Acrobat的求学之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">论文解读之Deep Residual Learning for Image Recognition‘ </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-25 22:34:55 / Modified: 23:23:15" itemprop="dateCreated datePublished" datetime="2018-11-25T22:34:55+08:00">2018-11-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+<p>摘要：<br>深度神经网络很难训练，所以我们提出了一个残差网络。对于传统的网络，虽然理论上越深表达能力越强，但是实际上由于难以训练，越深反而表现越不好。为了解决这个问题，以及梯度消失，我们提出残差网，而且在各大比赛中，我们成绩优异。<br>介绍：<br>深度网络一层层分析聚集处不同层次的信息。最后进过分类器的处理。最近的研究也表明深度对于一个网络很重要。网络越深越好么？会有梯度爆炸或者消失的问题，不过这个通过BN可以解决。但更深的网络被训练时，还会有退化的问题。就是网络一点点变深，准确率先是提高，然后饱和。然后下降。这个退化还不是由于过拟合导致的，因为在训练集上的错误率就上升了。<br>一个对比实验是，一个浅层网络，和与之配对的深层网络，深层网络就是在浅层的基础上加了几层恒等映射，理论上深层网络不会比浅层差，但是事实上就是有时会差。<br>我们提出的残差网络是这样的：我们希望深度堆叠的非线性网络学习一个残差表达，而不是直接学习潜在映射。也就是深度网络学习一个改变的变化。最终映射由恒等映射和残差映射组合而成。我们觉得这个残差网络更好优化，比如说，如果我们最终期望的目标就是一个恒等映射，那我们只需要把残差网络那边参数全部学为零。这比让一个单纯的深度网络学习一个恒等映射简单的多。而且我们这个残差网络深的越深表现越好，这也给更深的网络设计提供的可行性。（原来太深了反而训练不好）残差单元如下图：<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/resblock.png" title="slug [残差单元]"><br>注意，这个skip connection需要跳至少两块，应为一块的话其实和给滤镜层参数加一没区别。<br>相关工作：<br>残差表达：大概就是说残差表达比直接映射好优化还是效率高啥的。<br>short connection：有相关的短连接获得了成功，我们的短连接也没有引入新的更多的参数和计算复杂度。与我们工作同时进行的还有highway network。<br>深度残差网络：<br>我们学习的是一个残差映射：比如原来映射是H(x),现在我们学习的是H(x)-x;因为我们通过一些深度加深学习退化的现象猜想stack nultipul nonlinear layers表达恒等映射困难。<br>恒等映射：<br>需要至少跳两层。<br>网络结构：<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/net.png" title="slug [网络结构]"><br>这里提了一下映射中的细节，在层数不对映的时候，它们给了两种种方案，第一种就是直接映射，缺少的层数就填零，另一种就是用1*1的卷积扩展层数。当恒等映射层大小比卷积层大的时候，就用stride=2 在网络实现的时候，没有用dropout，原因是BN有dropout的功效，（每一个残差块都在BN）<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/example.png" title="slug [深度对比图]"><br>上图表明普通网络中深度越深不一定好，残差网是深度深了更好，但是也有上限，比如1000层就不行了。而且残差网总的来说比普通网收敛块，准确率高。<br>在网络实现细节中值得一提的是他们实验了一下那个恒等映射是直接映射过去，还是在层数不对应的时候加个卷积变化一下，还是任何时候都变化一下，发现虽然任何时候都变化一下可能更好，但是没必要。具体看第六页。还有就是为了简化，残差单元采用下图：<br><img src="/2018/11/25/论文解读之Deep-Residual-Learning-for-Image-Recognition‘/example2.png" title="slug [代替残差单元]"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/论文解读之Deconvolution-and-Checkerboard-Artifacts/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1382,7 +1667,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1433,7 +1718,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
