@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>YUV storage | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="令人迷惑的YUV存储模式奇怪的知识增加了除YUV之外，经常提到的还有 YPbPr 和 YCbCr。YPbPr 指模拟分量信号(或接口)，P(Parallel)表示并行，b 下标表示蓝，r 下标表示红。YCbCr 指的是数字分量信号(或接口)，C(Chroma)表示色度。YCbCr 还可指色彩空间，YCbCr 色彩空间是 YUV 色彩空间的缩放和偏移版本。 YUV采样方式主流的采样方式有三种，YUV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YUV storage">
+<meta property="og:url" content="http://example.com/2022/09/26/YUV-storage/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="令人迷惑的YUV存储模式奇怪的知识增加了除YUV之外，经常提到的还有 YPbPr 和 YCbCr。YPbPr 指模拟分量信号(或接口)，P(Parallel)表示并行，b 下标表示蓝，r 下标表示红。YCbCr 指的是数字分量信号(或接口)，C(Chroma)表示色度。YCbCr 还可指色彩空间，YCbCr 色彩空间是 YUV 色彩空间的缩放和偏移版本。 YUV采样方式主流的采样方式有三种，YUV">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-26T06:26:53.000Z">
+<meta property="article:modified_time" content="2022-09-26T06:38:52.074Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -69,9 +73,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-YUV-storage" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-YUV-storage" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/09/26/YUV-storage/" class="article-date">
   <time class="dt-published" datetime="2022-09-26T06:26:53.000Z" itemprop="datePublished">2022-09-26</time>
@@ -84,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/09/26/YUV-storage/">YUV storage</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      YUV storage
     </h1>
   
 
@@ -137,145 +139,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-ffmpeg-record" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/09/21/ffmpeg-record/" class="article-date">
-  <time class="dt-published" datetime="2022-09-21T07:22:00.000Z" itemprop="datePublished">2022-09-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/09/21/ffmpeg-record/">ffmpeg record</a>
-    </h1>
+    <a href="/2022/09/21/ffmpeg-record/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ffmpeg record</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="深海巨坑ffmpeg的使用记录"><a href="#深海巨坑ffmpeg的使用记录" class="headerlink" title="深海巨坑ffmpeg的使用记录"></a>深海巨坑ffmpeg的使用记录</h2><h3 id="将多帧图像合成视频"><a href="#将多帧图像合成视频" class="headerlink" title="将多帧图像合成视频"></a>将多帧图像合成视频</h3><p><code>ffmpeg -r 30 -i output_video/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output_video_fullr.mp4</code></p>
-<p><code>-vf zscale=matrix=709:r=limited</code>负责转换色域，否则默认转出来是BT.601之类的SD标准。显式指定limited 色域很多种，limited显得饱和度高一些，full色域大，同样数据显得饱和度低一些</p>
-<p>这个链接 <a target="_blank" rel="noopener" href="https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html">https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html</a></p>
-<h3 id="将视频拼接"><a href="#将视频拼接" class="headerlink" title="将视频拼接"></a>将视频拼接</h3><p><code>ffmpeg -i peppa_v3_fullr.mp4 -i peppa_v5_fullr_.mp4 -filter_complex &quot;[0:v]pad=iw*2:ih*1[a];[a][1:v]overlay=w&quot; compair_peppa_v3v5.mp4</code></p>
-<p>这个链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Gary__123456/article/details/88742705">https://blog.csdn.net/Gary__123456/article/details/88742705</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/ffmpeg-record/" data-id="cl8bbkji000003sfb18og3hk6" data-title="ffmpeg record" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-firstPage-md" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/08/18/firstPage-md/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:35:59.000Z" itemprop="datePublished">2022-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/08/18/firstPage-md/">firstPage.md</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><p>开始写博客</p>
-<p>经常想一些东西，经常重复做一些东西，但是很少去记录。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/firstPage-md/" data-id="cl6yunanu0000dofb5k6wdq5w" data-title="firstPage.md" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/08/18/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:13:54.077Z" itemprop="datePublished">2022-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/08/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/hello-world/" data-id="cl6ytu5f60000lxfbhk8y11vc" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
