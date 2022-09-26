@@ -115,32 +115,9 @@
 
 
 
-<h3 id="一段读取YUV420数据的代码"><a href="#一段读取YUV420数据的代码" class="headerlink" title="一段读取YUV420数据的代码"></a>一段读取YUV420数据的代码</h3><p>lass VideoCaptureYUV:</p>
-<p>​    def <strong>init</strong>(self, filename, size):</p>
-<p>​        self.width, self.height &#x3D; size</p>
-<p>​        self.Y_len &#x3D; self.width * self.height </p>
-<p>​        self.UV_len &#x3D; self.width * self.height &#x2F;&#x2F; 4</p>
-<p>​        self.f &#x3D; open(filename, ‘rb’)</p>
-<p>​        self.Y_shape &#x3D; (self.height, self.width)</p>
-<p>​        self.UV_shape &#x3D; (self.height&#x2F;&#x2F;2, self.width&#x2F;&#x2F;2)</p>
-<p>​    def read_raw(self):</p>
-<p>​        raw &#x3D; self.f.read(self.Y_len)</p>
-<p>​        Y &#x3D; np.frombuffer(raw, dtype&#x3D;np.uint8)</p>
-<p>​        Y &#x3D; Y.reshape(self.Y_shape)</p>
-<p>​        raw &#x3D; self.f.read(self.UV_len)</p>
-<p>​        u &#x3D; np.frombuffer(raw, dtype&#x3D;np.uint8)</p>
-<p>​        u &#x3D; u.reshape(self.UV_shape)</p>
-<p>​        raw &#x3D; self.f.read(self.UV_len)</p>
-<p>​        v &#x3D; np.frombuffer(raw, dtype&#x3D;np.uint8)</p>
-<p>​        v &#x3D; v.reshape(self.UV_shape)</p>
-<p>​        return Y,u,v</p>
-<p>​    def read(self):</p>
-<p>​        Y,u,v &#x3D; self.read_raw()</p>
-<p>​        img &#x3D; np.concatenate((Y.reshape(-1), u.reshape(-1), v.reshape(-1)))</p>
-<p>​        img &#x3D; img.reshape((self.height * 3 &#x2F;&#x2F; 2, self.width)).astype(‘uint8’) # YUV 的存储格式为：I420（YYYY UUVV）</p>
-<p>​        #print(yuv.shape)</p>
-<p>​        bgr &#x3D; cv2.cvtColor(img, cv2.COLOR_YUV2BGR_I420)</p>
-<p>​        return bgr</p>
+<h3 id="一段读取YUV420数据的代码"><a href="#一段读取YUV420数据的代码" class="headerlink" title="一段读取YUV420数据的代码"></a>一段读取YUV420数据的代码</h3><figure class="highlight plaintext"><figcaption><span>VideoCaptureYUV:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, filename, size):</span><br><span class="line"></span><br><span class="line">​        self.width, self.height = size</span><br><span class="line"></span><br><span class="line">​        self.Y_len = self.width * self.height </span><br><span class="line"></span><br><span class="line">​        self.UV_len = self.width * self.height // 4</span><br><span class="line"></span><br><span class="line">​        self.f = open(filename, &#x27;rb&#x27;)</span><br><span class="line"></span><br><span class="line">​        self.Y_shape = (self.height, self.width)</span><br><span class="line"></span><br><span class="line">​        self.UV_shape = (self.height//2, self.width//2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read_raw(self):</span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.Y_len)</span><br><span class="line"></span><br><span class="line">​        Y = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        Y = Y.reshape(self.Y_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        u = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        u = u.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        v = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        v = v.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line">​        return Y,u,v</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read(self):</span><br><span class="line"></span><br><span class="line">​        Y,u,v = self.read_raw()</span><br><span class="line"></span><br><span class="line">​        img = np.concatenate((Y.reshape(-1), u.reshape(-1), v.reshape(-1)))</span><br><span class="line"></span><br><span class="line">​        img = img.reshape((self.height * 3 // 2, self.width)).astype(&#x27;uint8&#x27;) # YUV 的存储格式为：I420（YYYY UUVV）</span><br><span class="line"></span><br><span class="line">​        \#print(yuv.shape)</span><br><span class="line"></span><br><span class="line">​        bgr = cv2.cvtColor(img, cv2.COLOR_YUV2BGR_I420)</span><br><span class="line"></span><br><span class="line">​        return bgr</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
 
       
     </div>
