@@ -71,6 +71,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-install-asitop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/14/install-asitop/" class="article-date">
+  <time class="dt-published" datetime="2022-10-14T07:58:57.000Z" itemprop="datePublished">2022-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/14/install-asitop/">install asitop</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="install-asitop-但是找不到"><a href="#install-asitop-但是找不到" class="headerlink" title="install asitop 但是找不到"></a>install asitop 但是找不到</h2><p>pip3 install asitop</p>
+<h3 id="安装成功了，但是显示"><a href="#安装成功了，但是显示" class="headerlink" title="安装成功了，但是显示"></a>安装成功了，但是显示</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Installing collected packages: asitop</span><br><span class="line"></span><br><span class="line"> WARNING: The script asitop is installed in &#x27;/Users/PeppaZhu/Library/Python/3.9/bin&#x27; which is not on PATH.</span><br></pre></td></tr></table></figure>
+
+<p>然后无法运行asitop which whereis都找不到</p>
+<h3 id="需要添加环境变量"><a href="#需要添加环境变量" class="headerlink" title="需要添加环境变量"></a>需要添加环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -e &#x27;export PATH=&quot;$PATH:/Users/PeppaZhu/Library/Python/3.9/bin&quot;&#x27; &gt;&gt; $HOME/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/14/install-asitop/" data-id="cl987i10a0000h7fb8c4e809j" data-title="install asitop" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-YUV-storage" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/09/26/YUV-storage/" class="article-date">
@@ -115,14 +160,14 @@
 
 
 
-<h3 id="一段读取YUV420数据的代码"><a href="#一段读取YUV420数据的代码" class="headerlink" title="一段读取YUV420数据的代码"></a>一段读取YUV420数据的代码</h3><figure class="highlight plaintext"><figcaption><span>VideoCaptureYUV:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, filename, size):</span><br><span class="line"></span><br><span class="line">​        self.width, self.height = size</span><br><span class="line"></span><br><span class="line">​        self.Y_len = self.width * self.height </span><br><span class="line"></span><br><span class="line">​        self.UV_len = self.width * self.height // 4</span><br><span class="line"></span><br><span class="line">​        self.f = open(filename, &#x27;rb&#x27;)</span><br><span class="line"></span><br><span class="line">​        self.Y_shape = (self.height, self.width)</span><br><span class="line"></span><br><span class="line">​        self.UV_shape = (self.height//2, self.width//2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read_raw(self):</span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.Y_len)</span><br><span class="line"></span><br><span class="line">​        Y = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        Y = Y.reshape(self.Y_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        u = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        u = u.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        v = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        v = v.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line">​        return Y,u,v</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read(self):</span><br><span class="line"></span><br><span class="line">​        Y,u,v = self.read_raw()</span><br><span class="line"></span><br><span class="line">​        img = np.concatenate((Y.reshape(-1), u.reshape(-1), v.reshape(-1)))</span><br><span class="line"></span><br><span class="line">​        img = img.reshape((self.height * 3 // 2, self.width)).astype(&#x27;uint8&#x27;) # YUV 的存储格式为：I420（YYYY UUVV）</span><br><span class="line"></span><br><span class="line">​        \#print(yuv.shape)</span><br><span class="line"></span><br><span class="line">​        bgr = cv2.cvtColor(img, cv2.COLOR_YUV2BGR_I420)</span><br><span class="line"></span><br><span class="line">​        return bgr</span><br></pre></td></tr></table></figure>
+<h3 id="一段读取YUV420数据的代码"><a href="#一段读取YUV420数据的代码" class="headerlink" title="一段读取YUV420数据的代码"></a>一段读取YUV420数据的代码</h3><figure class="highlight plaintext"><figcaption><span>VideoCaptureYUV:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">class VideoCaptureYUV:</span><br><span class="line">def __init__(self, filename, size):</span><br><span class="line"></span><br><span class="line">​        self.width, self.height = size</span><br><span class="line"></span><br><span class="line">​        self.Y_len = self.width * self.height </span><br><span class="line"></span><br><span class="line">​        self.UV_len = self.width * self.height // 4</span><br><span class="line"></span><br><span class="line">​        self.f = open(filename, &#x27;rb&#x27;)</span><br><span class="line"></span><br><span class="line">​        self.Y_shape = (self.height, self.width)</span><br><span class="line"></span><br><span class="line">​        self.UV_shape = (self.height//2, self.width//2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read_raw(self):</span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.Y_len)</span><br><span class="line"></span><br><span class="line">​        Y = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        Y = Y.reshape(self.Y_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        u = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        u = u.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        v = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        v = v.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line">​        return Y,u,v</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read(self):</span><br><span class="line"></span><br><span class="line">​        Y,u,v = self.read_raw()</span><br><span class="line"></span><br><span class="line">​        img = np.concatenate((Y.reshape(-1), u.reshape(-1), v.reshape(-1)))</span><br><span class="line"></span><br><span class="line">​        img = img.reshape((self.height * 3 // 2, self.width)).astype(&#x27;uint8&#x27;) # YUV 的存储格式为：I420（YYYY UUVV）</span><br><span class="line"></span><br><span class="line">​        \#print(yuv.shape)</span><br><span class="line"></span><br><span class="line">​        bgr = cv2.cvtColor(img, cv2.COLOR_YUV2BGR_I420)</span><br><span class="line"></span><br><span class="line">​        return bgr</span><br></pre></td></tr></table></figure>
 
 <p>​    </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/26/YUV-storage/" data-id="cl8iefn2x0000r0fb9rfie74i" data-title="YUV storage" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/26/YUV-storage/" data-id="cl8ie031700013sfbdhovb393" data-title="YUV storage" class="article-share-link">Share</a>
       
       
       
@@ -286,7 +331,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -297,6 +342,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/10/14/install-asitop/">install asitop</a>
+          </li>
         
           <li>
             <a href="/2022/09/26/YUV-storage/">YUV storage</a>
