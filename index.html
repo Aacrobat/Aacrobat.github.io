@@ -71,6 +71,109 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-卡尔曼滤波" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" class="article-date">
+  <time class="dt-published" datetime="2022-11-17T07:53:56.000Z" itemprop="datePublished">2022-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="卡尔曼滤波"><a href="#卡尔曼滤波" class="headerlink" title="卡尔曼滤波"></a>卡尔曼滤波</h3><h4 id="干了这么"><a href="#干了这么" class="headerlink" title="干了这么"></a>干了这么</h4><p>如果有两个系统对一个数据（高度，位置或者其他的）都有测量或者说是观测，但是都不准。那如何通过这两个不准的东西得到一个更准的结果。</p>
+<p>更简单的说法：怎么去求两个数据的加权平均</p>
+<p>如何通俗并尽可能详细地解释卡尔曼滤波？ - Kent Zeng的回答 - 知乎 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23971601/answer/26254459">https://www.zhihu.com/question/23971601/answer/26254459</a></p>
+<h3 id="翻译理解"><a href="#翻译理解" class="headerlink" title="翻译理解"></a>翻译理解</h3><p>接下来按照</p>
+<p><a target="_blank" rel="noopener" href="https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/">https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/</a></p>
+<p>一文简单翻译理解一下</p>
+<h4 id="what-is-it-？"><a href="#what-is-it-？" class="headerlink" title="what is it ？"></a>what is it ？</h4><p>你有一个不准确但是可以观测的，连续变化的系统。此外，你还能对着干观测值进行一些科学推论。但是也不准。通过卡尔曼滤波，可以得到一个更准确的当前值的结果。</p>
+<h4 id="what-can-we-do-with-a-Kalman-filter"><a href="#what-can-we-do-with-a-Kalman-filter" class="headerlink" title="what can we do with a Kalman filter"></a>what can we do with a Kalman filter</h4><p>假设你有一个小机器人，这个机器人在森林里行走，需要定位。</p>
+<p>这个小机器人有一个状态，这个状态包括了当前位置和当前速度。这个速度是某种码表里可以读出来的。此外，这个机器人还有一个GPS定位，表明了当前的位置。不管是GPS还是速度都是不太准的的。怎么得到更准确的当前位置呢？</p>
+<h4 id="how-a-Kalman-filter-sees-your-problem"><a href="#how-a-Kalman-filter-sees-your-problem" class="headerlink" title="how a Kalman filter sees your problem"></a>how a Kalman filter sees your problem</h4><p>我们有两个连续变化的数据，位置和速度，虽然这些都不准，但是有个概率（假设是高斯），就是有些位置，速度可能性更大一些，有些位置，速度可能性更小一些。方差衡量了不同变量各自的不确定性，协方差衡量了他们之间的关系。</p>
+<h4 id="Describe-the-problem-with-martics"><a href="#Describe-the-problem-with-martics" class="headerlink" title="Describe the problem with martics"></a>Describe the problem with martics</h4><p>我们可以得到，当前状态的（速度和位置）的均值，然后和这两个变量之间的斜方差矩阵</p>
+<p>下一步，我们可以通过p &#x3D; p + vt 得到下一次的位置，速度预测。同时更新均值和其斜方差。</p>
+<p>此外，考虑再复杂一些，我们加入外力（加速度）和不确定性。</p>
+<p>最终影响下一次状态的均值的是，当前状态以及外力，影响下一次斜方差的是当前斜方差，不确定噪音。</p>
+<h4 id="Refining-the-estimate-with-measures"><a href="#Refining-the-estimate-with-measures" class="headerlink" title="Refining the estimate with measures"></a>Refining the estimate with measures</h4><p>我们可以通过直接读数，得到一个位置速度分布的概率。我们还可以通过科学推倒得到一个速度位置分布的概率。那将这两个概率相乘归一化，就是更准的概率了。</p>
+<h4 id="putting-it-all-together"><a href="#putting-it-all-together" class="headerlink" title="putting it all together"></a>putting it all together</h4><p>新的位置等于 根据老位置预测出来的新位置，以及新位置读数的加权。加权值由推倒公式，读数概率等原始数据共同决定。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" data-id="claqkc6790001m1fbbh8f7cty" data-title="卡尔曼滤波" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-git在干什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="article-date">
+  <time class="dt-published" datetime="2022-11-17T06:20:48.000Z" itemprop="datePublished">2022-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" alt="Git"></p>
+<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。</p>
+<p>1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？</p>
+<p>1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回</p>
+<p>2 假设本地我修改了A文件，别人在远方修改了B文件，我commit后pull，B文件会被更新，但是A文件我的修改不会丢失</p>
+<p>3 假设本地我修改了A文件，别人在远方修改了A文件，我commit后pull会失败，需要git pull origin sara-ep-attlit –rebase </p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/27718f0741d8">https://www.jianshu.com/p/27718f0741d8</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82">https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2020-05-20-3">https://www.jiqizhixin.com/articles/2020-05-20-3</a></p>
+<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">http://chuquan.me/2022/05/21/understand-principle-of-git/</a></p>
+<p><a target="_blank" rel="noopener" href="https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html">https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" data-id="claqkc6780000m1fbbib43qzj" data-title="git在干什么" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-git-指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/" class="article-date">
@@ -459,6 +562,12 @@
         <h2 id="深海巨坑ffmpeg的使用记录"><a href="#深海巨坑ffmpeg的使用记录" class="headerlink" title="深海巨坑ffmpeg的使用记录"></a>深海巨坑ffmpeg的使用记录</h2><h3 id="将多帧图像合成视频"><a href="#将多帧图像合成视频" class="headerlink" title="将多帧图像合成视频"></a>将多帧图像合成视频</h3><p><code>ffmpeg -r 30 -i output_video/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output_video_fullr.mp4</code></p>
 <p><code>-vf zscale=matrix=709:r=limited</code>负责转换色域，否则默认转出来是BT.601之类的SD标准。显式指定limited 色域很多种，limited显得饱和度高一些，full色域大，同样数据显得饱和度低一些</p>
 <p>这个链接 <a target="_blank" rel="noopener" href="https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html">https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html</a></p>
+<h3 id="截取视频片段"><a href="#截取视频片段" class="headerlink" title="截取视频片段"></a>截取视频片段</h3><p>按照时间截取</p>
+<p>ffmpeg -i input.mp4 -vcodec copy -acodec copy -ss 00:00:00 -to 00:00:05 cutout.mp4 -y</p>
+<p>按照帧截取</p>
+<p>ffmpeg -i input.mp4 -vf”select&#x3D;between(n,20,200)” -y -acodec copy cutout.mp4</p>
+<h3 id="将YUV转成MP4"><a href="#将YUV转成MP4" class="headerlink" title="将YUV转成MP4"></a>将YUV转成MP4</h3><p>ffmpeg -s 640x480 -pix_fmt yuv420p -i output.yuv out3.mp4</p>
+<h3 id="将MP4转YUV"><a href="#将MP4转YUV" class="headerlink" title="将MP4转YUV"></a>将MP4转YUV</h3><p>ffmpeg -i input.mp4 -s 640x480 -pix_fmt yuv420p output.yuv</p>
 <h3 id="将视频拼接"><a href="#将视频拼接" class="headerlink" title="将视频拼接"></a>将视频拼接</h3><p><code>ffmpeg -i peppa_v3_fullr.mp4 -i peppa_v5_fullr_.mp4 -filter_complex &quot;[0:v]pad=iw*2:ih*1[a];[a][1:v]overlay=w&quot; compair_peppa_v3v5.mp4</code></p>
 <p>这个链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Gary__123456/article/details/88742705">https://blog.csdn.net/Gary__123456/article/details/88742705</a></p>
 
@@ -477,98 +586,12 @@
 
 
   
-    <article id="post-firstPage-md" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/08/18/firstPage-md/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:35:59.000Z" itemprop="datePublished">2022-08-18</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/08/18/firstPage-md/">firstPage.md</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><p>开始写博客</p>
-<p>经常想一些东西，经常重复做一些东西，但是很少去记录。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/firstPage-md/" data-id="cl6yunanu0000dofb5k6wdq5w" data-title="firstPage.md" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/08/18/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:13:54.077Z" itemprop="datePublished">2022-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/08/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/hello-world/" data-id="cl6ytu5f60000lxfbhk8y11vc" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -600,7 +623,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -613,6 +636,14 @@
       <ul>
         
           <li>
+            <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
+          </li>
+        
+          <li>
             <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/">git 指令</a>
           </li>
         
@@ -622,14 +653,6 @@
         
           <li>
             <a href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/">mac 连接网盘</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/19/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A02/">c++ 散乱学习 迭代器</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/17/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A0/">c++ 散乱学习之关键字</a>
           </li>
         
       </ul>

@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   
   
-  <title>firstPage.md | Hexo</title>
+  <title>git在干什么 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="hello world开始写博客 经常想一些东西，经常重复做一些东西，但是很少去记录。">
+  <meta name="description" content="git pull1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。 1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？ 1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回 2 假设本地我修改了A文件，别人在远方修改了B文件，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="firstPage.md">
-<meta property="og:url" content="http://example.com/2022/08/18/firstPage-md/index.html">
+<meta property="og:title" content="git在干什么">
+<meta property="og:url" content="http://example.com/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="hello world开始写博客 经常想一些东西，经常重复做一些东西，但是很少去记录。">
+<meta property="og:description" content="git pull1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。 1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？ 1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回 2 假设本地我修改了A文件，别人在远方修改了B文件，">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-08-18T09:35:59.000Z">
-<meta property="article:modified_time" content="2022-09-21T07:49:41.745Z">
+<meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png">
+<meta property="article:published_time" content="2022-11-17T06:20:48.000Z">
+<meta property="article:modified_time" content="2022-11-17T07:53:40.744Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -73,10 +75,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-firstPage-md" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-git在干什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/08/18/firstPage-md/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:35:59.000Z" itemprop="datePublished">2022-08-18</time>
+    <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="article-date">
+  <time class="dt-published" datetime="2022-11-17T06:20:48.000Z" itemprop="datePublished">2022-11-17</time>
 </a>
     
   </div>
@@ -87,7 +89,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      firstPage.md
+      git在干什么
     </h1>
   
 
@@ -95,13 +97,22 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><p>开始写博客</p>
-<p>经常想一些东西，经常重复做一些东西，但是很少去记录。</p>
+        <p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" alt="Git"></p>
+<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。</p>
+<p>1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？</p>
+<p>1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回</p>
+<p>2 假设本地我修改了A文件，别人在远方修改了B文件，我commit后pull，B文件会被更新，但是A文件我的修改不会丢失</p>
+<p>3 假设本地我修改了A文件，别人在远方修改了A文件，我commit后pull会失败，需要git pull origin sara-ep-attlit –rebase </p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/27718f0741d8">https://www.jianshu.com/p/27718f0741d8</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82">https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2020-05-20-3">https://www.jiqizhixin.com/articles/2020-05-20-3</a></p>
+<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">http://chuquan.me/2022/05/21/understand-principle-of-git/</a></p>
+<p><a target="_blank" rel="noopener" href="https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html">https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/firstPage-md/" data-id="cl6yunanu0000dofb5k6wdq5w" data-title="firstPage.md" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" data-id="claqkc6780000m1fbbib43qzj" data-title="git在干什么" class="article-share-link">Share</a>
       
       
       
@@ -111,19 +122,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/09/21/ffmpeg-record/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          ffmpeg record
+          卡尔曼滤波
         
       </div>
     </a>
   
   
-    <a href="/2022/08/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">git 指令</div>
     </a>
   
 </nav>
