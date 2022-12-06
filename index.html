@@ -94,6 +94,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h3 id="双边滤波-for-gray-and-color-images"><a href="#双边滤波-for-gray-and-color-images" class="headerlink" title="双边滤波 for gray and color images"></a>双边滤波 for gray and color images</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。</p>
+<p>! [test] (<a target="_blank" rel="noopener" href="https://github.com/Aacrobat/Aacrobat.github.io/blob/master/img/filter/2022-12-02-17-38-26-image.png">https://github.com/Aacrobat/Aacrobat.github.io/blob/master/img/filter/2022-12-02-17-38-26-image.png</a>)</p>
 <p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-44-27-image.png"></p>
 <h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-40-06-image.png"></p>
 <p>在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。</p>
