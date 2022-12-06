@@ -94,10 +94,10 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h3 id="双边滤波-for-gray-and-color-images"><a href="#双边滤波-for-gray-and-color-images" class="headerlink" title="双边滤波 for gray and color images"></a>双边滤波 for gray and color images</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-38-26-image.png" alt="test"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-38-26-image.png"></p>
 <h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-40-06-image.png" alt="test"></p>
 <p>在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。</p>
-<h4 id="实验现象"><a href="#实验现象" class="headerlink" title="实验现象"></a>实验现象</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-49-40-image.png"></p>
+<h4 id="实验现象"><a href="#实验现象" class="headerlink" title="实验现象"></a>实验现象</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-49-40-image.png"></p>
 <p>如果只做色彩滤镜相当于对直方图进行压缩，也就是只做色彩滤镜相当于把全图色彩平均，向中灰度压缩。</p>
 <p>当像素相似度比较大的时候（100～300），对于小的范围参数影响不大了，因为几乎小范围内的所有数据都在像素相似度内。整图结果主要由范围半径控制。</p>
 <p>当范围半径比较大的时候，双边滤波更像是色彩相似度滤镜，表现为对直方图的压缩，现象就是偏灰。</p>
