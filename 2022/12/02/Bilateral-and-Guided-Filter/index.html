@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Bilateral and Guided Filter | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="双边滤波 for gray and color images原理在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。  公式 在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。 实验现象 如果只做色彩滤镜相当于对直方图进行压缩，也就是只做色彩滤镜相当于把全图色彩平均，向中灰度压缩。 当像素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bilateral and Guided Filter">
+<meta property="og:url" content="http://example.com/2022/12/02/Bilateral-and-Guided-Filter/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="双边滤波 for gray and color images原理在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。  公式 在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。 实验现象 如果只做色彩滤镜相当于对直方图进行压缩，也就是只做色彩滤镜相当于把全图色彩平均，向中灰度压缩。 当像素">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-44-27-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-40-06-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-49-40-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-57-54-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-24-56-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-27-36-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-27-52-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-28-09-image.png">
+<meta property="og:image" content="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-31-40-image.png">
+<meta property="og:image" content="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-51-46-image.png">
+<meta property="og:image" content="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-38-26-image.png">
+<meta property="og:image" content="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-38-41-image.png">
+<meta property="article:published_time" content="2022-12-02T08:40:39.000Z">
+<meta property="article:modified_time" content="2022-12-06T02:29:01.772Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-44-27-image.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Bilateral-and-Guided-Filter" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/02/Bilateral-and-Guided-Filter/" class="article-date">
+  <time class="dt-published" datetime="2022-12-02T08:40:39.000Z" itemprop="datePublished">2022-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Bilateral and Guided Filter
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="双边滤波-for-gray-and-color-images"><a href="#双边滤波-for-gray-and-color-images" class="headerlink" title="双边滤波 for gray and color images"></a>双边滤波 for gray and color images</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-44-27-image.png"></p>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-40-06-image.png"></p>
+<p>在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。</p>
+<h4 id="实验现象"><a href="#实验现象" class="headerlink" title="实验现象"></a>实验现象</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-49-40-image.png"></p>
+<p>如果只做色彩滤镜相当于对直方图进行压缩，也就是只做色彩滤镜相当于把全图色彩平均，向中灰度压缩。</p>
+<p>当像素相似度比较大的时候（100～300），对于小的范围参数影响不大了，因为几乎小范围内的所有数据都在像素相似度内。整图结果主要由范围半径控制。</p>
+<p>当范围半径比较大的时候，双边滤波更像是色彩相似度滤镜，表现为对直方图的压缩，现象就是偏灰。</p>
+<h4 id="常说到的导致梯度反转"><a href="#常说到的导致梯度反转" class="headerlink" title="常说到的导致梯度反转"></a>常说到的导致梯度反转</h4><p>首先，是双边滤波在做Tone Mapping时才会导致梯度反转。并不是直接用双边滤波得到保边平滑图就会出现梯度反转。</p>
+<p>双边滤波在做Tone Mapping时，<em>Fast Bilateral Filtering for the Display of High-Dynamic-Range Images</em> ，将图像分成base层和ditail 层 base &#x3D; BF（ori_img) detail &#x3D; ori_img.&#x2F;base。由于base层在边缘处加权的数据少，所以不稳定，偏向没有边缘的那一侧的值。导致的detail层也不稳定，在增强或者压缩base后，叠加detail会出现梯度反转。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-17-57-54-image.png"></p>
+<h3 id="Guided-Filter"><a href="#Guided-Filter" class="headerlink" title="Guided Filter"></a>Guided Filter</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>保边平滑，线性时间复杂度（与滤波半径无关），以及和matting Laplacian matrix理论有相似形式。可以用于：去噪，细节增强&#x2F;平滑，HDR压缩，抠图，羽化，去雾，联合双边上采样。</p>
+<h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-24-56-image.png"></p>
+<p>在一个小的局部区域，输出是guidance I 的一个线性变化，通过这个假设来确保，在局部，输出q的梯度和guidance I的梯度成比例，从而引入，或者说保留guidance I的梯度。</p>
+<h4 id="公式-1"><a href="#公式-1" class="headerlink" title="公式"></a>公式</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-27-36-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-27-52-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-02-18-28-09-image.png"></p>
+<p>公式意义：当I没有梯度的时候，a等于0 ；当p没有梯度的时候，a等于0；当I有比较大的梯度，a接近1，I的梯度得到保留；当引导图的方差远小于eps时，像素被平滑，当引导图方差大于eps时，I被保留。</p>
+<p>线性复杂度：由于一个固定方框内的均值方差可以采用box filter的优化方式变成线性复杂度，因此本算法也可以优化成线性复杂度。</p>
+<h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。</p>
+<img src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-31-40-image.png" title="" alt="" width="434">
+
+<p><img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
+<p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。</p>
+<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>相同颜色（rgb分量上）的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/02/Bilateral-and-Guided-Filter/" data-id="clbblrwxt0000qtfb98wb8158" data-title="Bilateral and Guided Filter" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">卡尔曼滤波</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/c/" style="font-size: 10px;">c++</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/02/Bilateral-and-Guided-Filter/">Bilateral and Guided Filter</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/">git 指令</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/24/c-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">c++程序编译过程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
