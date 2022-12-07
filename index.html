@@ -142,6 +142,9 @@
 <p>#! 是一个约定的标记，它告诉系统这个脚本需要什么解释器（sh、bash、php等等）来执行。</p>
 <h3 id="使用模版"><a href="#使用模版" class="headerlink" title="使用模版"></a>使用模版</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;Hello World !&quot;</span><br><span class="line">ffmpeg -r 30 -i output/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output.mp4</span><br><span class="line">mkdir backlit</span><br><span class="line">ffmpeg -i backlit.mp4 -r 30 backlit/%05d.png</span><br></pre></td></tr></table></figure>
 
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html">https://www.runoob.com/linux/linux-command-manual.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/thatsit/p/shell-jiao-ben-shu-xie-gui-fan.html">Shell脚本书写规范 - That’s_it - 博客园</a></p>
+
       
     </div>
     <footer class="article-footer">
@@ -195,10 +198,13 @@
 <h3 id="Guided-Filter"><a href="#Guided-Filter" class="headerlink" title="Guided Filter"></a>Guided Filter</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>保边平滑，线性时间复杂度（与滤波半径无关），以及和matting Laplacian matrix理论有相似形式。可以用于：去噪，细节增强&#x2F;平滑，HDR压缩，抠图，羽化，去雾，联合双边上采样。</p>
 <h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-24-56-image.png"></p>
 <p>在一个小的局部区域，输出是guidance I 的一个线性变化，通过这个假设来确保，在局部，输出q的梯度和guidance I的梯度成比例，从而引入，或者说保留guidance I的梯度。</p>
+<p><strong>在一个局部的区域内，输出q，或者说是去噪音后的输入p，是引导图I的一个kI+b的线性变化。kI也就是，引导图的变化趋势都被保留，b是为了模拟p所在的bias。</strong></p>
 <h4 id="公式-1"><a href="#公式-1" class="headerlink" title="公式"></a>公式</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-27-36-image.png"></p>
 <p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-27-52-image.png"></p>
 <p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-28-09-image.png"></p>
-<p>公式意义：当I没有梯度的时候，a等于0 ；当p没有梯度的时候，a等于0；当I有比较大的梯度，a接近1，I的梯度得到保留；当引导图的方差远小于eps时，像素被平滑，当引导图方差大于eps时，I被保留。</p>
+<p>公式意义：当I没有梯度的时候，a等于0 ；当p没有梯度的时候，a等于0；当I有比较大的梯度，p也有比较大梯度，且他们有相关性的时候（分子一定，也就是I方差一定，Ip相关性越大分子越大），a越大，I的梯度得到保留；当引导图的方差远小于eps时，a几乎等于0，像素被平滑，当引导图方差大于eps时，I被保留。</p>
+<p>公式几何意义：在一个局部区域内，I为横轴p为纵轴，q &#x3D; aI+b，也就是一条直线尽量拟合每一个(I,p) ,那么根据这个拟合结果，可以对原本的p有一个新的输出q。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-07-13-45-24-image.png"></p>
 <p>线性复杂度：由于一个固定方框内的均值方差可以采用box filter的优化方式变成线性复杂度，因此本算法也可以优化成线性复杂度。</p>
 <h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。</p>
 <img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-31-40-image.png" alt="" width="434">
@@ -206,6 +212,7 @@
 <p><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
 <p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。</p>
 <h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>相同颜色（rgb分量上）的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a target="_blank" rel="noopener" href="https://github.com/lisabug/guided-filter">https://github.com/lisabug/guided-filter</a></p>
 
       
     </div>
