@@ -71,6 +71,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-cplusplus里数据类型和大小" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/" class="article-date">
+  <time class="dt-published" datetime="2022-12-08T07:55:05.000Z" itemprop="datePublished">2022-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/">cplusplus里数据类型和大小</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>相同位数的系统下，每一个变量的地址大小相同</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">        int32_t va; int32_t* vb; double vc; double* vd; uint8_t ve; uint8_t* vf; intptr_t vg;</span><br><span class="line"></span><br><span class="line">        int32_t a = sizeof(&amp;va); //8</span><br><span class="line">int32_t b = sizeof(&amp;vb); //8</span><br><span class="line">int32_t d = sizeof(&amp;vc); //8</span><br><span class="line">int32_t e = sizeof(&amp;vd); //8</span><br><span class="line">int32_t f = sizeof(&amp;ve); //8</span><br><span class="line">int32_t g = sizeof(&amp;vf); //8</span><br><span class="line">int32_t h = sizeof(&amp;vg); //8</span><br></pre></td></tr></table></figure>
+
+<p>以上变量地址大小都是 8 ，因为在64位体统下。</p>
+<p><strong>相同位数的系统下，不同类型变量占有的空间大小不同</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int32_t va; int32_t* vb; double vc; double* vd; uint8_t ve; uint8_t* vf; intptr_t vg;</span><br><span class="line"></span><br><span class="line">int32_t a = sizeof(va); //4</span><br><span class="line">int32_t b = sizeof(vb); //8</span><br><span class="line">int32_t d = sizeof(vc); //8</span><br><span class="line">int32_t e = sizeof(vd); //8</span><br><span class="line">int32_t f = sizeof(ve); //1</span><br><span class="line">int32_t g = sizeof(vf); //8</span><br><span class="line">int32_t h = sizeof(vg); //8</span><br><span class="line">int32_t i = sizeof(*vb); //4</span><br></pre></td></tr></table></figure>
+
+<p>这里*vb &#x3D;&#x3D; vb[0] </p>
+<p><strong>不同位数的系统下，不同&#x2F;相同变量占有的大小不同</strong></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/zoom.us/data/huxydboosaen_lteblcgfg@xmpp.zoom.us/d0979e4f90c993f833284fe2745346569fd4497a5cc8f3e89cd5572b9a8be7cc/32B527F7-37F7-44D0-A4EB-1F35F0AD60C8.jpg"></p>
+<p>当申请一块 uint_8* buff 时，系统划分出一个8字节的大小，存储了一个指向随机位置的指针。</p>
+<p>buff &#x3D; (uint_8*)calloc(seizeof(*buff) * 10,0 ); 时，buff指向了一块地址。这块地址保存的都是十个 1字节的uint_8数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uint8_t* aa;</span><br><span class="line">        aa = (uint8_t*)zltCMemoryBasic::zlt_calloc(sizeof(*aa) * bufSizeB * 12, 0);</span><br><span class="line">        aa[0] = 1; aa[1] = 2;</span><br><span class="line">        uint8_t a = aa[0]; //1</span><br><span class="line">        uint8_t c = aa[1]; //2</span><br><span class="line">        uint8_t b = *aa; //1</span><br><span class="line">        uint8_t d = *(aa+1); //2</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/" data-id="clbev6o0i0000x1fbhld5hhq8" data-title="cplusplus里数据类型和大小" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Markdown语法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/" class="article-date">
@@ -206,12 +259,14 @@
 <p>公式几何意义：在一个局部区域内，I为横轴p为纵轴，q &#x3D; aI+b，也就是一条直线尽量拟合每一个(I,p) ,那么根据这个拟合结果，可以对原本的p有一个新的输出q。</p>
 <p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-07-13-45-24-image.png"></p>
 <p>线性复杂度：由于一个固定方框内的均值方差可以采用box filter的优化方式变成线性复杂度，因此本算法也可以优化成线性复杂度。</p>
-<h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。</p>
+<h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。简单来说，在边缘处黑度图他们不可清晰分类。</p>
 <img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-31-40-image.png" alt="" width="434">
 
 <p><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
-<p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。</p>
-<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>相同颜色（rgb分量上）的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，</p>
+<p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。简单来说，在rgb色彩空间，边缘可分。</p>
+<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>半径不能太大。不然线性无法拟合。</p>
+<p>几乎完全相同颜色的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，因为本质上相同颜色不可分。于是会出现更多错误。</p>
+<p>边缘处有rgb色彩重叠，会有些错分，带来就是部分引入错误，淡化原本01的强分割边界。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a target="_blank" rel="noopener" href="https://github.com/lisabug/guided-filter">https://github.com/lisabug/guided-filter</a></p>
 
       
@@ -513,78 +568,6 @@
 
 
   
-    <article id="post-c-散乱学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/17/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A0/" class="article-date">
-  <time class="dt-published" datetime="2022-10-17T06:10:03.000Z" itemprop="datePublished">2022-10-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/17/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A0/">c++ 散乱学习之关键字</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="c-中基础语法"><a href="#c-中基础语法" class="headerlink" title="c++ 中基础语法"></a>c++ 中基础语法</h2><h3 id="public-和-private"><a href="#public-和-private" class="headerlink" title="public 和 private"></a>public 和 private</h3><p>分为成员变量成员函数的和继承。</p>
-<p>对于变量和函数来说：</p>
-<p>public是类的成员函数，类的实例变量都可访问；private是类的实例变量不能访问，但是优元函数，变量可以访问。</p>
-<p>对于继承来说：</p>
-<p>派生类的成员函数，可以访问基类的public成员、protected成员，但是无法访问基类的private成员。（意思就是无法直接修改基类的private变量）</p>
-<p>派生类的实例变量，可以访问基类的public成员，但是无法访问protected、private成员。</p>
-<p>在我们的class attentionlight里，所有变量都是private的，不需要外部修改访问。细节实现逻辑函数都是private，不需要暴露。new 函数 set函数 transform函数是public的。外部接口调用。</p>
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hhg337372083/article/details/89213878">https://blog.csdn.net/hhg337372083/article/details/89213878</a></p>
-<p>static修饰变量</p>
-<p>只初始化一次，在运行前就初始化了。生命周期是程序运行结束才释放的。</p>
-<p>被 static 修饰的变量属于类变量，可以通过<strong>类名.变量名</strong>直接引用，而不需要 new 出一个类来，</p>
-<p>类中static 变量独立于类的任意一个对象，其值修改被类的所有对象看到</p>
-<p>static数据成员必须在类定义的外部定义，通常放在包含类的非内联成员函数定义的文件中。</p>
-<p>但是也有例外，const static 数据成员可以在类的定义体中进行初始化，因为const定义时必须初始化。</p>
-<p>static修饰函数</p>
-<p>static 修饰一个函数，则这个函数的只能在本文件中调用，不能被其他文件调用</p>
-<p>被 static 修饰的方法属于类方法，可以通过<strong>类名.方法名</strong>直接引用，而不需要 new 出一个类来</p>
-<p>“ 为什么 ”static成员函数由于不与任何对象关联，因此它不具备this指针，因此，它无法访问属于类对象的非静态数据成员，也无法访问<br>非静态成员函数。<em>也就是说，类的静态成员函数，只能调用该类的其它静态成员函数和静态数据成员。</em> 但是在我们的工程里面有 static New呢</p>
-<p><a target="_blank" rel="noopener" href="http://legendtkl.com/2014/09/30/cplusplus-static-and-virtual/">http://legendtkl.com/2014/09/30/cplusplus-static-and-virtual/</a></p>
-<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><ol>
-<li><p>限定变量为不可修改。</p>
-</li>
-<li><p>限定成员函数不可以修改任何数据成员。</p>
-</li>
-<li><p>const与指针：</p>
-<p>   const char *p 表示 指向的内容不能改变 ; char * const p，就是将P声明为常指针，它的地址不能改变，是固定的，但是它的内容可以改变。</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shihuboke/article/details/79286669">https://blog.csdn.net/shihuboke/article/details/79286669</a></p>
-<h3 id="virtual"><a href="#virtual" class="headerlink" title="virtual"></a>virtual</h3><p>感觉是方便子类进行多态的</p>
-<h3 id="override"><a href="#override" class="headerlink" title="override"></a>override</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/i_chaoren/article/details/77281785">https://blog.csdn.net/i_chaoren/article/details/77281785</a></p>
-<p>防止子类在继承时，没有重写覆盖父类函数。仅在成员函数声明之后使用时才是区分上下文的且具有特殊含义；否则，它不是保留的关键字。使用 override 有助于防止代码中出现意外的继承行为。</p>
-<h3 id="typename"><a href="#typename" class="headerlink" title="typename"></a>typename</h3>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/17/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A0/" data-id="cl9fdl2m60000aefbary4h7gl" data-title="c++ 散乱学习之关键字" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -635,6 +618,10 @@
       <ul>
         
           <li>
+            <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/">cplusplus里数据类型和大小</a>
+          </li>
+        
+          <li>
             <a href="/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a>
           </li>
         
@@ -648,10 +635,6 @@
         
           <li>
             <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
-          </li>
-        
-          <li>
-            <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
           </li>
         
       </ul>
