@@ -71,6 +71,92 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-python超参传递" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/" class="article-date">
+  <time class="dt-published" datetime="2022-12-28T07:40:56.000Z" itemprop="datePublished">2022-12-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/">python超参传递</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(&quot;-in&quot;, &quot;--inputA&quot;, help=&quot;this is parameter a&quot;, type=str, default=&quot;&quot;)</span><br><span class="line">parser.add_argument(&quot;-out&quot;, &quot;--outputB&quot;, help=&quot;this is parameter b&quot;,  type=str, default=&quot;&quot;)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">print(args.inputA)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 /Users/PeppaZhu/Desktop/studio_light/zoom_VB/test_V4_1NGF.py -in test_video_gfdebug/peppa_13test.mov -out peppa_13test_V4_4</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/" data-id="clc7ctn850001gofbcgdr4vfu" data-title="python超参传递" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cplusplus文件管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2022-12-28T07:30:21.000Z" itemprop="datePublished">2022-12-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">cplusplus文件管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;filesystem&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">namespace fs = std::filesystem;</span><br><span class="line">std::string path = &quot;/Users/oliverzhu/Desktop/test_video/&quot;;</span><br><span class="line">for (const auto &amp;entry : fs::directory_iterator(path))&#123;</span><br><span class="line">        //将文件夹下所有文件名得到</span><br><span class="line">        std::string inputpath = entry.path();</span><br><span class="line">        std::string::size_type nPos1 = std::string::npos;</span><br><span class="line">        std::string::size_type nPos2 = std::string::npos;</span><br><span class="line">        nPos1 = inputpath.find_last_of(&quot;/&quot;);</span><br><span class="line">        nPos2 = inputpath.find_last_of(&quot;.&quot;);</span><br><span class="line">        //截取/开始 长度为nPos2-nPos1-1的字符串</span><br><span class="line">        std::string strPath = inputpath.substr(nPos1 + 1, nPos2-nPos1-1);</span><br><span class="line">        std::string input_path;</span><br><span class="line">        std::string output_path;</span><br><span class="line">        if (nPos2-nPos1 &gt; 1)</span><br><span class="line">        &#123;</span><br><span class="line">            // vaild input path</span><br><span class="line">            input_path = inputpath;</span><br><span class="line">            output_path = &quot;/Users/oliverzhu/Desktop/results/&quot; + strPath + &quot;.mp4&quot;;</span><br><span class="line">            std::cout &lt;&lt; input_path &lt;&lt; std::endl;</span><br><span class="line">            std::cout &lt;&lt; output_path &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://codeantenna.com/a/vhWRDy0wan">https://codeantenna.com/a/vhWRDy0wan</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" data-id="clc7ctn830000gofb6aep9hva" data-title="cplusplus文件管理" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-cplusplus里数据类型和大小" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/" class="article-date">
@@ -410,13 +496,12 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="Git-指令"><a href="#Git-指令" class="headerlink" title="Git 指令"></a>Git 指令</h2><p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" alt="Git"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">列出所有本地分支</span><br><span class="line">git branch</span><br><span class="line">删除分支</span><br><span class="line">git branch -d [branch-name]</span><br><span class="line">新建一个分支，但依然停留在当前分支</span><br><span class="line">git branch [branch-name]</span><br><span class="line">切换到指定分支，并更新工作区</span><br><span class="line">git checkout [branch-name]</span><br><span class="line"></span><br><span class="line">拉代码     </span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">恢复暂存区的指定文件到工作区</span><br><span class="line">git checkout [file]</span><br><span class="line">恢复暂存区的所有文件到工作区</span><br><span class="line">git checkout .</span><br><span class="line"></span><br><span class="line">提交工作区自上次commit之后的变化，直接到仓库区</span><br><span class="line">git commit -a </span><br><span class="line">提交暂存区到仓库区</span><br><span class="line">git commit -m [message]</span><br><span class="line">添加指定文件到暂存区</span><br><span class="line">git add [file1] [file2] ...</span><br><span class="line"></span><br><span class="line">上传本地指定分支到远程仓库</span><br><span class="line">git push [remote] [branch]</span><br><span class="line"></span><br><span class="line">显示有变更的文件</span><br><span class="line">git status</span><br><span class="line">显示当前分支的版本历史</span><br><span class="line">git log</span><br><span class="line">重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</span><br><span class="line">git reset --hard [commit]</span><br><span class="line"></span><br><span class="line">提交流程</span><br><span class="line">git commit -a git pull git push</span><br><span class="line">如果git pull 失败 有人和我同时修改了某个文件</span><br><span class="line">git pull origin master --rebase</span><br><span class="line">git rebase --continue</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">列出所有本地分支</span><br><span class="line">git branch</span><br><span class="line">删除分支</span><br><span class="line">git branch -d [branch-name]</span><br><span class="line">新建一个分支，但依然停留在当前分支</span><br><span class="line">git branch [branch-name]</span><br><span class="line">切换到指定分支，并更新工作区</span><br><span class="line">git checkout [branch-name]</span><br><span class="line"></span><br><span class="line">拉代码     </span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">恢复暂存区的指定文件到工作区</span><br><span class="line">git checkout [file]</span><br><span class="line">恢复暂存区的所有文件到工作区</span><br><span class="line">git checkout .</span><br><span class="line"></span><br><span class="line">提交工作区自上次commit之后的变化，直接到仓库区</span><br><span class="line">git commit -a </span><br><span class="line">提交暂存区到仓库区</span><br><span class="line">git commit -m [message]</span><br><span class="line">添加指定文件到暂存区</span><br><span class="line">git add [file1] [file2] ...</span><br><span class="line"></span><br><span class="line">上传本地指定分支到远程仓库</span><br><span class="line">git push [remote] [branch]</span><br><span class="line"></span><br><span class="line">显示有变更的文件</span><br><span class="line">git status ：命令显示工作目录和暂存区的状态。它让我们可以查看哪些更改已提交暂存区，哪些尚未提交暂存区，以及 Git 未跟踪哪些文件。</span><br><span class="line"></span><br><span class="line">显示当前分支的版本历史</span><br><span class="line">git log</span><br><span class="line">重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</span><br><span class="line">git reset --hard [commit]</span><br><span class="line"></span><br><span class="line">提交流程</span><br><span class="line">git commit -a git pull git push</span><br><span class="line">如果git pull 失败 有人和我同时修改了某个文件</span><br><span class="line">git pull origin master --rebase</span><br><span class="line">git rebase --continue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">撤销错误操作</span><br><span class="line">git reflog 查看历史变更记录</span><br><span class="line">git reset --hard 40a9jj(hash)</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ellen-mylife/p/12794245.html">https://www.cnblogs.com/ellen-mylife/p/12794245.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dingyi4815313/article/details/114068189">https://blog.csdn.net/dingyi4815313/article/details/114068189</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jiyik.com/w/git/git-status">Git status 查看仓库状态——迹忆客</a></p>
 
       
     </div>
@@ -461,11 +546,52 @@
 <h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><p>将汇编代码转换成二进制机器码</p>
 <p>通常一个目标文件中至少有两个段，代码段和数据段. 将 .s 转化成.o</p>
 <h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接程序的主要工作就是将有关的目标文件彼此相连接，使得所有的这些目标文件成为一个能够被操作系统装入执行的统一整体。主要分动态链接（.so)和静态链接(.a) .将 .o 转化成.out</p>
+<table>
+<thead>
+<tr>
+<th>后缀名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.c&#x2F;.C&#x2F;.cc&#x2F;.cp&#x2F;.cpp&#x2F;.cxx&#x2F;.c++</td>
+<td>源代码文件，函数和变量的<strong>定义&#x2F;实现</strong></td>
+</tr>
+<tr>
+<td>.h</td>
+<td>头文件，函数和变量的<strong>声明</strong></td>
+</tr>
+<tr>
+<td>.ii</td>
+<td>编译预处理产生的文件</td>
+</tr>
+<tr>
+<td>.s</td>
+<td>编译产生的汇编语言文件</td>
+</tr>
+<tr>
+<td>.o (.obj in Windows)</td>
+<td>编译产生的中间目标文件</td>
+</tr>
+<tr>
+<td>.a</td>
+<td>打包目标文件的库文件</td>
+</tr>
+<tr>
+<td>.so</td>
+<td>编译产生的动态库文件</td>
+</tr>
+<tr>
+<td>.out (.exe in Windows)</td>
+<td>链接目标文件产生的可执行文件</td>
+</tr>
+</tbody></table>
 <h3 id="VC-6-0中Compile和Build的区别"><a href="#VC-6-0中Compile和Build的区别" class="headerlink" title="VC++6.0中Compile和Build的区别"></a>VC++6.0中Compile和Build的区别</h3><p>“compile”是“编译”的意思，“build”是“链接”的意思。<br><strong>compile</strong> 的作用是对你的代码进行语法检查，将你的文本程序语言转化成计算机可以运行的“01010….”形式的二进制文件。<br><strong>build</strong> 的作用是将你在程序中调用到的类库融合到你的程序中，比如你用到了printf()函数，那么内部实现该函数的类库代码就会添加到你的程序中。<br>compile过程生成“.obj”文件或”.o”文件，这个和编译器有关，vc++中是“.obj”文件。<br>build过程生成“.exe”文件。这个可以直接运行<br>理论上来说应该先点”complile”,再点”build”。不过在vc++中直接点“build”它会自动先给你compile再build</p>
 <p>参考</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011718663/article/details/118163962">https://blog.csdn.net/u011718663/article/details/118163962</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hexkang/article/details/126402730">https://blog.csdn.net/hexkang/article/details/126402730</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sxy370921/p/11726583.html">https://www.cnblogs.com/sxy370921/p/11726583.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jinhang.work/tech/cpp-building-process/">C&#x2F;C++的编译过程 | 分阶段的汇编指令</a></p>
 
       
     </div>
@@ -474,92 +600,6 @@
       
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-mac-连接网盘" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/" class="article-date">
-  <time class="dt-published" datetime="2022-10-19T08:21:18.000Z" itemprop="datePublished">2022-10-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/">mac 连接网盘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Mac-连接到服务器并在代码中访问"><a href="#Mac-连接到服务器并在代码中访问" class="headerlink" title="Mac 连接到服务器并在代码中访问"></a>Mac 连接到服务器并在代码中访问</h2><p>在go中选择 connect to severe</p>
-<p>输入服务器地址 例如<a href="ftp://10.100.116.21/">ftp://10.100.116.21</a>  smb:&#x2F;&#x2F;</p>
-<p>选择connect按钮</p>
-<p>根据输入的连接类型和地址 输入相应的账户密码即可连接</p>
-<h3 id="ftp与smb的不同"><a href="#ftp与smb的不同" class="headerlink" title="ftp与smb的不同"></a>ftp与smb的不同</h3><p>Smb 可以提供用户登入 SAMBA 主机时的身份认证，以提供不同身份者的个别数据, 所以输入的账户密码可能克ftp不同，且访问到的文件夹和ftp也不同</p>
-<h3 id="访问时"><a href="#访问时" class="headerlink" title="访问时"></a>访问时</h3><p>&#x2F;Users&#x2F;..&#x2F;..&#x2F;Volumes&#x2F;10.100.116.21&#x2F;</p>
-<p>或者直接相对路径一路..&#x2F;..&#x2F;</p>
-<h3 id="找不到时"><a href="#找不到时" class="headerlink" title="找不到时"></a>找不到时</h3><p>在 Finder 里Finder Setting 里 show Connected servers 勾选上</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/" data-id="cl9fdl2ma0003aefbazb9axfz" data-title="mac 连接网盘" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-c-散乱学习2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/19/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A02/" class="article-date">
-  <time class="dt-published" datetime="2022-10-19T07:57:39.000Z" itemprop="datePublished">2022-10-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/19/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A02/">c++ 散乱学习 迭代器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/19/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A02/" data-id="cl9fdl2mb0004aefb7m4d2oub" data-title="c++ 散乱学习 迭代器" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
-
     </footer>
   </div>
   
@@ -586,7 +626,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
     </div>
   </div>
 
@@ -596,7 +636,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a>
+      <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a>
     </div>
   </div>
 
@@ -618,6 +658,14 @@
       <ul>
         
           <li>
+            <a href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/">python超参传递</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">cplusplus文件管理</a>
+          </li>
+        
+          <li>
             <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/">cplusplus里数据类型和大小</a>
           </li>
         
@@ -627,14 +675,6 @@
         
           <li>
             <a href="/2022/12/06/Shell%E6%8C%87%E4%BB%A4/">Shell指令</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/02/Bilateral-and-Guided-Filter/">Bilateral and Guided Filter</a>
-          </li>
-        
-          <li>
-            <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
           </li>
         
       </ul>
