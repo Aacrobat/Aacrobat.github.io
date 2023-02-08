@@ -15,8 +15,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png">
 <meta property="article:published_time" content="2022-10-31T02:13:28.000Z">
-<meta property="article:modified_time" content="2022-12-29T09:06:39.766Z">
+<meta property="article:modified_time" content="2023-01-13T02:55:38.569Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png">
   
@@ -105,7 +106,7 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dingyi4815313/article/details/114068189">https://blog.csdn.net/dingyi4815313/article/details/114068189</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5f4772dc60c2">Fatal: Not possible to fast-forward, aborting - 简书</a>](<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5f4772dc60c2">https://www.jianshu.com/p/5f4772dc60c2</a>)</p>
 <p><a target="_blank" rel="noopener" href="https://www.jiyik.com/w/git/git-status">Git status 查看仓库状态——迹忆客</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">场景1 无干扰提交文件</span><br><span class="line">git diff</span><br><span class="line">//查看这次我都改动了什么，也就是工作区和暂存区的区别</span><br><span class="line">git commit -a -m &#x27;this is a submit&#x27;</span><br><span class="line">//从工作区到暂存区到本地仓库</span><br><span class="line">git pull</span><br><span class="line">//远端如果有修改也fetch merge 了</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">使用场景2 查看一下当前状态，</span><br><span class="line">git branch</span><br><span class="line">git diff</span><br><span class="line">git status</span><br><span class="line">git log</span><br><span class="line">git diff --cached 或 git diff --staged 查看暂存区和上一次commit的区别</span><br><span class="line">git diff HEAD 查看已缓存的与未缓存的与上一次commit所有改动：</span><br><span class="line">//以上查看的都是本地记录的当前的一些情况</span><br><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line">使用场景3 自己分支commit成功，但是push远端产生冲突</span><br><span class="line">git pull 不能正确fetch + merge</span><br><span class="line">git pull origin feature-ep-new --rebase</span><br><span class="line">// 这时候本地工作区是合并的内容 本地暂存区和仓库呢 </span><br><span class="line">// 需要再add commit 才能push还是直接push </span><br><span class="line">// 仓库也是合并的内容了，应该可以直接push了</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">使用场景4 只想commit一部分文件，且要解决远程冲突</span><br><span class="line">git add a.cpp</span><br><span class="line">git commit -m &#x27;change a&#x27;</span><br><span class="line">git commit -a -m &#x27;change all&#x27;</span><br><span class="line">git checkout -b newbranch // 这时这个branch应该保存了全部改动</span><br><span class="line"></span><br><span class="line">git checkout oribranch</span><br><span class="line">git reflog //查到只改a的commit id</span><br><span class="line">git reset --hard hashid //此时应该只有a改了，其他还是原样</span><br><span class="line">git pull //合并冲突</span><br><span class="line">git push </span><br><span class="line"></span><br><span class="line">自己再用的时候把newbranch merge到当前branch</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">场景1 无干扰提交文件</span><br><span class="line">git diff</span><br><span class="line">//查看这次我都改动了什么，也就是工作区和暂存区的区别</span><br><span class="line">git commit -a -m &#x27;this is a submit&#x27;</span><br><span class="line">//从工作区到暂存区到本地仓库</span><br><span class="line">git pull</span><br><span class="line">//远端如果有修改也fetch merge 了</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">使用场景2 查看一下当前状态，</span><br><span class="line">git branch</span><br><span class="line">git diff</span><br><span class="line">git status</span><br><span class="line">git log</span><br><span class="line">git diff --cached 或 git diff --staged 查看暂存区和上一次commit的区别</span><br><span class="line">git diff HEAD 查看已缓存的与未缓存的与上一次commit所有改动：</span><br><span class="line">//以上查看的都是本地记录的当前的一些情况</span><br><span class="line">git branch -a</span><br><span class="line">git pull git log </span><br><span class="line">//会把其他分支的修改记录也显示，但是不影响当前分支当前工作区本地仓库内容</span><br><span class="line"></span><br><span class="line">使用场景3 自己分支commit成功，但是push远端产生冲突</span><br><span class="line">git pull 不能正确fetch + merge</span><br><span class="line">git pull origin feature-ep-new --rebase</span><br><span class="line">// 这时候本地工作区是合并的内容 本地暂存区和仓库呢 </span><br><span class="line">// 需要再add commit 才能push还是直接push </span><br><span class="line">// 仓库也是合并的内容了，应该可以直接push了</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">使用场景4 只想commit一部分文件，且要解决远程冲突</span><br><span class="line">git add a.cpp</span><br><span class="line">git commit -m &#x27;change a&#x27;</span><br><span class="line">git commit -a -m &#x27;change all&#x27;</span><br><span class="line">git checkout -b newbranch // 这时这个branch应该保存了全部改动</span><br><span class="line"></span><br><span class="line">git checkout oribranch</span><br><span class="line">git reflog //查到只改a的commit id</span><br><span class="line">git reset --hard hashid //此时应该只有a改了，其他还是原样</span><br><span class="line">git pull //合并冲突</span><br><span class="line">git push </span><br><span class="line"></span><br><span class="line">自己再用的时候把newbranch merge到当前branch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">使用场景5 更新并且看看当前branch更新了啥</span><br><span class="line">git pull //拉取自己branch远程的更新和其他branch更新的信息</span><br><span class="line">//其他branch的更新会从git log上显示，但是不会更新本地自己的branch</span><br><span class="line">git log</span><br><span class="line">git diff hashID1 hashID2 //查看两次提交更新了什么</span><br><span class="line"></span><br><span class="line">场景六 git diff</span><br><span class="line">git diff //不加参数即默认比较工作区与暂存区</span><br><span class="line">git diff hashID1 hashID2 //查看两次提交更新了什么</span><br><span class="line">git diff HEAD//工作区与最新本地commit的（HEAD）区别</span><br><span class="line">git diff --cached 或 git diff --staged </span><br><span class="line">//显示暂存区(已add但未commit文件)和最后一次commit(HEAD)之间的所有不相同文件的增删改</span><br><span class="line">git diff &lt;分支名1&gt; &lt;分支名2&gt; //比较两个分支上最后 commit 的内容的差别</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yato0514/article/details/102997328">git–本地分支与远程分支_Andyato0520的博客-CSDN博客</a></p>
 
@@ -116,6 +117,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
     </footer>
   </div>
   
@@ -154,7 +157,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
     </div>
   </div>
 
@@ -164,7 +167,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a>
+      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a>
     </div>
   </div>
 
@@ -173,7 +176,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -186,6 +189,14 @@
       <ul>
         
           <li>
+            <a href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/">Hydra使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">python常用指令</a>
+          </li>
+        
+          <li>
             <a href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/">python超参传递</a>
           </li>
         
@@ -195,14 +206,6 @@
         
           <li>
             <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/">cplusplus里数据类型和大小</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/06/Shell%E6%8C%87%E4%BB%A4/">Shell指令</a>
           </li>
         
       </ul>
@@ -218,7 +221,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2022 John Doe<br>
+      &copy; 2023 John Doe<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
