@@ -71,6 +71,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-git在干什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="article-date">
+  <time class="dt-published" datetime="2022-11-17T06:20:48.000Z" itemprop="datePublished">2022-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" alt="Git"></p>
+<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。</p>
+<p>1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？</p>
+<p>1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回</p>
+<p>2 假设本地我修改了A文件，别人在远方修改了B文件，我commit后pull，B文件会被更新，但是A文件我的修改不会丢失</p>
+<p>3 假设本地我修改了A文件，别人在远方修改了A文件，我commit后pull会失败，需要git pull origin sara-ep-attlit –rebase </p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/27718f0741d8">https://www.jianshu.com/p/27718f0741d8</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82">https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2020-05-20-3">https://www.jiqizhixin.com/articles/2020-05-20-3</a></p>
+<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">http://chuquan.me/2022/05/21/understand-principle-of-git/</a></p>
+<p><a target="_blank" rel="noopener" href="https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html">https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">深入理解 Git 底层实现原理 | 楚权的世界</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" data-id="claqkc6780000m1fbbib43qzj" data-title="git在干什么" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-git-指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/" class="article-date">
@@ -579,62 +631,11 @@
 
 
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/08/18/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:13:54.077Z" itemprop="datePublished">2022-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/08/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/hello-world/" data-id="cl6ytu5f60000lxfbhk8y11vc" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -680,6 +681,10 @@
       <ul>
         
           <li>
+            <a href="/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">优雅的python深度学习</a>
+          </li>
+        
+          <li>
             <a href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/">Hydra使用</a>
           </li>
         
@@ -693,10 +698,6 @@
         
           <li>
             <a href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">cplusplus文件管理</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/">cplusplus里数据类型和大小</a>
           </li>
         
       </ul>
