@@ -71,6 +71,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ffmpeg-record" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/09/21/ffmpeg-record/" class="article-date">
+  <time class="dt-published" datetime="2022-09-21T07:22:00.000Z" itemprop="datePublished">2022-09-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/09/21/ffmpeg-record/">ffmpeg record</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="深海巨坑ffmpeg的使用记录"><a href="#深海巨坑ffmpeg的使用记录" class="headerlink" title="深海巨坑ffmpeg的使用记录"></a>深海巨坑ffmpeg的使用记录</h2><h3 id="服务器上安装"><a href="#服务器上安装" class="headerlink" title="服务器上安装"></a>服务器上安装</h3><p>apt install ffmpeg</p>
+<h3 id="将多帧图像合成视频"><a href="#将多帧图像合成视频" class="headerlink" title="将多帧图像合成视频"></a>将多帧图像合成视频</h3><p><code>ffmpeg -r 30 -i output_video/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output_video_fullr.mp4</code></p>
+<p><code>-vf zscale=matrix=709:r=limited</code>负责转换色域，否则默认转出来是BT.601之类的SD标准。显式指定limited 色域很多种，limited显得饱和度高一些，full色域大，同样数据显得饱和度低一些</p>
+<p>这个链接 <a target="_blank" rel="noopener" href="https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html">https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html</a></p>
+<p>编码质量控制： -c:v libx264 -preset veryslow -crf 0</p>
+<h3 id="截取视频片段"><a href="#截取视频片段" class="headerlink" title="截取视频片段"></a>截取视频片段</h3><p>按照时间截取</p>
+<p>ffmpeg -i input.mp4 -vcodec copy -acodec copy -ss 00:00:00 -to 00:00:05 cutout.mp4 -y</p>
+<p>按照帧截取</p>
+<p>ffmpeg -i input.mp4 -vf”select&#x3D;between(n,20,200)” -y -acodec copy cutout.mp4</p>
+<h3 id="将YUV转成MP4"><a href="#将YUV转成MP4" class="headerlink" title="将YUV转成MP4"></a>将YUV转成MP4</h3><p>ffmpeg -s 640x480 -pix_fmt yuv420p -i output.yuv out3.mp4</p>
+<h3 id="将MP4转YUV"><a href="#将MP4转YUV" class="headerlink" title="将MP4转YUV"></a>将MP4转YUV</h3><p>ffmpeg -i input.mp4 -s 640x480 -pix_fmt yuv420p output.yuv</p>
+<h3 id="视频分帧"><a href="#视频分帧" class="headerlink" title="视频分帧"></a>视频分帧</h3><p> ffmpeg -i backlit.mp4 -r 30 backlit&#x2F;%05d.png </p>
+<p>如果改成jpg会有严重压缩</p>
+<p>如果转化成png还有压缩的话，可以先将mp4转成yuv, yuv单帧的质量也就是图片单帧能达到的最高质量。然后将yuv视频转化成图像。</p>
+<h3 id="将视频拼接"><a href="#将视频拼接" class="headerlink" title="将视频拼接"></a>将视频拼接</h3><p><code>ffmpeg -i peppa_v3_fullr.mp4 -i peppa_v5_fullr_.mp4 -filter_complex &quot;[0:v]pad=iw*2:ih*1[a];[a][1:v]overlay=w&quot; compair_peppa_v3v5.mp4</code></p>
+<p>这个链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Gary__123456/article/details/88742705">https://blog.csdn.net/Gary__123456/article/details/88742705</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/09/21/ffmpeg-record/" data-id="cl8bbkji000003sfb18og3hk6" data-title="ffmpeg record" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-firstPage-md" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/08/18/firstPage-md/" class="article-date">
@@ -190,7 +246,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pyhon/" style="font-size: 10px;">pyhon</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a>
+      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pyhon/" style="font-size: 10px;">pyhon</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a>
     </div>
   </div>
 
@@ -212,6 +268,10 @@
       <ul>
         
           <li>
+            <a href="/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/">常用loss合集</a>
+          </li>
+        
+          <li>
             <a href="/2023/02/13/%E5%B0%86%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87%E7%BD%91%E9%A1%B5%E5%B1%95%E7%A4%BA/">将测试图片网页展示</a>
           </li>
         
@@ -225,10 +285,6 @@
         
           <li>
             <a href="/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">python常用指令</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/">python超参传递</a>
           </li>
         
       </ul>
