@@ -14,7 +14,7 @@
 <meta property="og:description" content="深海巨坑ffmpeg的使用记录服务器上安装apt install ffmpeg 将多帧图像合成视频ffmpeg -r 30 -i output_video&#x2F;%05d.jpg -vcodec libx264 -vf zscale&#x3D;matrix&#x3D;709:r&#x3D;full output_video_fullr.mp4 -vf zscale&#x3D;matrix&#x3D;709:r&#x3D;limited负责转换色域，否则默认转出来">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-21T07:22:00.000Z">
-<meta property="article:modified_time" content="2023-02-14T02:24:16.380Z">
+<meta property="article:modified_time" content="2023-04-06T06:52:34.796Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="ffmpeg">
 <meta name="twitter:card" content="summary">
@@ -101,6 +101,7 @@
 <p><code>-vf zscale=matrix=709:r=limited</code>负责转换色域，否则默认转出来是BT.601之类的SD标准。显式指定limited 色域很多种，limited显得饱和度高一些，full色域大，同样数据显得饱和度低一些</p>
 <p>这个链接 <a target="_blank" rel="noopener" href="https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html">https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html</a></p>
 <p>编码质量控制： -c:v libx264 -preset veryslow -crf 0</p>
+<h3 id="将yuv视频分png"><a href="#将yuv视频分png" class="headerlink" title="将yuv视频分png"></a>将yuv视频分png</h3><p><code>ffmpeg -s 1080x720 -pix_fmt yuv420p -i dst_1080x720_30Hz_P420.yuv -vf scale=in_range=full:out_range=full output_ori/%05d.png</code><br>-vf scale&#x3D;in_range&#x3D;full:out_range&#x3D;full 来控制色彩<br>这个链接 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv6601959/">https://www.bilibili.com/read/cv6601959/</a></p>
 <h3 id="截取视频片段"><a href="#截取视频片段" class="headerlink" title="截取视频片段"></a>截取视频片段</h3><p>按照时间截取</p>
 <p>ffmpeg -i input.mp4 -vcodec copy -acodec copy -ss 00:00:00 -to 00:00:05 cutout.mp4 -y</p>
 <p>按照帧截取</p>

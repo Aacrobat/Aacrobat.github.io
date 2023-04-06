@@ -185,7 +185,7 @@
 
 <p><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
 <p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。简单来说，在rgb色彩空间，边缘可分。</p>
-<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>半径不能太大。不然线性无法拟合。</p>
+<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>半径不能太大。不然线性无法拟合。而且脸部要是有白色高光容易和背景墙混淆。</p>
 <p>几乎完全相同颜色的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，因为本质上相同颜色不可分。于是会出现更多错误。</p>
 <p>边缘处有rgb色彩重叠，会有些错分，带来就是部分引入错误，淡化原本01的强分割边界。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a target="_blank" rel="noopener" href="https://github.com/lisabug/guided-filter">https://github.com/lisabug/guided-filter</a></p>
