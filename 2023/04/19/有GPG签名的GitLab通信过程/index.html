@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>服务器上的python指令 | Hexo</title>
+  <title>有GPG签名的GitLab通信过程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="ctrl+c: 前台进程终止 ，直接终止当前正在运行的进程。 ctrl+z :中断任务执行，类似于暂停执行的意思，执行该操作意味着当前的进程被挂起。 被挂起的进程只有在当下窗口，可以用jobs查看 jobs :查看在后台执行的进程。注意：如果退出当前终端，则无法再次进入终端查看到后台进程。jobs -l 看到pid ps -u查看隶属于自己的进程， linux 中查看python后台运行的程序：">
+  <meta name="description" content="非对称加密对称加密解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。也不能在非安全的网络上传输 非对称加密唯一的公私钥对，公钥可以明文传输，用来加密。而私钥只有自己保存，用来解密 理解公钥与私钥 | 神奕的博客 SSH通信协议基于非对称加密，对数据进行加密传输 SSH 协议原理、组成、认证方式和过程 - 简书 基于非对称加密，对用户进行身份验证 什么是SS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="服务器上的python指令">
-<meta property="og:url" content="http://example.com/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:title" content="有GPG签名的GitLab通信过程">
+<meta property="og:url" content="http://example.com/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ctrl+c: 前台进程终止 ，直接终止当前正在运行的进程。 ctrl+z :中断任务执行，类似于暂停执行的意思，执行该操作意味着当前的进程被挂起。 被挂起的进程只有在当下窗口，可以用jobs查看 jobs :查看在后台执行的进程。注意：如果退出当前终端，则无法再次进入终端查看到后台进程。jobs -l 看到pid ps -u查看隶属于自己的进程， linux 中查看python后台运行的程序：">
+<meta property="og:description" content="非对称加密对称加密解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。也不能在非安全的网络上传输 非对称加密唯一的公私钥对，公钥可以明文传输，用来加密。而私钥只有自己保存，用来解密 理解公钥与私钥 | 神奕的博客 SSH通信协议基于非对称加密，对数据进行加密传输 SSH 协议原理、组成、认证方式和过程 - 简书 基于非对称加密，对用户进行身份验证 什么是SS">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-02-21T02:44:38.000Z">
-<meta property="article:modified_time" content="2023-02-21T02:54:16.083Z">
+<meta property="article:published_time" content="2023-04-19T08:25:14.000Z">
+<meta property="article:modified_time" content="2023-04-19T08:49:21.392Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -74,10 +74,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-服务器上的python指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-有GPG签名的GitLab通信过程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/" class="article-date">
-  <time class="dt-published" datetime="2023-02-21T02:44:38.000Z" itemprop="datePublished">2023-02-21</time>
+    <a href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2023-04-19T08:25:14.000Z" itemprop="datePublished">2023-04-19</time>
 </a>
     
   </div>
@@ -88,7 +88,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      服务器上的python指令
+      有GPG签名的GitLab通信过程
     </h1>
   
 
@@ -96,25 +96,24 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <ul>
-<li><code>ctrl+c</code>: 前台进程终止 ，直接终止当前正在运行的进程。</li>
-<li><code>ctrl+z</code> :中断任务执行，类似于暂停执行的意思，执行该操作意味着当前的进程被挂起。</li>
-<li>被挂起的进程只有在当下窗口，可以用jobs查看</li>
-<li><code>jobs</code> :查看在后台执行的进程。注意：如果退出当前终端，则无法再次进入终端查看到后台进程。jobs -l 看到pid</li>
-<li><code>ps -u</code>查看隶属于自己的进程，</li>
-<li>linux 中查看python后台运行的程序：ps -ef | grep python</li>
-<li></li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44554428/article/details/123423601">Linux后台运行python程序_linux train.py恢复进程_等待戈多。的博客-CSDN博客</a></p>
+        <h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><h4 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h4><p>解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。也不能在非安全的网络上传输</p>
+<h4 id="非对称加密-1"><a href="#非对称加密-1" class="headerlink" title="非对称加密"></a>非对称加密</h4><p>唯一的公私钥对，公钥可以明文传输，用来加密。而私钥只有自己保存，用来解密</p>
+<p><a target="_blank" rel="noopener" href="https://songlee24.github.io/2015/05/03/public-key-and-private-key/">理解公钥与私钥 | 神奕的博客</a></p>
+<h3 id="SSH通信协议"><a href="#SSH通信协议" class="headerlink" title="SSH通信协议"></a>SSH通信协议</h3><p>基于非对称加密，对数据进行加密传输</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8e5b7aea52b5">SSH 协议原理、组成、认证方式和过程 - 简书</a></p>
+<p>基于非对称加密，对用户进行身份验证</p>
+<p><a target="_blank" rel="noopener" href="https://info.support.huawei.com/info-finder/encyclopedia/zh/SSH.html">什么是SSH？SSH是如何工作的？ - 华为</a></p>
+<h3 id="GPG签名"><a href="#GPG签名" class="headerlink" title="GPG签名"></a>GPG签名</h3><p>基于非对称加密，对文件的加密和签名协议，同时对应在git commit上就是对每一次commit 签名。加密签名完，再经过SSH通信协议传输。</p>
+<p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2013/07/gpg.html">GPG入门教程 - 阮一峰的网络日志</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/" data-id="clfmacyef0000e4fba6pq8c6b" data-title="服务器上的python指令" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/" data-id="clgngd9q50000wifbfp5v0mvk" data-title="有GPG签名的GitLab通信过程" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
 
     </footer>
   </div>
@@ -122,19 +121,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          有GPG签名的GitLab通信过程
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">常用loss合集</div>
+      <div class="article-nav-title">服务器上的python指令</div>
     </a>
   
 </nav>
