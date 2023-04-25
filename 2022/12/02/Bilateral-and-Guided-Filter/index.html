@@ -28,8 +28,9 @@
 <meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png">
 <meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png">
 <meta property="article:published_time" content="2022-12-02T08:40:39.000Z">
-<meta property="article:modified_time" content="2023-03-24T08:41:30.141Z">
+<meta property="article:modified_time" content="2023-04-23T08:43:09.656Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="algo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-38-26-image.png">
   
@@ -139,18 +140,37 @@
 <p>考虑到eps 对a的限制，输出可能更平滑一些</p>
 <img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-03-24-16-32-12-image.png" alt="" data-align="inline">
 
-
-
 <p>线性复杂度：由于一个固定方框内的均值方差可以采用box filter的优化方式变成线性复杂度，因此本算法也可以优化成线性复杂度。</p>
 <h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。简单来说，在边缘处黑度图他们不可清晰分类。</p>
 <img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-31-40-image.png" alt="" width="434">
 
 <p><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
 <p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。简单来说，在rgb色彩空间，边缘可分。</p>
-<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><p>半径不能太大。不然线性无法拟合。而且脸部要是有白色高光容易和背景墙混淆。</p>
-<p>几乎完全相同颜色的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，因为本质上相同颜色不可分。于是会出现更多错误。</p>
-<p>边缘处有rgb色彩重叠，会有些错分，带来就是部分引入错误，淡化原本01的强分割边界。</p>
+<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><ol>
+<li><p>半径不能太大。不然线性无法拟合。而且脸部要是有白色高光容易和背景墙混淆。</p>
+</li>
+<li><p>几乎完全相同颜色的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，因为本质上相同颜色不可分。于是会出现更多错误。</p>
+</li>
+<li><p>边缘处有rgb色彩重叠，会有些错分，带来就是部分引入错误，淡化原本01的强分割边界。</p>
+</li>
+</ol>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a target="_blank" rel="noopener" href="https://github.com/lisabug/guided-filter">https://github.com/lisabug/guided-filter</a></p>
+<h4 id="针对于抠图的潜在危险设计的S-Guided-Filter"><a href="#针对于抠图的潜在危险设计的S-Guided-Filter" class="headerlink" title="针对于抠图的潜在危险设计的S_Guided Filter"></a>针对于抠图的潜在危险设计的S_Guided Filter</h4><p><strong>针对于缺点2</strong>，设计了选择区域的GF，总的来说是颜色差别较大的区域Guided Filter生效，当颜色差别较小的区域不使用Guided Filter</p>
+<p>具体做法：在算引导图I 方差的时候，标记I 大于一定值的区域作为生效区域。当引导图为彩色图是，存在RR，RG，RB..等九个协方差，选取最大那个作为判定值。（因为当有一种颜色RR GG BB，或者一对颜色关系RG RB GB 可分时这个区域就可以区分）。</p>
+<p>引入的危险：阈值如何计算。太小了的话，那些高噪音的平台区域也变成working area了，太大了的话，一些本来可以使用GF的区域也失效了。</p>
+<p>测试case：尽量让浅肤色和白墙，深色头发和黑墙可以区分，不让白衣服白墙，全黑衣服和黑墙，以及高噪音全黑衣服和黑墙引入错误。</p>
+<p><strong>针对于缺点3</strong>，对GF后的结果进行了一些拉伸，让分割锐利，且剔除被分到前景的背景，但不在原基础上新增内容（可能有的前景被CNN分到了背景但是GF也无法加回来了）</p>
+<p>具体做法：</p>
+<p>•Q, Workingarea  &#x3D; GuidedFilter(guidedI,ori_mask) ;&#x2F;&#x2F;得到可分区域或者纹理复杂区域</p>
+<p>•Q是GF算法的直接结果，包含错分区域，纹理复杂区域，以及正确区域</p>
+<p>•M &#x3D; ori_mask - Q；&#x2F;&#x2F;改变值， M本身在-1～1之间</p>
+<p>•M &#x3D; M * 2 – 0.3(beta)；&#x2F;&#x2F;将改变的数据进行拉伸，后在-2.3 ～1.7之间放大改变值的。</p>
+<p>•M[M&lt;0]&#x3D; 0;  &#x2F;&#x2F; 1：不会新添加东西 2：如果改变值过小就忽视 。</p>
+<p>•M[M&gt;1] &#x3D; 1; &#x2F;&#x2F;数据合理性约束</p>
+<p>•Output &#x3D; (Workingarea &#x3D;&#x3D; TRUE)? (ori_mask – M) : ori_mask</p>
+<p>•Output &lt; 0 &#x3D; 0; &#x2F;&#x2F; 数据合理性 </p>
+<p>引入的危险：*2 - 0.3 是手调拉伸超参数。为了保证变化锐利而非自然。且舍弃了将前景补足的潜力。</p>
+<p>测试case：卷曲的头发剔除背景合理，不增加黑头发后面的复杂背景。</p>
 
       
     </div>
@@ -159,6 +179,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo/" rel="tag">algo</a></li></ul>
+
     </footer>
   </div>
   
@@ -197,7 +219,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyhon/" rel="tag">pyhon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li></ul>
     </div>
   </div>
 
@@ -207,7 +229,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/c/" style="font-size: 16.67px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pyhon/" style="font-size: 10px;">pyhon</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a>
+      <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/algo/" style="font-size: 10px;">algo</a> <a href="/tags/c/" style="font-size: 16.67px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a>
     </div>
   </div>
 
