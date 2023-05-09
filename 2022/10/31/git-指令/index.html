@@ -14,9 +14,9 @@
 <meta property="og:description" content="Git 指令 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748列出所有本地分支git branch删除分支git branch -d [branch-name]新建一个分支，但依然停留在当前分支git branch [branch-name]切换到指定分支，并更新工作区gi">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-05-09-10-57-58-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/git/git_gpg.jpg">
 <meta property="article:published_time" content="2022-10-31T02:13:28.000Z">
-<meta property="article:modified_time" content="2023-05-09T03:02:32.225Z">
+<meta property="article:modified_time" content="2023-05-09T03:08:51.538Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -125,7 +125,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yongdaimi/p/11738305.html">Git: git tag 使用小结(给发布版本打标记，切换并修改某个历史版本) - 夜行过客 - 博客园</a></p>
 <h4 id="Git配合GPG签名"><a href="#Git配合GPG签名" class="headerlink" title="Git配合GPG签名"></a>Git配合GPG签名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">当配置好GPG之后 每次commit</span><br><span class="line">git commit -a -S -m &quot;My commit msg&quot;</span><br><span class="line">如果不想在每次提交时都键入-S标志，则可以告诉 Git 自动签名您的提交：</span><br><span class="line">git config --global commit.gpgsign true</span><br><span class="line">如果忘记了签名并且已经commit</span><br><span class="line">git rebase --exec &quot;git commit --amend --no-edit -n -S&quot; -i hashID</span><br><span class="line">一步步补签再push</span><br></pre></td></tr></table></figure>
 
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-05-09-10-57-58-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/git/git_gpg.jpg"></p>
 <p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_13456560/5823211?u_atoken=fd3f6e92-fd10-40a6-9a07-8f3aacaa2f2d&u_asession=01dLxkGp9zT_zUKZo4LV4_FKLRwMGyFyicKUv1JXudRl_1lOm7EBwvKh3cSjPndXXoX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K9wOTiRvmngUDvbfhghmXB5f-72aU5ICtAtMZIGAjGFuGBkFo3NEHBv0PZUm6pbxQU&u_asig=05_iqjE2ctFye6sIp-0lih0QPmYMmvtMA4mItViy3_jjNMIfoqO69vk-7lghmzUdHqWvbkP9e7jY0UNFGMQHomb6jc7yaOBVvbKez4HFMsOCVgjHPYq7IyZ2yDB0UpIiMiv4EuQRg56-RmYoyVs8-BRmQMkfQhqiZuKZKGEz5xZSr9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzULmYOlYA5B3NUuIGdl_ZmKaIsNVp-X6RRfYk0dCf11QzIE61zBZ4ZuDYFrgS9n5xu3h9VXwMyh6PgyDIVSG1W8qWnC1PihJips-1du9uoSeXufEOxKAFJGcPIjcwsmE4yAmdl2SWo-EA-UeMjCmLDpnpiN69JcHza7sUj6y3NNGmWspDxyAEEo4kbsryBKb9Q&u_aref=Ejakw3IPlh5jmBL/XRHlqwXxEEA=">滑动验证页面</a></p>
 
