@@ -4,29 +4,15 @@
   <meta charset="utf-8">
   
   
-  <title>blur和sharpen的探索 | Hexo</title>
+  <title>Tag: git | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="boxfilter and gaussian 产生的模糊和锐化核模糊核对比boxfilter and gaussian boxfilter关于sharpen的探索  boxfilter and gaussian关于sharpen的探索 结论•sharpen核包含的频段越多，sharpen kernel范围越大，中心区域的正权重越多 •sharpen核截取的频段越高，中心的权重越大，视觉看起来越明显">
-<meta property="og:type" content="article">
-<meta property="og:title" content="blur和sharpen的探索">
-<meta property="og:url" content="http://example.com/2023/05/23/blur%E5%92%8Csharpen%E7%9A%84%E6%8E%A2%E7%B4%A2/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/tags/git/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="boxfilter and gaussian 产生的模糊和锐化核模糊核对比boxfilter and gaussian boxfilter关于sharpen的探索  boxfilter and gaussian关于sharpen的探索 结论•sharpen核包含的频段越多，sharpen kernel范围越大，中心区域的正权重越多 •sharpen核截取的频段越高，中心的权重越大，视觉看起来越明显">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-56-41-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-58-43-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-58-58-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-59-25-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-59-49-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-18-02-09-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-18-02-37-image.png">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-18-02-48-image.png">
-<meta property="article:published_time" content="2023-05-23T09:54:09.000Z">
-<meta property="article:modified_time" content="2023-05-25T03:09:07.087Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="algo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-56-41-image.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -83,66 +69,87 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-blur和sharpen的探索" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/05/23/blur%E5%92%8Csharpen%E7%9A%84%E6%8E%A2%E7%B4%A2/" class="article-date">
-  <time class="dt-published" datetime="2023-05-23T09:54:09.000Z" itemprop="datePublished">2023-05-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="p-name article-title" itemprop="headline name">
-      blur和sharpen的探索
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2023" class="archive-year">2023</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/" class="archive-article-date">
+  <time class="dt-published" datetime="2023-04-19T08:25:14.000Z" itemprop="datePublished">Apr 19</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/">有GPG签名的GitLab通信过程</a>
     </h1>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="boxfilter-and-gaussian-产生的模糊和锐化核"><a href="#boxfilter-and-gaussian-产生的模糊和锐化核" class="headerlink" title="boxfilter and gaussian 产生的模糊和锐化核"></a>boxfilter and gaussian 产生的模糊和锐化核</h3><h4 id="模糊核对比boxfilter-and-gaussian"><a href="#模糊核对比boxfilter-and-gaussian" class="headerlink" title="模糊核对比boxfilter and gaussian"></a>模糊核对比boxfilter and gaussian</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-56-41-image.png"></p>
-<h4 id="boxfilter关于sharpen的探索"><a href="#boxfilter关于sharpen的探索" class="headerlink" title="boxfilter关于sharpen的探索"></a>boxfilter关于sharpen的探索</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-58-43-image.png"></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-58-58-image.png"><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-59-25-image.png"></p>
-<h4 id="boxfilter-and-gaussian关于sharpen的探索"><a href="#boxfilter-and-gaussian关于sharpen的探索" class="headerlink" title="boxfilter and gaussian关于sharpen的探索"></a>boxfilter and gaussian关于sharpen的探索</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-17-59-49-image.png"></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>•sharpen核包含的频段越多，sharpen kernel范围越大，中心区域的正权重越多</p>
-<p>•sharpen核截取的频段越高，中心的权重越大，视觉看起来越明显</p>
-<p>•sharpen的最高频层决定了其kernel中心正权重的范围（1x1 or 3x3)</p>
-<p>•boxfilter产生的模糊核比gaussian更模糊一些</p>
-<p>•boxfilter产生的sharpen核比gaussian更锐利一些</p>
-<h4 id="将sharpen-kernel用于图片"><a href="#将sharpen-kernel用于图片" class="headerlink" title="将sharpen kernel用于图片"></a>将sharpen kernel用于图片</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-18-02-09-image.png"></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-18-02-37-image.png"><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/blurandsharpen/2023-05-23-18-02-48-image.png"></p>
-<h4 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h4><p>•锐化核中心正权重的范围大小反应了detail 层的粗细</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/23/blur%E5%92%8Csharpen%E7%9A%84%E6%8E%A2%E7%B4%A2/" data-id="cli2jhbxa0000fgfbg7sf7265" data-title="blur和sharpen的探索" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo/" rel="tag">algo</a></li></ul>
-
-    </footer>
+    </header>
   </div>
+</article>
   
     
-<nav id="article-nav">
+    
+      
+        </div></section>
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="archive-article-date">
+  <time class="dt-published" datetime="2022-11-17T06:20:48.000Z" itemprop="datePublished">Nov 17</time>
+</a>
+      
   
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
+    </h1>
   
-    <a href="/2023/05/11/%E7%BF%BB%E8%AF%91%E3%80%8AThe-Retinex-Theory-of-Color-Vision%E3%80%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">翻译《The Retinex Theory of Color Vision》</div>
-    </a>
-  
-</nav>
 
-  
+    </header>
+  </div>
 </article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/" class="archive-article-date">
+  <time class="dt-published" datetime="2022-10-31T02:13:28.000Z" itemprop="datePublished">Oct 31</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/">git 指令</a>
+    </h1>
+  
+
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
 
 
 </section>
