@@ -71,6 +71,426 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-函数与汇编" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" class="article-date">
+  <time class="dt-published" datetime="2023-08-04T06:22:38.000Z" itemprop="datePublished">2023-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/">函数与汇编</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="X86-X64-arm64"><a href="#X86-X64-arm64" class="headerlink" title="X86 X64 arm64"></a>X86 X64 arm64</h4><p>arm64 精简指令集</p>
+<p>X86 复杂指令集 32位</p>
+<p>X64 复杂指令集 64位</p>
+<h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><p>向下兼容</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-14-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-37-image.png"></p>
+<h4 id="应用程序地址空间"><a href="#应用程序地址空间" class="headerlink" title="应用程序地址空间"></a>应用程序地址空间</h4><p>操作系统通过虚拟内存的方式为所有应用程序提供了统一的内存映射地址。如图3所示，从上到下分别是用户栈、共享库内存、运行时堆和代码段。当然这个是一个大概的分段，实际分段比这个可能稍微复杂一些，但整个格局没有大变化。</p>
+<img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-29-49-image.png" alt="" data-align="center">
+
+<h4 id="函数调用及汇编指令"><a href="#函数调用及汇编指令" class="headerlink" title="函数调用及汇编指令"></a>函数调用及汇编指令</h4><p>函数调用主要是call和ret。汇编语言的call指令相当于执行了2步操作，分别是，1）将当前的IP或CS和IP压入栈中； 2）跳转，类似与jmp指令。同样，ret指令也分2步，分别是，1）将栈中的地址弹出到IP寄存器；2）跳转执行后续指令。这个基本上就是函数调用的原理。</p>
+<p>除了在代码间的跳动外，函数的调用往往还需要传递一个参数，而处理完成后还可能有返回值。这些数据的传递都是通过寄存器进行的。在函数调用之前通过上文介绍的寄存器存储参数，函数返回之前通过RAX寄存器（32位系统为EAX）存储返回结果。</p>
+<p>函数的参数是从右往左传递的。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-37-09-image.png"></p>
+<p><strong>另外一个比较重要的知识点是函数调用过程中与堆栈相关的寄存器RSP和RBP</strong>，</p>
+<p>RSP（32位叫ESP）：栈指针寄存器<a href="https://link.zhihu.com/?target=https://jq.qq.com/?_wv=1027&k=5MlTvNe">(reextended stack pointer)，其内存放着一个指针，该指针永远指向系统栈最上面一个栈帧的栈</a>顶。</p>
+<p>RBP（32位叫EBP）：基址指针寄存器(reextended base pointer)，其内存放着一个指针，该指针永远指向系统栈最上面一个栈帧的底部。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-47-11-image.png"><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-58-40-image.png"></p>
+<p>可以看出函数内，局部变量的地址是越来越低的。rsp栈顶</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-55-57-image.png"></p>
+<p>到运行到call Blur时，先将main函数的栈底（高地址）push rbp。</p>
+<p>并且将main函数的栈顶rsp作为新调用函数blur的栈底 mov rbp  &lt;- rsp。</p>
+<p>然后把传进来的参数放在新的栈顶（rbp - 112） mov DWORD PTR [rbp-112], r9d</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-16-38-11-image.png"></p>
+<p>把函数内的局部变量放在栈底并且向上生长（rbp-8）int* pA1 &#x3D; pSrc - strideS*2; mov QWORD PTR [rbp-8], rax</p>
+<h4 id="函数语句以及汇编指令"><a href="#函数语句以及汇编指令" class="headerlink" title="函数语句以及汇编指令"></a>函数语句以及汇编指令</h4><h5 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>指令</th>
+<th>耗时latency</th>
+<th>Rthroughput</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sub eax, 5</td>
+<td>寄存器 - 常数</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>mov eax, dword ptr [rax]</td>
+<td>读 32位</td>
+<td>5</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>mov rax, qword ptr [rbp - 8]</td>
+<td>读64位</td>
+<td>5</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>mov qword ptr [rbp - 24], rax</td>
+<td>写64位</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>jmp .L3</td>
+<td></td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>add     rax, rdx</td>
+<td>寄存器相加</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>neg rax</td>
+<td>取反</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>shl rax, 2</td>
+<td>左移</td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>cdqe</td>
+<td>它用于将一个32位有符号整数（存储在 EAX 寄存器中）扩展为一个64位有符号整数（扩展到 RAX 寄存器中）</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>lea   rdx, [4*rax]</td>
+<td>“Load Effective Address”  lea destination, source</td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+</tbody></table>
+<h5 id="C-语句对应指令"><a href="#C-语句对应指令" class="headerlink" title="C++ 语句对应指令"></a>C++ 语句对应指令</h5><style>
+</style>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>int f &#x3D; pA1[w];</strong></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+<td>读w的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>cdqe</td>
+<td>32eax 64位rax</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>lea rdx, [0+rax*4]</td>
+<td>读w地址对应的数据w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov rax, QWORD PTR [rbp-8]</td>
+<td>读pA1的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, rdx</td>
+<td>地址偏移w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov eax, DWORD PTR [rax]</td>
+<td>读pA1[w] 地址对应的数据</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov DWORD PTR [rbp-68], eax</td>
+<td>写到f里</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><strong>int c &#x3D;pA1[w] + pA1[w - 1];</strong></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+<td>读w的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>cdqe</td>
+<td>32eax 64位rax</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>lea rdx, [0+rax*4]</td>
+<td>读w地址对应的数据w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov rax, QWORD PTR [rbp-8]</td>
+<td>读pA1的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, rdx</td>
+<td>地址偏移w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov edx, DWORD PTR [rax]</td>
+<td>读pA1[w] 地址对应的数据</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+<td>读w的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>cdqe</td>
+<td>32eax 64位rax</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, 1</td>
+<td>地址w+1</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>lea rcx, [0+rax*4]</td>
+<td>读w+1地址对应的数据</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov rax, QWORD PTR [rbp-8]</td>
+<td>读pA1的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, rcx</td>
+<td>地址偏移w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov eax, DWORD PTR [rax]</td>
+<td>读pA1[w] 地址对应的数据</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add eax, edx</td>
+<td>add两个数字</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov DWORD PTR [rbp-56], eax</td>
+<td>写</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<style>
+</style>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>sum &#x3D;<br> (sum * 327)&gt;&gt;13;</strong></td>
+<td>mov eax, DWORD PTR [rbp-92]</td>
+</tr>
+<tr>
+<td></td>
+<td>imul eax, eax, 327</td>
+</tr>
+<tr>
+<td></td>
+<td>sar eax, 13</td>
+</tr>
+<tr>
+<td></td>
+<td>mov DWORD PTR [rbp-92], eax</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>sum &#x3D; sum &#x2F; 25;</strong></td>
+<td>mov eax, DWORD PTR [rbp-92]</td>
+</tr>
+<tr>
+<td>（在sum最大范围数据类型最大精度下优化算法）</td>
+<td>movsx rdx, eax</td>
+</tr>
+<tr>
+<td></td>
+<td>imul rdx, rdx, 1374389535</td>
+</tr>
+<tr>
+<td></td>
+<td>shr rdx, 32</td>
+</tr>
+<tr>
+<td></td>
+<td>mov ecx, edx</td>
+</tr>
+<tr>
+<td></td>
+<td>sar ecx, 3</td>
+</tr>
+<tr>
+<td></td>
+<td>cdq</td>
+</tr>
+<tr>
+<td></td>
+<td>mov eax, ecx</td>
+</tr>
+<tr>
+<td></td>
+<td>sub eax, edx</td>
+</tr>
+<tr>
+<td></td>
+<td>mov DWORD PTR [rbp-92], eax</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>pBlur[w] &#x3D; static_cast<int>(sum);</strong></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+</tr>
+<tr>
+<td></td>
+<td>cdqe</td>
+</tr>
+<tr>
+<td></td>
+<td>lea rdx, [0+rax*4]</td>
+</tr>
+<tr>
+<td></td>
+<td>mov rax, QWORD PTR [rbp-104]</td>
+</tr>
+<tr>
+<td></td>
+<td>add rdx, rax</td>
+</tr>
+<tr>
+<td></td>
+<td>mov eax, DWORD PTR [rbp-92]</td>
+</tr>
+<tr>
+<td></td>
+<td>mov DWORD PTR [rdx], eax</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>for (int h &#x3D; 0; h &lt; height; h++)</strong></td>
+<td>mov DWORD PTR [rbp-44], 0</td>
+</tr>
+<tr>
+<td></td>
+<td>jmp .L2</td>
+</tr>
+<tr>
+<td></td>
+<td>L2:</td>
+</tr>
+<tr>
+<td></td>
+<td>mov eax, DWORD PTR [rbp-44]</td>
+</tr>
+<tr>
+<td></td>
+<td>cmp eax, DWORD PTR [rbp-128]</td>
+</tr>
+<tr>
+<td></td>
+<td>jl .L5</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" data-id="clkwd4jyl0000w1fb28io9oaq" data-title="函数与汇编" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-积分图和滑动窗口" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="article-date">
@@ -613,59 +1033,6 @@
 
 
   
-    <article id="post-python常用指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" class="article-date">
-  <time class="dt-published" datetime="2023-01-11T03:10:28.000Z" itemprop="datePublished">2023-01-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">python常用指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="查看pytorch版本"><a href="#查看pytorch版本" class="headerlink" title="查看pytorch版本"></a>查看pytorch版本</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">print(torch.__version__)</span><br></pre></td></tr></table></figure>
-
-<h4 id="python-文件管理"><a href="#python-文件管理" class="headerlink" title="python 文件管理"></a>python 文件管理</h4><h5 id="文件列表"><a href="#文件列表" class="headerlink" title="文件列表"></a>文件列表</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filefolder = os.listdir(root)</span><br><span class="line">filefolder.sort()</span><br><span class="line">for f in filefolder:</span><br><span class="line">    print(f)</span><br></pre></td></tr></table></figure>
-
-<h5 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import shutil</span><br><span class="line"></span><br><span class="line">os.remove(path) #删除文件</span><br><span class="line">os.removedirs(path) #删除空文件夹</span><br><span class="line"></span><br><span class="line">os.rmdir(path) #删除空文件夹</span><br><span class="line">shutil.rmtree(path) #递归删除文件夹，即：删除非空文件夹</span><br></pre></td></tr></table></figure>
-
-<h5 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">with open(&#x27;./loss.txt&#x27;,&#x27;a+&#x27;) as f:   </span><br><span class="line">     for key in losssum:</span><br><span class="line">         f.write(f&quot;test_img : losses &#123;key&#125;: &#123;losssum[key]/items&#125;\n&quot;)  </span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="python-直接使用os-system"><a href="#python-直接使用os-system" class="headerlink" title="python 直接使用os.system"></a>python 直接使用os.system</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command = &#x27;ffmpeg -i ./results/%s/&#x27;%(datasetname[i]) +&#x27;%06d.png ./results&#x27;+&#x27;/%s.mp4&#x27;%(datasetname[i])</span><br><span class="line">print(command)</span><br><span class="line">os.system(command)</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/juandx/p/4962089.html">python 读写、创建 文件 - juandx - 博客园</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" data-id="cldvhmuxr0002n7fb8gqa7jex" data-title="python常用指令" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -684,7 +1051,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
     </div>
   </div>
 
@@ -694,7 +1061,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a>
+      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a>
     </div>
   </div>
 
@@ -716,6 +1083,10 @@
       <ul>
         
           <li>
+            <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/">函数与汇编</a>
+          </li>
+        
+          <li>
             <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">积分图和滑动窗口</a>
           </li>
         
@@ -729,10 +1100,6 @@
         
           <li>
             <a href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/">有GPG签名的GitLab通信过程</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/">服务器上的python指令</a>
           </li>
         
       </ul>

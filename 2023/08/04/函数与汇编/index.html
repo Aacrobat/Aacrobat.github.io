@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>函数与汇编 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="X86 X64 arm64arm64 精简指令集 X86 复杂指令集 32位 X64 复杂指令集 64位 寄存器向下兼容   应用程序地址空间操作系统通过虚拟内存的方式为所有应用程序提供了统一的内存映射地址。如图3所示，从上到下分别是用户栈、共享库内存、运行时堆和代码段。当然这个是一个大概的分段，实际分段比这个可能稍微复杂一些，但整个格局没有大变化。   函数调用及汇编指令函数调用主要是call和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数与汇编">
+<meta property="og:url" content="http://example.com/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="X86 X64 arm64arm64 精简指令集 X86 复杂指令集 32位 X64 复杂指令集 64位 寄存器向下兼容   应用程序地址空间操作系统通过虚拟内存的方式为所有应用程序提供了统一的内存映射地址。如图3所示，从上到下分别是用户栈、共享库内存、运行时堆和代码段。当然这个是一个大概的分段，实际分段比这个可能稍微复杂一些，但整个格局没有大变化。   函数调用及汇编指令函数调用主要是call和">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-14-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-37-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-29-49-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-37-09-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-47-11-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-58-40-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-55-57-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-16-38-11-image.png">
+<meta property="article:published_time" content="2023-08-04T06:22:38.000Z">
+<meta property="article:modified_time" content="2023-08-04T09:07:25.893Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="汇编">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-14-image.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-函数与汇编" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" class="article-date">
+  <time class="dt-published" datetime="2023-08-04T06:22:38.000Z" itemprop="datePublished">2023-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      函数与汇编
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="X86-X64-arm64"><a href="#X86-X64-arm64" class="headerlink" title="X86 X64 arm64"></a>X86 X64 arm64</h4><p>arm64 精简指令集</p>
+<p>X86 复杂指令集 32位</p>
+<p>X64 复杂指令集 64位</p>
+<h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><p>向下兼容</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-14-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-28-37-image.png"></p>
+<h4 id="应用程序地址空间"><a href="#应用程序地址空间" class="headerlink" title="应用程序地址空间"></a>应用程序地址空间</h4><p>操作系统通过虚拟内存的方式为所有应用程序提供了统一的内存映射地址。如图3所示，从上到下分别是用户栈、共享库内存、运行时堆和代码段。当然这个是一个大概的分段，实际分段比这个可能稍微复杂一些，但整个格局没有大变化。</p>
+<img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-29-49-image.png" alt="" data-align="center">
+
+<h4 id="函数调用及汇编指令"><a href="#函数调用及汇编指令" class="headerlink" title="函数调用及汇编指令"></a>函数调用及汇编指令</h4><p>函数调用主要是call和ret。汇编语言的call指令相当于执行了2步操作，分别是，1）将当前的IP或CS和IP压入栈中； 2）跳转，类似与jmp指令。同样，ret指令也分2步，分别是，1）将栈中的地址弹出到IP寄存器；2）跳转执行后续指令。这个基本上就是函数调用的原理。</p>
+<p>除了在代码间的跳动外，函数的调用往往还需要传递一个参数，而处理完成后还可能有返回值。这些数据的传递都是通过寄存器进行的。在函数调用之前通过上文介绍的寄存器存储参数，函数返回之前通过RAX寄存器（32位系统为EAX）存储返回结果。</p>
+<p>函数的参数是从右往左传递的。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-37-09-image.png"></p>
+<p><strong>另外一个比较重要的知识点是函数调用过程中与堆栈相关的寄存器RSP和RBP</strong>，</p>
+<p>RSP（32位叫ESP）：栈指针寄存器<a href="https://link.zhihu.com/?target=https://jq.qq.com/?_wv=1027&k=5MlTvNe">(reextended stack pointer)，其内存放着一个指针，该指针永远指向系统栈最上面一个栈帧的栈</a>顶。</p>
+<p>RBP（32位叫EBP）：基址指针寄存器(reextended base pointer)，其内存放着一个指针，该指针永远指向系统栈最上面一个栈帧的底部。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-47-11-image.png"><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-58-40-image.png"></p>
+<p>可以看出函数内，局部变量的地址是越来越低的。rsp栈顶</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-14-55-57-image.png"></p>
+<p>到运行到call Blur时，先将main函数的栈底（高地址）push rbp。</p>
+<p>并且将main函数的栈顶rsp作为新调用函数blur的栈底 mov rbp  &lt;- rsp。</p>
+<p>然后把传进来的参数放在新的栈顶（rbp - 112） mov DWORD PTR [rbp-112], r9d</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/opt/2023-08-04-16-38-11-image.png"></p>
+<p>把函数内的局部变量放在栈底并且向上生长（rbp-8）int* pA1 &#x3D; pSrc - strideS*2; mov QWORD PTR [rbp-8], rax</p>
+<h4 id="函数语句以及汇编指令"><a href="#函数语句以及汇编指令" class="headerlink" title="函数语句以及汇编指令"></a>函数语句以及汇编指令</h4><h5 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>指令</th>
+<th>耗时latency</th>
+<th>Rthroughput</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sub eax, 5</td>
+<td>寄存器 - 常数</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>mov eax, dword ptr [rax]</td>
+<td>读 32位</td>
+<td>5</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>mov rax, qword ptr [rbp - 8]</td>
+<td>读64位</td>
+<td>5</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>mov qword ptr [rbp - 24], rax</td>
+<td>写64位</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>jmp .L3</td>
+<td></td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>add     rax, rdx</td>
+<td>寄存器相加</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>neg rax</td>
+<td>取反</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>shl rax, 2</td>
+<td>左移</td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>cdqe</td>
+<td>它用于将一个32位有符号整数（存储在 EAX 寄存器中）扩展为一个64位有符号整数（扩展到 RAX 寄存器中）</td>
+<td>1</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>lea   rdx, [4*rax]</td>
+<td>“Load Effective Address”  lea destination, source</td>
+<td>1</td>
+<td>0.5</td>
+</tr>
+</tbody></table>
+<h5 id="C-语句对应指令"><a href="#C-语句对应指令" class="headerlink" title="C++ 语句对应指令"></a>C++ 语句对应指令</h5><style>
+</style>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>int f &#x3D; pA1[w];</strong></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+<td>读w的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>cdqe</td>
+<td>32eax 64位rax</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>lea rdx, [0+rax*4]</td>
+<td>读w地址对应的数据w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov rax, QWORD PTR [rbp-8]</td>
+<td>读pA1的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, rdx</td>
+<td>地址偏移w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov eax, DWORD PTR [rax]</td>
+<td>读pA1[w] 地址对应的数据</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov DWORD PTR [rbp-68], eax</td>
+<td>写到f里</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><strong>int c &#x3D;pA1[w] + pA1[w - 1];</strong></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+<td>读w的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>cdqe</td>
+<td>32eax 64位rax</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>lea rdx, [0+rax*4]</td>
+<td>读w地址对应的数据w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov rax, QWORD PTR [rbp-8]</td>
+<td>读pA1的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, rdx</td>
+<td>地址偏移w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov edx, DWORD PTR [rax]</td>
+<td>读pA1[w] 地址对应的数据</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+<td>读w的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>cdqe</td>
+<td>32eax 64位rax</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, 1</td>
+<td>地址w+1</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>lea rcx, [0+rax*4]</td>
+<td>读w+1地址对应的数据</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov rax, QWORD PTR [rbp-8]</td>
+<td>读pA1的地址</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add rax, rcx</td>
+<td>地址偏移w</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov eax, DWORD PTR [rax]</td>
+<td>读pA1[w] 地址对应的数据</td>
+<td>5</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>add eax, edx</td>
+<td>add两个数字</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>mov DWORD PTR [rbp-56], eax</td>
+<td>写</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<style>
+</style>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>sum &#x3D;<br> (sum * 327)&gt;&gt;13;</strong></td>
+<td>mov eax, DWORD PTR [rbp-92]</td>
+</tr>
+<tr>
+<td></td>
+<td>imul eax, eax, 327</td>
+</tr>
+<tr>
+<td></td>
+<td>sar eax, 13</td>
+</tr>
+<tr>
+<td></td>
+<td>mov DWORD PTR [rbp-92], eax</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>sum &#x3D; sum &#x2F; 25;</strong></td>
+<td>mov eax, DWORD PTR [rbp-92]</td>
+</tr>
+<tr>
+<td>（在sum最大范围数据类型最大精度下优化算法）</td>
+<td>movsx rdx, eax</td>
+</tr>
+<tr>
+<td></td>
+<td>imul rdx, rdx, 1374389535</td>
+</tr>
+<tr>
+<td></td>
+<td>shr rdx, 32</td>
+</tr>
+<tr>
+<td></td>
+<td>mov ecx, edx</td>
+</tr>
+<tr>
+<td></td>
+<td>sar ecx, 3</td>
+</tr>
+<tr>
+<td></td>
+<td>cdq</td>
+</tr>
+<tr>
+<td></td>
+<td>mov eax, ecx</td>
+</tr>
+<tr>
+<td></td>
+<td>sub eax, edx</td>
+</tr>
+<tr>
+<td></td>
+<td>mov DWORD PTR [rbp-92], eax</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>pBlur[w] &#x3D; static_cast<int>(sum);</strong></td>
+<td>mov eax, DWORD PTR [rbp-48]</td>
+</tr>
+<tr>
+<td></td>
+<td>cdqe</td>
+</tr>
+<tr>
+<td></td>
+<td>lea rdx, [0+rax*4]</td>
+</tr>
+<tr>
+<td></td>
+<td>mov rax, QWORD PTR [rbp-104]</td>
+</tr>
+<tr>
+<td></td>
+<td>add rdx, rax</td>
+</tr>
+<tr>
+<td></td>
+<td>mov eax, DWORD PTR [rbp-92]</td>
+</tr>
+<tr>
+<td></td>
+<td>mov DWORD PTR [rdx], eax</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>for (int h &#x3D; 0; h &lt; height; h++)</strong></td>
+<td>mov DWORD PTR [rbp-44], 0</td>
+</tr>
+<tr>
+<td></td>
+<td>jmp .L2</td>
+</tr>
+<tr>
+<td></td>
+<td>L2:</td>
+</tr>
+<tr>
+<td></td>
+<td>mov eax, DWORD PTR [rbp-44]</td>
+</tr>
+<tr>
+<td></td>
+<td>cmp eax, DWORD PTR [rbp-128]</td>
+</tr>
+<tr>
+<td></td>
+<td>jl .L5</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" data-id="clkwd4jyl0000w1fb28io9oaq" data-title="函数与汇编" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">积分图和滑动窗口</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/">函数与汇编</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">积分图和滑动窗口</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/23/blur%E5%92%8Csharpen%E7%9A%84%E6%8E%A2%E7%B4%A2/">blur和sharpen的探索</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/11/%E7%BF%BB%E8%AF%91%E3%80%8AThe-Retinex-Theory-of-Color-Vision%E3%80%8B/">翻译《The Retinex Theory of Color Vision》</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/">有GPG签名的GitLab通信过程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
