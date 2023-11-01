@@ -6,13 +6,15 @@
   
   <title>c的优化 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="article">
+  <meta name="description" content="step1 对c++ 代码的优化 从算法逻辑上优化，整体调用逻辑，何时准备什么类型的数据。还有算法层面：比如滑动窗口和等。  对数据精度进行优化，例如double能变成float 的，float能拉伸成整数的。必要时标明数据的实际范围（0～10bit）这种。  对除法能被乘法代替的，乘法能用加法替代的，乘法能用位移替代的运算进行优化。  对kn ，（k+1）n这类的运算也可以优化。  减少if e">
+<meta property="og:type" content="article">
 <meta property="og:title" content="c的优化">
 <meta property="og:url" content="http://example.com/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="step1 对c++ 代码的优化 从算法逻辑上优化，整体调用逻辑，何时准备什么类型的数据。还有算法层面：比如滑动窗口和等。  对数据精度进行优化，例如double能变成float 的，float能拉伸成整数的。必要时标明数据的实际范围（0～10bit）这种。  对除法能被乘法代替的，乘法能用加法替代的，乘法能用位移替代的运算进行优化。  对kn ，（k+1）n这类的运算也可以优化。  减少if e">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-25T02:41:48.000Z">
-<meta property="article:modified_time" content="2023-09-25T02:41:48.799Z">
+<meta property="article:modified_time" content="2023-11-01T01:52:17.117Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -93,7 +95,45 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h3 id="step1-对c-代码的优化"><a href="#step1-对c-代码的优化" class="headerlink" title="step1 对c++ 代码的优化"></a>step1 对c++ 代码的优化</h3><ol>
+<li><p>从算法逻辑上优化，整体调用逻辑，何时准备什么类型的数据。还有算法层面：比如滑动窗口和等。</p>
+</li>
+<li><p>对数据精度进行优化，例如double能变成float 的，float能拉伸成整数的。必要时标明数据的实际范围（0～10bit）这种。</p>
+</li>
+<li><p>对除法能被乘法代替的，乘法能用加法替代的，乘法能用位移替代的运算进行优化。</p>
+</li>
+<li><p>对kn ，（k+1）n这类的运算也可以优化。</p>
+</li>
+<li><p>减少if else分支语句内的内容，能合并的合并</p>
+</li>
+</ol>
+<h3 id="step2-c写汇编"><a href="#step2-c写汇编" class="headerlink" title="step2 c写汇编"></a>step2 c写汇编</h3><ol>
+<li><p>首先原则是 利用函数指针，当运行c的时候就指向c，当运行汇编时就指向汇编</p>
+</li>
+<li><p>汇编加速的原理是利用单指令多数据的方式进行加速</p>
+</li>
+<li><p>确定输入输出的尺寸，是固定还是任意，是否是偶数，8对齐 16对齐等</p>
+</li>
+<li><p>先把c转化成利用flag标识if else的语句。</p>
+</li>
+<li><p>确定每一个变量在其生命周期中，数据范围，可并行范围，能并行运算并行，不能时再拆开</p>
+</li>
+<li><p>根据运算的并行度，将常数都定义好 是u8 u16 还是u32 还是有符号的s。</p>
+</li>
+<li><p>如果大部分操作都可以在int16x8上操作 那就一次读8个 如果大部分操作都能在uint8上操作 那就一次读16个 ，以此类推。</p>
+</li>
+</ol>
+<h3 id="step3-汇编注意事项"><a href="#step3-汇编注意事项" class="headerlink" title="step3 汇编注意事项"></a>step3 汇编注意事项</h3><ol>
+<li><p>有些运算涉及负数，需要用有符号运算s</p>
+</li>
+<li><p>有些数据必须用uint 才能装下</p>
+</li>
+<li><p>作为if 条件标识的flag 再需要扩占位数时，需要用s有符号，才能补全高位</p>
+</li>
+</ol>
+<h3 id="ARM-Neon-Intrinsics-指令相关文档："><a href="#ARM-Neon-Intrinsics-指令相关文档：" class="headerlink" title="ARM Neon Intrinsics 指令相关文档："></a>ARM Neon Intrinsics 指令相关文档：</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012385733/article/details/121086734">https://blog.csdn.net/u012385733/article/details/121086734</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.arm.com/architectures/instruction-sets/intrinsics/https://developer.arm.com/architectures/instruction-sets/intrinsics/">https://developer.arm.com/architectures/instruction-sets/intrinsics/https://developer.arm.com/architectures/instruction-sets/intrinsics/</a></p>
+
       
     </div>
     <footer class="article-footer">
@@ -106,6 +146,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2023/10/19/DDPM-DDIM-SDE-CompVis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          DDPM_DDIM_SDE_CompVis
+        
+      </div>
+    </a>
   
   
     <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" id="article-nav-older" class="article-nav-link-wrap">
@@ -130,7 +179,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -140,7 +189,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a>
+      <a href="/tags/AIGC/" style="font-size: 10px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -149,7 +198,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -162,6 +211,14 @@
       <ul>
         
           <li>
+            <a href="/2023/10/24/%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5/">测试阶段</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/19/DDPM-DDIM-SDE-CompVis/">DDPM_DDIM_SDE_CompVis</a>
+          </li>
+        
+          <li>
             <a href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/">c的优化</a>
           </li>
         
@@ -171,14 +228,6 @@
         
           <li>
             <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">积分图和滑动窗口</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/23/blur%E5%92%8Csharpen%E7%9A%84%E6%8E%A2%E7%B4%A2/">blur和sharpen的探索</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/11/%E7%BF%BB%E8%AF%91%E3%80%8AThe-Retinex-Theory-of-Color-Vision%E3%80%8B/">翻译《The Retinex Theory of Color Vision》</a>
           </li>
         
       </ul>

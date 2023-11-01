@@ -71,6 +71,92 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-将测试图片网页展示" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/13/%E5%B0%86%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87%E7%BD%91%E9%A1%B5%E5%B1%95%E7%A4%BA/" class="article-date">
+  <time class="dt-published" datetime="2023-02-13T07:51:20.000Z" itemprop="datePublished">2023-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/13/%E5%B0%86%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87%E7%BD%91%E9%A1%B5%E5%B1%95%E7%A4%BA/">将测试图片网页展示</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="安装与准备"><a href="#安装与准备" class="headerlink" title="安装与准备"></a>安装与准备</h3><p>pip install dominate</p>
+<p>html.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">import dominate</span><br><span class="line">from dominate.tags import meta, h3, table, tr, td, p, a, img, br</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class HTML:</span><br><span class="line">    &quot;&quot;&quot;This HTML class allows us to save images and write texts into a single HTML file.</span><br><span class="line"></span><br><span class="line">     It consists of functions such as &lt;add_header&gt; (add a text header to the HTML file),</span><br><span class="line">     &lt;add_images&gt; (add a row of images to the HTML file), and &lt;save&gt; (save the HTML to the disk).</span><br><span class="line">     It is based on Python library &#x27;dominate&#x27;, a Python library for creating and manipulating HTML documents using a DOM API.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def __init__(self, web_dir, title, refresh=0):</span><br><span class="line">        &quot;&quot;&quot;Initialize the HTML classes</span><br><span class="line"></span><br><span class="line">        Parameters:</span><br><span class="line">            web_dir (str) -- a directory that stores the webpage. HTML file will be created at &lt;web_dir&gt;/index.html; images will be saved at &lt;web_dir/images/</span><br><span class="line">            title (str)   -- the webpage name</span><br><span class="line">            refresh (int) -- how often the website refresh itself; if 0; no refreshing</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.title = title</span><br><span class="line">        self.web_dir = web_dir</span><br><span class="line">        self.img_dir = os.path.join(self.web_dir, &#x27;images&#x27;)</span><br><span class="line">        if not os.path.exists(self.web_dir):</span><br><span class="line">            os.makedirs(self.web_dir)</span><br><span class="line">        if not os.path.exists(self.img_dir):</span><br><span class="line">            os.makedirs(self.img_dir)</span><br><span class="line"></span><br><span class="line">        self.doc = dominate.document(title=title)</span><br><span class="line">        if refresh &gt; 0:</span><br><span class="line">            with self.doc.head:</span><br><span class="line">                meta(http_equiv=&quot;refresh&quot;, content=str(refresh))</span><br><span class="line"></span><br><span class="line">    def get_image_dir(self):</span><br><span class="line">        &quot;&quot;&quot;Return the directory that stores images&quot;&quot;&quot;</span><br><span class="line">        return self.img_dir</span><br><span class="line"></span><br><span class="line">    def add_header(self, text):</span><br><span class="line">        &quot;&quot;&quot;Insert a header to the HTML file</span><br><span class="line"></span><br><span class="line">        Parameters:</span><br><span class="line">            text (str) -- the header text</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        with self.doc:</span><br><span class="line">            h3(text)</span><br><span class="line"></span><br><span class="line">    def add_images(self, ims, txts, links, width=400):</span><br><span class="line">        &quot;&quot;&quot;add images to the HTML file</span><br><span class="line"></span><br><span class="line">        Parameters:</span><br><span class="line">            ims (str list)   -- a list of image paths</span><br><span class="line">            txts (str list)  -- a list of image names shown on the website</span><br><span class="line">            links (str list) --  a list of hyperref links; when you click an image, it will redirect you to a new page</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.t = table(border=1, style=&quot;table-layout: fixed;&quot;)  # Insert a table</span><br><span class="line">        self.doc.add(self.t)</span><br><span class="line">        with self.t:</span><br><span class="line">            with tr():</span><br><span class="line">                for im, txt, link in zip(ims, txts, links):</span><br><span class="line">                    with td(style=&quot;word-wrap: break-word;&quot;, halign=&quot;center&quot;, valign=&quot;top&quot;):</span><br><span class="line">                        with p():</span><br><span class="line">                            with a(href=os.path.join(&#x27;images&#x27;, link)):</span><br><span class="line">                                img(style=&quot;width:%dpx&quot; % width, src=os.path.join(&#x27;images&#x27;, im))</span><br><span class="line">                            br()</span><br><span class="line">                            p(txt)</span><br><span class="line"></span><br><span class="line">    def save(self):</span><br><span class="line">        &quot;&quot;&quot;save the current content to the HMTL file&quot;&quot;&quot;</span><br><span class="line">        html_file = &#x27;%s/index.html&#x27; % self.web_dir</span><br><span class="line">        f = open(html_file, &#x27;wt&#x27;)</span><br><span class="line">        f.write(self.doc.render())</span><br><span class="line">        f.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:  # we show an example usage here.</span><br><span class="line">    html = HTML(&#x27;web/&#x27;, &#x27;test_html&#x27;)</span><br><span class="line">    html.add_header(&#x27;hello world&#x27;)</span><br><span class="line"></span><br><span class="line">    ims, txts, links = [], [], []</span><br><span class="line">    for n in range(4):</span><br><span class="line">        ims.append(&#x27;image_%d.png&#x27; % n)</span><br><span class="line">        txts.append(&#x27;text_%d&#x27; % n)</span><br><span class="line">        links.append(&#x27;image_%d.png&#x27; % n)</span><br><span class="line">    html.add_images(ims, txts, links)</span><br><span class="line">    html.save()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="测试时"><a href="#测试时" class="headerlink" title="测试时"></a>测试时</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">from utils import html</span><br><span class="line">def save_web_images(self, webpage, data, images, epoch):</span><br><span class="line">        if self.cfg.model.type == &quot;Baseline&quot;:</span><br><span class="line">            img_path_relative = (data[&quot;image_A_path&quot;][0]).split(&quot;/&quot;)[-1]</span><br><span class="line">            save_path = self.results_path / img_path_relative </span><br><span class="line">            save_path.parent.mkdir(exist_ok=True, parents=True)</span><br><span class="line">            webpage.add_header(save_path.stem)</span><br><span class="line">            txts = [&#x27;input&#x27;,&#x27;enhanced&#x27;,&#x27;GT&#x27;,&#x27;changemap&#x27;,&#x27;mask&#x27;]</span><br><span class="line">            ims, links = [], []</span><br><span class="line">            width = 450</span><br><span class="line">            str_epoch = &#x27;_&#x27;+str(epoch)</span><br><span class="line">            root = str(save_path.parent)+&#x27;/&#x27;+str(save_path.stem)+str_epoch+&quot;.png&quot; </span><br><span class="line">            self.to_pil(self.denorm(data[&quot;image_A&quot;][0])).save(root)</span><br><span class="line">            self.to_pil(self.denorm(images[&quot;fake_B&quot;][0])).save(save_path.parent / f&quot;&#123;save_path.stem&#125;_enhanced.png&quot;)</span><br><span class="line">            self.to_pil(self.denorm(images[&quot;latent&quot;][0]/3)).save(save_path.parent / f&quot;&#123;save_path.stem&#125;_latent.png&quot;)</span><br><span class="line">            self.to_pil(self.denorm(data[&quot;image_B&quot;][0])).save(save_path.parent / f&quot;&#123;save_path.stem&#125;_gt.png&quot;)</span><br><span class="line">            self.to_pil((data[&quot;input_mask&quot;])[0]).save(save_path.parent / f&quot;&#123;save_path.stem&#125;_mask.png&quot;)</span><br><span class="line">            ims.append(root)</span><br><span class="line">            ims.append(save_path.parent / f&quot;&#123;save_path.stem&#125;_enhanced.png&quot;)</span><br><span class="line">            ims.append(save_path.parent / f&quot;&#123;save_path.stem&#125;_gt.png&quot;)</span><br><span class="line">            ims.append(save_path.parent / f&quot;&#123;save_path.stem&#125;_latent.png&quot;)</span><br><span class="line">            ims.append(save_path.parent / f&quot;&#123;save_path.stem&#125;_mask.png&quot;)</span><br><span class="line">            webpage.add_images(ims, txts, ims, width=width)</span><br><span class="line">        else:</span><br><span class="line">            raise &quot;Unknown visualisation config&quot;</span><br><span class="line">web_dir = &#x27;where images folder&#x27;</span><br><span class="line">webpage = html.HTML(web_dir, &#x27;Experiment = %s, Epoch = %s&#x27; % (cfg.model.type, cfg.model.load_epoch))</span><br><span class="line"></span><br><span class="line">for images in results</span><br><span class="line">    visualizer.save_web_images(webpage, data, images, epoch)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/13/%E5%B0%86%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87%E7%BD%91%E9%A1%B5%E5%B1%95%E7%A4%BA/" data-id="cle2iy68t0000i5fb01oye2rh" data-title="将测试图片网页展示" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-优雅的python深度学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2023-02-08T10:58:15.000Z" itemprop="datePublished">2023-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">优雅的python深度学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="根目录下"><a href="#根目录下" class="headerlink" title="根目录下"></a>根目录下</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">conf</span><br><span class="line">    train.yaml</span><br><span class="line">    test.yaml</span><br><span class="line">data</span><br><span class="line">    __init__.py           //最外层 get_dataset（dataset_name)</span><br><span class="line">    datasets.py           //各种个样dataset（paired unpaired combaind..)</span><br><span class="line">    transform.py          //制作dataset的时候，用到的数据变化 比如norm crop等</span><br><span class="line">    utils.py              //读取 加载 图片类型转化 padding等data用到的工具</span><br><span class="line"></span><br><span class="line">model</span><br><span class="line">    vgg19.weight</span><br><span class="line"></span><br><span class="line">models</span><br><span class="line">    auxiliary.py          //作为特征提取或者vggloss 辅助网络</span><br><span class="line">    discriminators.py     //组成鉴别器的不同组件 以及不同鉴别器</span><br><span class="line">    generators.py         //组成生成器的不同组件 以及不同生成器</span><br><span class="line">    losses.py             //比较复杂的loss 例如GAN perceptual loss</span><br><span class="line">    engan.py              //实验的完整网络和对比网络 由G和D和loss共同构成</span><br><span class="line">    utils.py              //初始化网络 初始化权重等 models部分用到的工具</span><br><span class="line">outputs</span><br><span class="line">    实验输出</span><br><span class="line">utils</span><br><span class="line">    metrics.py            //一些评价指标</span><br><span class="line">    utils.py              //系统时间啊 get device啊</span><br><span class="line">    visualize.py          //图片可视化和保存 </span><br><span class="line"></span><br><span class="line">eval.py</span><br><span class="line">train.py</span><br><span class="line">test.py</span><br><span class="line">README.md</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" data-id="cldvla5cj0000n7fb1mctg6w2" data-title="优雅的python深度学习" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Hydra使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/" class="article-date">
@@ -523,117 +609,11 @@
 
 
   
-    <article id="post-卡尔曼滤波" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" class="article-date">
-  <time class="dt-published" datetime="2022-11-17T07:53:56.000Z" itemprop="datePublished">2022-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="卡尔曼滤波"><a href="#卡尔曼滤波" class="headerlink" title="卡尔曼滤波"></a>卡尔曼滤波</h3><h4 id="干了这么"><a href="#干了这么" class="headerlink" title="干了这么"></a>干了这么</h4><p>如果有两个系统对一个数据（高度，位置或者其他的）都有测量或者说是观测，但是都不准。那如何通过这两个不准的东西得到一个更准的结果。</p>
-<p>更简单的说法：怎么去求两个数据的加权平均</p>
-<p>如何通俗并尽可能详细地解释卡尔曼滤波？ - Kent Zeng的回答 - 知乎 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23971601/answer/26254459">https://www.zhihu.com/question/23971601/answer/26254459</a></p>
-<h3 id="翻译理解"><a href="#翻译理解" class="headerlink" title="翻译理解"></a>翻译理解</h3><p>接下来按照</p>
-<p><a target="_blank" rel="noopener" href="https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/">https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/</a></p>
-<p>一文简单翻译理解一下</p>
-<h4 id="what-is-it-？"><a href="#what-is-it-？" class="headerlink" title="what is it ？"></a>what is it ？</h4><p>你有一个不准确但是可以观测的，连续变化的系统。此外，你还能对着干观测值进行一些科学推论。但是也不准。通过卡尔曼滤波，可以得到一个更准确的当前值的结果。</p>
-<h4 id="what-can-we-do-with-a-Kalman-filter"><a href="#what-can-we-do-with-a-Kalman-filter" class="headerlink" title="what can we do with a Kalman filter"></a>what can we do with a Kalman filter</h4><p>假设你有一个小机器人，这个机器人在森林里行走，需要定位。</p>
-<p>这个小机器人有一个状态，这个状态包括了当前位置和当前速度。这个速度是某种码表里可以读出来的。此外，这个机器人还有一个GPS定位，表明了当前的位置。不管是GPS还是速度都是不太准的的。怎么得到更准确的当前位置呢？</p>
-<h4 id="how-a-Kalman-filter-sees-your-problem"><a href="#how-a-Kalman-filter-sees-your-problem" class="headerlink" title="how a Kalman filter sees your problem"></a>how a Kalman filter sees your problem</h4><p>我们有两个连续变化的数据，位置和速度，虽然这些都不准，但是有个概率（假设是高斯），就是有些位置，速度可能性更大一些，有些位置，速度可能性更小一些。方差衡量了不同变量各自的不确定性，协方差衡量了他们之间的关系。</p>
-<h4 id="Describe-the-problem-with-martics"><a href="#Describe-the-problem-with-martics" class="headerlink" title="Describe the problem with martics"></a>Describe the problem with martics</h4><p>我们可以得到，当前状态的（速度和位置）的均值，然后和这两个变量之间的斜方差矩阵</p>
-<p>下一步，我们可以通过p &#x3D; p + vt 得到下一次的位置，速度预测。同时更新均值和其斜方差。</p>
-<p>此外，考虑再复杂一些，我们加入外力（加速度）和不确定性。</p>
-<p>最终影响下一次状态的均值的是，当前状态以及外力，影响下一次斜方差的是当前斜方差，不确定噪音。</p>
-<h4 id="Refining-the-estimate-with-measures"><a href="#Refining-the-estimate-with-measures" class="headerlink" title="Refining the estimate with measures"></a>Refining the estimate with measures</h4><p>我们可以通过直接读数，得到一个位置速度分布的概率。我们还可以通过科学推倒得到一个速度位置分布的概率。那将这两个概率相乘归一化，就是更准的概率了。</p>
-<h4 id="putting-it-all-together"><a href="#putting-it-all-together" class="headerlink" title="putting it all together"></a>putting it all together</h4><p>新的位置等于 根据老位置预测出来的新位置，以及新位置读数的加权。加权值由推倒公式，读数概率等原始数据共同决定。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" data-id="claqkc6790001m1fbbh8f7cty" data-title="卡尔曼滤波" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-git在干什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="article-date">
-  <time class="dt-published" datetime="2022-11-17T06:20:48.000Z" itemprop="datePublished">2022-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" alt="Git"></p>
-<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。</p>
-<p>1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？</p>
-<p>1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回</p>
-<p>2 假设本地我修改了A文件，别人在远方修改了B文件，我commit后pull，B文件会被更新，但是A文件我的修改不会丢失</p>
-<p>3 假设本地我修改了A文件，别人在远方修改了A文件，我commit后pull会失败，需要git pull origin sara-ep-attlit –rebase </p>
-<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/27718f0741d8">https://www.jianshu.com/p/27718f0741d8</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82">https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2020-05-20-3">https://www.jiqizhixin.com/articles/2020-05-20-3</a></p>
-<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">http://chuquan.me/2022/05/21/understand-principle-of-git/</a></p>
-<p><a target="_blank" rel="noopener" href="https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html">https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html</a></p>
-<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">深入理解 Git 底层实现原理 | 楚权的世界</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" data-id="claqkc6780000m1fbbib43qzj" data-title="git在干什么" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -647,7 +627,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -657,7 +637,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a>
+      <a href="/tags/AIGC/" style="font-size: 10px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -666,7 +646,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -679,6 +659,14 @@
       <ul>
         
           <li>
+            <a href="/2023/10/24/%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5/">测试阶段</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/19/DDPM-DDIM-SDE-CompVis/">DDPM_DDIM_SDE_CompVis</a>
+          </li>
+        
+          <li>
             <a href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/">c的优化</a>
           </li>
         
@@ -688,14 +676,6 @@
         
           <li>
             <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">积分图和滑动窗口</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/23/blur%E5%92%8Csharpen%E7%9A%84%E6%8E%A2%E7%B4%A2/">blur和sharpen的探索</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/11/%E7%BF%BB%E8%AF%91%E3%80%8AThe-Retinex-Theory-of-Color-Vision%E3%80%8B/">翻译《The Retinex Theory of Color Vision》</a>
           </li>
         
       </ul>
