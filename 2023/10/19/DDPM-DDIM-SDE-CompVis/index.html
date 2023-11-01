@@ -13,35 +13,35 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="DDPMDenoising Diffusion Probabilistic Models https:&#x2F;&#x2F;github.com&#x2F;betterlmy&#x2F;ddpm_abarankab 公式原理 正向一步步加噪音： beta是一个设定好的和t有关的超参数，噪音就是随机高斯噪音 正向一步得到加噪结果 网络训练去噪器估计出当前噪音，得到Xt-1 总的来说 代码实现训练过程  推理过程 DDIMDENOISIN">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-04-57-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-06-18-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-15-37-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-40-23-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-40-53-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-02-26-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-02-36-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-05-08-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-17-02-20-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-17-10-28-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-41-04-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-17-13-30-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-16-57-36-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-45-20-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-45-29-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-45-41-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-46-19-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-31-09-46-38-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-31-10-57-01-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-27-11-22-43-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-26-19-05-37-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-01-10-00-40-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-01-10-04-05-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-04-57-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-06-18-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-15-37-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-23-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-53-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-02-26-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-02-36-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-05-08-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-02-20-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-10-28-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-41-04-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-13-30-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-16-57-36-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-20-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-29-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-41-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-46-19-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-31-09-46-38-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-31-10-57-01-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-27-11-22-43-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-26-19-05-37-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-11-01-10-00-40-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-11-01-10-04-05-image.png">
 <meta property="article:published_time" content="2023-10-19T05:47:25.000Z">
-<meta property="article:modified_time" content="2023-11-01T06:20:58.613Z">
+<meta property="article:modified_time" content="2023-11-01T07:00:06.844Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="AIGC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-04-57-image.png">
+<meta name="twitter:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-04-57-image.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -122,46 +122,46 @@
       
         <h3 id="DDPM"><a href="#DDPM" class="headerlink" title="DDPM"></a>DDPM</h3><p><em>Denoising Diffusion Probabilistic Models</em></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/betterlmy/ddpm_abarankab">https://github.com/betterlmy/ddpm_abarankab</a></p>
-<h4 id="公式原理"><a href="#公式原理" class="headerlink" title="公式原理"></a>公式原理</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-04-57-image.png"></p>
-<h6 id="正向一步步加噪音："><a href="#正向一步步加噪音：" class="headerlink" title="正向一步步加噪音："></a>正向一步步加噪音：</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-06-18-image.png"></p>
+<h4 id="公式原理"><a href="#公式原理" class="headerlink" title="公式原理"></a>公式原理</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-04-57-image.png"></p>
+<h6 id="正向一步步加噪音："><a href="#正向一步步加噪音：" class="headerlink" title="正向一步步加噪音："></a>正向一步步加噪音：</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-06-18-image.png"></p>
 <p>beta是一个设定好的和t有关的超参数，噪音就是随机高斯噪音</p>
-<h6 id="正向一步得到加噪结果"><a href="#正向一步得到加噪结果" class="headerlink" title="正向一步得到加噪结果"></a>正向一步得到加噪结果</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-15-37-image.png"></p>
-<h6 id="网络训练去噪器"><a href="#网络训练去噪器" class="headerlink" title="网络训练去噪器"></a>网络训练去噪器</h6><h6 id="估计出当前噪音，得到Xt-1"><a href="#估计出当前噪音，得到Xt-1" class="headerlink" title="估计出当前噪音，得到Xt-1"></a>估计出当前噪音，得到Xt-1</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-40-23-image.png"></p>
-<h6 id="总的来说"><a href="#总的来说" class="headerlink" title="总的来说"></a>总的来说</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-14-40-53-image.png"></p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h6 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-02-26-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-02-36-image.png"></p>
-<h6 id="推理过程"><a href="#推理过程" class="headerlink" title="推理过程"></a>推理过程</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-05-08-image.png"></p>
+<h6 id="正向一步得到加噪结果"><a href="#正向一步得到加噪结果" class="headerlink" title="正向一步得到加噪结果"></a>正向一步得到加噪结果</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-15-37-image.png"></p>
+<h6 id="网络训练去噪器"><a href="#网络训练去噪器" class="headerlink" title="网络训练去噪器"></a>网络训练去噪器</h6><h6 id="估计出当前噪音，得到Xt-1"><a href="#估计出当前噪音，得到Xt-1" class="headerlink" title="估计出当前噪音，得到Xt-1"></a>估计出当前噪音，得到Xt-1</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-23-image.png"></p>
+<h6 id="总的来说"><a href="#总的来说" class="headerlink" title="总的来说"></a>总的来说</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-53-image.png"></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h6 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-02-26-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-02-36-image.png"></p>
+<h6 id="推理过程"><a href="#推理过程" class="headerlink" title="推理过程"></a>推理过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-05-08-image.png"></p>
 <h3 id="DDIM"><a href="#DDIM" class="headerlink" title="DDIM"></a>DDIM</h3><p><em>DENOISING</em> <em>DIFFUSION</em> <em>IMPLICIT</em> <em>MODELS</em></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/ermongroup/ddim">https://github.com/ermongroup/ddim</a></p>
 <h4 id="论文原理"><a href="#论文原理" class="headerlink" title="论文原理"></a>论文原理</h4><p>DDPM在采样的时候，需要利用到xt-1 扩散到xt的知识，导致sample速度过慢，而DDIM可以只利用predicted X0 Xt，去求Xt-1，这样就不要求一步步采样了。</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-17-02-20-image.png"></p>
-<h6 id="reverse过程"><a href="#reverse过程" class="headerlink" title="reverse过程"></a>reverse过程</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-17-10-28-image.png"></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><h6 id="训练过程，和DDPM一样"><a href="#训练过程，和DDPM一样" class="headerlink" title="训练过程，和DDPM一样"></a>训练过程，和DDPM一样</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-15-41-04-image.png"></p>
-<h6 id="推理过程-1"><a href="#推理过程-1" class="headerlink" title="推理过程"></a>推理过程</h6><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-19-17-13-30-image.png"></p>
-<h3 id="SDE"><a href="#SDE" class="headerlink" title="SDE"></a>SDE</h3><h4 id="论文原理-1"><a href="#论文原理-1" class="headerlink" title="论文原理"></a>论文原理</h4><h5 id="SDE时间上连续-，正向和逆向推导过程"><a href="#SDE时间上连续-，正向和逆向推导过程" class="headerlink" title="SDE时间上连续 ，正向和逆向推导过程"></a>SDE时间上连续 ，正向和逆向推导过程</h5><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-16-57-36-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-02-20-image.png"></p>
+<h6 id="reverse过程"><a href="#reverse过程" class="headerlink" title="reverse过程"></a>reverse过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-10-28-image.png"></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><h6 id="训练过程，和DDPM一样"><a href="#训练过程，和DDPM一样" class="headerlink" title="训练过程，和DDPM一样"></a>训练过程，和DDPM一样</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-41-04-image.png"></p>
+<h6 id="推理过程-1"><a href="#推理过程-1" class="headerlink" title="推理过程"></a>推理过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-13-30-image.png"></p>
+<h3 id="SDE"><a href="#SDE" class="headerlink" title="SDE"></a>SDE</h3><h4 id="论文原理-1"><a href="#论文原理-1" class="headerlink" title="论文原理"></a>论文原理</h4><h5 id="SDE时间上连续-，正向和逆向推导过程"><a href="#SDE时间上连续-，正向和逆向推导过程" class="headerlink" title="SDE时间上连续 ，正向和逆向推导过程"></a>SDE时间上连续 ，正向和逆向推导过程</h5><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-16-57-36-image.png"></p>
 <h5 id="涵盖了之前的score-base-和ddpm"><a href="#涵盖了之前的score-base-和ddpm" class="headerlink" title="涵盖了之前的score base 和ddpm"></a>涵盖了之前的score base 和ddpm</h5><p><strong>score base VE</strong></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-45-20-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-45-29-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-20-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-29-image.png"></p>
 <p><strong>ddpm VP</strong></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-45-41-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-41-image.png"></p>
 <p>结合上述两种扩散方式 提出<strong>sub-VP SDE</strong> 目的是<em>which perform particularly well on</em></p>
 <p><em>likelihoods</em></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-30-17-46-19-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-46-19-image.png"></p>
 <h5 id="PC采样："><a href="#PC采样：" class="headerlink" title="PC采样："></a>PC采样：</h5><p>用SDE数值求解预测出结果，再用分数估计修正结果。这部分也有一些实验性结论，比如correct一步还是n步。结合了两种采样方式 *unifies and improves over existing sampling methods for score-based models.</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-31-09-46-38-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-31-09-46-38-image.png"></p>
 <h5 id="PC的原因"><a href="#PC的原因" class="headerlink" title="PC的原因"></a>PC的原因</h5><p>纠正离散步长不准确？</p>
 <h5 id="ODE"><a href="#ODE" class="headerlink" title="ODE"></a>ODE</h5><p>就是一种和SDE有同样边缘概率分布的采样方式  likelihood <em>fast adaptive sampling via black-box ODE solvers, flexible data manipulation via latent codes, a uniquely identifiable encoding, and notably, exact likelihood computation.</em></p>
 <h5 id="controllable-generation"><a href="#controllable-generation" class="headerlink" title="controllable generation"></a>controllable generation</h5><p>对于score模型 只要知道了 每个时刻condition 的score 就可以根据condition生成图片了，总之就是额外或者利用domain信息，得到一个跟condition有关的score，放到采样过程中就行。主要应用有，分类图片生成，图片补全，图片上色。</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-31-10-57-01-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-31-10-57-01-image.png"></p>
 <p>这里这些condition都是sample时候加进去的，不涉及估计score的那个训练阶段。</p>
 <h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><h5 id="怎么训练分数网络"><a href="#怎么训练分数网络" class="headerlink" title="怎么训练分数网络"></a>怎么训练分数网络</h5><p>score 本质上还是和noise z相关的的一个估计</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-27-11-22-43-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-27-11-22-43-image.png"></p>
 <h5 id="怎么采样"><a href="#怎么采样" class="headerlink" title="怎么采样"></a>怎么采样</h5><p>PC采样的框架</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-10-26-19-05-37-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-26-19-05-37-image.png"></p>
 <p>不同数值求解器的predictor</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-01-10-00-40-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-11-01-10-00-40-image.png"></p>
 <p>不同数值求解器的correcter,只截取了部分 还有很多</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-01-10-04-05-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-11-01-10-04-05-image.png"></p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Dd4y1A7oz/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83">https://www.bilibili.com/video/BV1Dd4y1A7oz/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19M411z7hS/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83">https://www.bilibili.com/video/BV19M411z7hS/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jg411Q7bQ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=857061537338948659f6d0f1f3868d83">https://www.bilibili.com/video/BV1jg411Q7bQ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=857061537338948659f6d0f1f3868d83</a></p>
