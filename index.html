@@ -71,6 +71,173 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-arm-intrinsic-指令查询技巧" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" class="article-date">
+  <time class="dt-published" datetime="2023-11-21T10:54:13.000Z" itemprop="datePublished">2023-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="查询指令的网址"><a href="#查询指令的网址" class="headerlink" title="查询指令的网址"></a>查询指令的网址</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012385733/article/details/121086734">ARM Neon Intrinsics各函数介绍_arm neon intrinsic 函数_June_Hou的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vmovl_high_u16">https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vmovl_high_u16</a></p>
+<h4 id="总的来说"><a href="#总的来说" class="headerlink" title="总的来说"></a>总的来说</h4><p><strong>正常指令</strong>   操作64位 指令后加q了的话128位</p>
+<p><strong>长指令</strong>       指令后面加l ，结果比两个操作数要长</p>
+<p><strong>宽指令</strong>       指令后面加w 两种数据类型不一样相加减等 生成的数据类型取较宽的那个</p>
+<p><strong>窄指令</strong>       指令后面加hn 对应的长指令 加减之后 结果比原本两个一样类型的输入要窄</p>
+<p><strong>饱和指令</strong>   指令后面加q 自动限制在数据范围内</p>
+<h4 id="基本运算"><a href="#基本运算" class="headerlink" title="基本运算"></a>基本运算</h4><p><strong>乘法</strong> mul</p>
+<p><strong>乘加</strong> mla</p>
+<p><strong>加法</strong> add</p>
+<p><strong>减法</strong> sub</p>
+<p><strong>位移</strong> shl shr </p>
+<p><strong>取大小</strong> min max</p>
+<p><strong>绝对值</strong> vabs </p>
+<p><strong>取反</strong> vneg</p>
+<p>和查表有关的：tb 但只支持表格很小？unit8x8这种table + index</p>
+<h4 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h4><p>vceq （vector compare equal）</p>
+<p>vcge a&gt;&#x3D;b? (Greater equal</p>
+<p>vcle   a&lt;&#x3D;b? </p>
+<p>Vcgt a&gt;b greater than</p>
+<p>Vclt a&lt;b</p>
+<p>Vcage |a| &gt;&#x3D; |b| (vector compare absolute greater equal</p>
+<p>r &#x3D; |a - b| vabd vector absolute difference </p>
+<p>R &#x3D; a + |b -c| vaba absolute difference and accumulate</p>
+<h4 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h4><p>r &#x3D; a|(~b) vorn_s8   or not</p>
+<p>R &#x3D; ~a &amp; b vbic_s8 bitwise clear</p>
+<p>R &#x3D; a ^ b veor_s8 exclusive or</p>
+<p>R &#x3D; a | b vorr_s8 or</p>
+<p>R &#x3D; a &amp; b vand_s8 and</p>
+<p>R &#x3D; ~a vmvn_s8</p>
+<h4 id="赋值or读写"><a href="#赋值or读写" class="headerlink" title="赋值or读写"></a>赋值or读写</h4><p><strong>vdup_n_s8</strong> duplicate a scalar into every element of vector ??? Dup mov？？？</p>
+<p>Dup是把一个数据复制多份的关键词</p>
+<p><strong>Ld</strong> 则是正常load 的关键词</p>
+<p><strong>Mov</strong>是 拿到一些高位 或者地位 就是操作数和结果位宽不同？（好像也不一定 偶尔和dup等价？</p>
+<p><strong>Get</strong>是 把unit8<em>16 拆成uint8</em>8 x2 这种 位宽相同 并行个数不同 vget_high vget_low</p>
+<p>cvt convert数据类型</p>
+<p><strong>combine</strong> 把8个*2 合并成16个</p>
+<p>int8x16_t vcombine_s(int8x8_t a,int8x8_t b)</p>
+<p>create 从uint64 create uint8x8</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" data-id="clp88e15c0002ppfb32b83gdo" data-title="arm intrinsic 指令查询技巧" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-banding-artifact" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/14/banding-artifact/" class="article-date">
+  <time class="dt-published" datetime="2023-11-14T07:43:46.000Z" itemprop="datePublished">2023-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/14/banding-artifact/">banding artifact</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="banding-现象"><a href="#banding-现象" class="headerlink" title="banding 现象"></a>banding 现象</h2><h3 id="单帧"><a href="#单帧" class="headerlink" title="单帧"></a>单帧</h3><p>图像平坦渐变区域，出现条带状变化</p>
+<h3 id="多帧"><a href="#多帧" class="headerlink" title="多帧"></a>多帧</h3><p>随着时间推进，条带状变化移动</p>
+<h2 id="banding-造成原因和解决办法"><a href="#banding-造成原因和解决办法" class="headerlink" title="banding 造成原因和解决办法"></a>banding 造成原因和解决办法</h2><h3 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h3><p>色彩空间转化时，中间空间的量化： RGB 2 YUV 2 RGB</p>
+<p>中间运算中的量化： Y‘ &#x3D; kY + mU + nV</p>
+<p><strong>尽量避免中间运算的量化，尤其避免中间运算的<mark>多步量化</mark></strong></p>
+<h3 id="拉伸"><a href="#拉伸" class="headerlink" title="拉伸"></a>拉伸</h3><p>拉伸会导致原来+1 的数据+2  Y‘ &#x3D; kY k&gt;1</p>
+<p>压缩会导致原来不规则（-1 -2 随机）变化的数据 规则的-1   Y‘ &#x3D; kY k&lt;1</p>
+<p>不合理的拉伸公式：UV &#x3D; f(y), 导致在RGB域无法连续变化</p>
+<p><strong>避免映射曲线的斜率过大或者过小，注意<mark>多步变化相当于曲线相乘</mark>，进一步增大斜率</strong></p>
+<h3 id="过于规则"><a href="#过于规则" class="headerlink" title="过于规则"></a>过于规则</h3><p>平坦区域如果变化过于规则，视觉也能看到banding</p>
+<p><strong>加噪音</strong></p>
+<h3 id="多帧-1"><a href="#多帧-1" class="headerlink" title="多帧"></a>多帧</h3><p>随着时间的推移，输入在渐变，但是经过上述的异常引入，表现出banding 移动</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/14/banding-artifact/" data-id="clp88e15d0003ppfb0ct0g3tb" data-title="banding artifact" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ControlNet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/01/ControlNet/" class="article-date">
+  <time class="dt-published" datetime="2023-11-01T07:06:18.000Z" itemprop="datePublished">2023-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/01/ControlNet/">ControlNet</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/01/ControlNet/" data-id="clp88e1590000ppfb90f70m23" data-title="ControlNet" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-测试阶段" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/10/24/%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5/" class="article-date">
@@ -153,8 +320,10 @@
       
         <h3 id="DDPM"><a href="#DDPM" class="headerlink" title="DDPM"></a>DDPM</h3><p><em>Denoising Diffusion Probabilistic Models</em></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/betterlmy/ddpm_abarankab">https://github.com/betterlmy/ddpm_abarankab</a></p>
-<h4 id="公式原理"><a href="#公式原理" class="headerlink" title="公式原理"></a>公式原理</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-04-57-image.png"></p>
-<h6 id="正向一步步加噪音："><a href="#正向一步步加噪音：" class="headerlink" title="正向一步步加噪音："></a>正向一步步加噪音：</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-06-18-image.png"></p>
+<h4 id="公式原理"><a href="#公式原理" class="headerlink" title="公式原理"></a>公式原理</h4><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-04-57-image.png" title="" alt="" data-align="center">
+
+<h6 id="正向一步步加噪音："><a href="#正向一步步加噪音：" class="headerlink" title="正向一步步加噪音："></a>正向一步步加噪音：</h6><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-06-18-image.png" title="" alt="" data-align="center">
+
 <p>beta是一个设定好的和t有关的超参数，噪音就是随机高斯噪音</p>
 <h6 id="正向一步得到加噪结果"><a href="#正向一步得到加噪结果" class="headerlink" title="正向一步得到加噪结果"></a>正向一步得到加噪结果</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-15-37-image.png"></p>
 <h6 id="网络训练去噪器"><a href="#网络训练去噪器" class="headerlink" title="网络训练去噪器"></a>网络训练去噪器</h6><h6 id="估计出当前噪音，得到Xt-1"><a href="#估计出当前噪音，得到Xt-1" class="headerlink" title="估计出当前噪音，得到Xt-1"></a>估计出当前噪音，得到Xt-1</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-23-image.png"></p>
@@ -974,148 +1143,6 @@
 
 
   
-    <article id="post-有GPG签名的GitLab通信过程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/" class="article-date">
-  <time class="dt-published" datetime="2023-04-19T08:25:14.000Z" itemprop="datePublished">2023-04-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/">有GPG签名的GitLab通信过程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><h4 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h4><p>解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。也不能在非安全的网络上传输</p>
-<h4 id="非对称加密-1"><a href="#非对称加密-1" class="headerlink" title="非对称加密"></a>非对称加密</h4><p>唯一的公私钥对，公钥可以明文传输，用来加密。而私钥只有自己保存，用来解密</p>
-<p><a target="_blank" rel="noopener" href="https://songlee24.github.io/2015/05/03/public-key-and-private-key/">理解公钥与私钥 | 神奕的博客</a></p>
-<h3 id="SSH通信协议"><a href="#SSH通信协议" class="headerlink" title="SSH通信协议"></a>SSH通信协议</h3><p>基于非对称加密，对数据进行加密传输</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8e5b7aea52b5">SSH 协议原理、组成、认证方式和过程 - 简书</a></p>
-<p>基于非对称加密，对用户进行身份验证</p>
-<p><a target="_blank" rel="noopener" href="https://info.support.huawei.com/info-finder/encyclopedia/zh/SSH.html">什么是SSH？SSH是如何工作的？ - 华为</a></p>
-<h3 id="GPG签名"><a href="#GPG签名" class="headerlink" title="GPG签名"></a>GPG签名</h3><p>基于非对称加密，对文件的加密和签名协议，同时对应在git commit上就是对每一次commit 签名。加密签名完，再经过SSH通信协议传输。</p>
-<p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2013/07/gpg.html">GPG入门教程 - 阮一峰的网络日志</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/19/%E6%9C%89GPG%E7%AD%BE%E5%90%8D%E7%9A%84GitLab%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/" data-id="clgngd9q50000wifbfp5v0mvk" data-title="有GPG签名的GitLab通信过程" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-服务器上的python指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/" class="article-date">
-  <time class="dt-published" datetime="2023-02-21T02:44:38.000Z" itemprop="datePublished">2023-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/">服务器上的python指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><code>ctrl+c</code>: 前台进程终止 ，直接终止当前正在运行的进程。</li>
-<li><code>ctrl+z</code> :中断任务执行，类似于暂停执行的意思，执行该操作意味着当前的进程被挂起。</li>
-<li>被挂起的进程只有在当下窗口，可以用jobs查看</li>
-<li><code>jobs</code> :查看在后台执行的进程。注意：如果退出当前终端，则无法再次进入终端查看到后台进程。jobs -l 看到pid</li>
-<li><code>ps -u</code>查看隶属于自己的进程，</li>
-<li>linux 中查看python后台运行的程序：ps -ef | grep python</li>
-<li></li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44554428/article/details/123423601">Linux后台运行python程序_linux train.py恢复进程_等待戈多。的博客-CSDN博客</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84python%E6%8C%87%E4%BB%A4/" data-id="clfmacyef0000e4fba6pq8c6b" data-title="服务器上的python指令" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-常用loss合集" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/" class="article-date">
-  <time class="dt-published" datetime="2023-02-19T03:12:50.000Z" itemprop="datePublished">2023-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/">常用loss合集</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="TV-loss"><a href="#TV-loss" class="headerlink" title="TV loss"></a>TV loss</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class TVLoss(nn.Module):</span><br><span class="line">    def __init__(self,TVLoss_weight=1):</span><br><span class="line">        super(TVLoss,self).__init__()</span><br><span class="line">        self.TVLoss_weight = TVLoss_weight</span><br><span class="line"></span><br><span class="line">    def forward(self,x):</span><br><span class="line">        batch_size = x.size()[0]</span><br><span class="line">        h_x = x.size()[2]</span><br><span class="line">        w_x = x.size()[3]</span><br><span class="line">        count_h = self._tensor_size(x[:,:,1:,:]) #channel * (h-1) * w</span><br><span class="line">        count_w = self._tensor_size(x[:,:,:,1:]) #channel * h * (w-1)</span><br><span class="line">        h_tv = torch.pow((x[:,:,1:,:]-x[:,:,:h_x-1,:]),2).sum()</span><br><span class="line">        w_tv = torch.pow((x[:,:,:,1:]-x[:,:,:,:w_x-1]),2).sum()</span><br><span class="line">        return self.TVLoss_weight*2*(h_tv/count_h+w_tv/count_w)/batch_size</span><br><span class="line"></span><br><span class="line">    def _tensor_size(self,t): </span><br><span class="line">        return t.size()[1]*t.size()[2]*t.size()[3]</span><br></pre></td></tr></table></figure>
-
-<p>个人理解 *2 的意思是TV是四个方向的，所以两个方向计算下来需要 * 2</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/" data-id="cleathji00000xffbcsr8d2pc" data-title="常用loss合集" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1144,7 +1171,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 10px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12.5px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -1153,7 +1180,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -1166,23 +1193,23 @@
       <ul>
         
           <li>
+            <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/14/banding-artifact/">banding artifact</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/01/ControlNet/">ControlNet</a>
+          </li>
+        
+          <li>
             <a href="/2023/10/24/%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5/">测试阶段</a>
           </li>
         
           <li>
             <a href="/2023/10/19/DDPM-DDIM-SDE-CompVis/">DDPM_DDIM_SDE_CompVis</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/">c的优化</a>
-          </li>
-        
-          <li>
-            <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/">函数与汇编</a>
-          </li>
-        
-          <li>
-            <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">积分图和滑动窗口</a>
           </li>
         
       </ul>

@@ -4,23 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>cplusplus里数据类型的大小和存储方式 | Hexo</title>
+  <title>arm intrinsic 指令查询技巧 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="不同数据类型的大小相同位数的系统下，每一个变量的地址大小相同 123456789        int32_t va; int32_t* vb; double vc; double* vd; uint8_t ve; uint8_t* vf; intptr_t vg;        int32_t a &#x3D; sizeof(&amp;va); &#x2F;&#x2F;8int32_t b &#x3D; sizeof(&amp;vb)">
+  <meta name="description" content="查询指令的网址ARM Neon Intrinsics各函数介绍_arm neon intrinsic 函数_June_Hou的博客-CSDN博客 https:&#x2F;&#x2F;developer.arm.com&#x2F;architectures&#x2F;instruction-sets&#x2F;intrinsics&#x2F;#q&#x3D;vmovl_high_u16 总的来说正常指令   操作64位 指令后加q了的话128位 长指令       指">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cplusplus里数据类型的大小和存储方式">
-<meta property="og:url" content="http://example.com/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/index.html">
+<meta property="og:title" content="arm intrinsic 指令查询技巧">
+<meta property="og:url" content="http://example.com/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="不同数据类型的大小相同位数的系统下，每一个变量的地址大小相同 123456789        int32_t va; int32_t* vb; double vc; double* vd; uint8_t ve; uint8_t* vf; intptr_t vg;        int32_t a &#x3D; sizeof(&amp;va); &#x2F;&#x2F;8int32_t b &#x3D; sizeof(&amp;vb)">
+<meta property="og:description" content="查询指令的网址ARM Neon Intrinsics各函数介绍_arm neon intrinsic 函数_June_Hou的博客-CSDN博客 https:&#x2F;&#x2F;developer.arm.com&#x2F;architectures&#x2F;instruction-sets&#x2F;intrinsics&#x2F;#q&#x3D;vmovl_high_u16 总的来说正常指令   操作64位 指令后加q了的话128位 长指令       指">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/c/32B527F7-37F7-44D0-A4EB-1F35F0AD60C8.jpg">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-07-18-17-43-16-image.png">
-<meta property="article:published_time" content="2022-12-08T07:55:05.000Z">
-<meta property="article:modified_time" content="2023-07-18T09:45:28.640Z">
+<meta property="article:published_time" content="2023-11-21T10:54:13.000Z">
+<meta property="article:modified_time" content="2023-11-21T11:06:43.982Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/c/32B527F7-37F7-44D0-A4EB-1F35F0AD60C8.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -77,10 +73,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-cplusplus里数据类型和大小" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-arm-intrinsic-指令查询技巧" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/" class="article-date">
-  <time class="dt-published" datetime="2022-12-08T07:55:05.000Z" itemprop="datePublished">2022-12-08</time>
+    <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" class="article-date">
+  <time class="dt-published" datetime="2023-11-21T10:54:13.000Z" itemprop="datePublished">2023-11-21</time>
 </a>
     
   </div>
@@ -91,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      cplusplus里数据类型的大小和存储方式
+      arm intrinsic 指令查询技巧
     </h1>
   
 
@@ -99,57 +95,63 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h4 id="不同数据类型的大小"><a href="#不同数据类型的大小" class="headerlink" title="不同数据类型的大小"></a>不同数据类型的大小</h4><p><strong>相同位数的系统下，每一个变量的地址大小相同</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">        int32_t va; int32_t* vb; double vc; double* vd; uint8_t ve; uint8_t* vf; intptr_t vg;</span><br><span class="line"></span><br><span class="line">        int32_t a = sizeof(&amp;va); //8</span><br><span class="line">int32_t b = sizeof(&amp;vb); //8</span><br><span class="line">int32_t d = sizeof(&amp;vc); //8</span><br><span class="line">int32_t e = sizeof(&amp;vd); //8</span><br><span class="line">int32_t f = sizeof(&amp;ve); //8</span><br><span class="line">int32_t g = sizeof(&amp;vf); //8</span><br><span class="line">int32_t h = sizeof(&amp;vg); //8</span><br></pre></td></tr></table></figure>
-
-<p>以上变量地址大小都是 8 ，因为在64位体统下。</p>
-<p><strong>相同位数的系统下，不同类型变量占有的空间大小不同</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int32_t va; int32_t* vb; double vc; double* vd; uint8_t ve; uint8_t* vf; intptr_t vg;</span><br><span class="line"></span><br><span class="line">int32_t a = sizeof(va); //4</span><br><span class="line">int32_t b = sizeof(vb); //8</span><br><span class="line">int32_t d = sizeof(vc); //8</span><br><span class="line">int32_t e = sizeof(vd); //8</span><br><span class="line">int32_t f = sizeof(ve); //1</span><br><span class="line">int32_t g = sizeof(vf); //8</span><br><span class="line">int32_t h = sizeof(vg); //8</span><br><span class="line">int32_t i = sizeof(*vb); //4</span><br></pre></td></tr></table></figure>
-
-<p>这里*vb &#x3D;&#x3D; vb[0] </p>
-<p><strong>不同位数的系统下，不同&#x2F;相同变量占有的大小不同</strong></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/c/32B527F7-37F7-44D0-A4EB-1F35F0AD60C8.jpg"></p>
-<p>当申请一块 uint_8* buff 时，系统划分出一个8字节的大小，存储了一个指向随机位置的指针。</p>
-<p>buff &#x3D; (uint_8*)calloc(seizeof(*buff) * 10,0 ); 时，buff指向了一块地址。这块地址保存的都是十个 1字节的uint_8数据。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        uint8_t* aa;</span><br><span class="line">aa = (uint8_t*)zltCMemoryBasic::zlt_calloc(sizeof(*aa) * bufSizeB * 12, 0);</span><br><span class="line"></span><br><span class="line">        aa[0] = 1; aa[1] = 2;</span><br><span class="line">uint8_t a = aa[0]; //1</span><br><span class="line">uint8_t c = aa[1]; //2</span><br><span class="line">uint8_t b = *aa; //1</span><br><span class="line">uint8_t d = *(aa+1); //2</span><br></pre></td></tr></table></figure>
-
-<h4 id="uint8-int-float-double-怎么在计算机内存储"><a href="#uint8-int-float-double-怎么在计算机内存储" class="headerlink" title="uint8 int float double 怎么在计算机内存储"></a>uint8 int float double 怎么在计算机内存储</h4><p>uint8：占一个字节八位， 无符号数，0～255，算数or逻辑左移右移就是左右移动，舍去移动的位数然后补零</p>
-<p>int32 ：四个字节32位，有符号数，最高位代表符号。</p>
-<p>最大数2147483647的原码为0111 1111 1111 1111 1111 1111 1111 1111</p>
-<p>最小数-2147483648的补码表示为1000 0000 0000 0000 0000 0000 0000 0000，在32位没有原码。</p>
-<p>对有符号数逻辑左右移动不考虑符号，算数右移补符号位。</p>
-<p>float32: 四字节32位，有符号数，最高位代表符号。E代表指数 2E M代表尾数</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-07-18-17-43-16-image.png"></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/84453627">https://zhuanlan.zhihu.com/p/84453627</a></p>
+        <h3 id="查询指令的网址"><a href="#查询指令的网址" class="headerlink" title="查询指令的网址"></a>查询指令的网址</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012385733/article/details/121086734">ARM Neon Intrinsics各函数介绍_arm neon intrinsic 函数_June_Hou的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vmovl_high_u16">https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vmovl_high_u16</a></p>
+<h4 id="总的来说"><a href="#总的来说" class="headerlink" title="总的来说"></a>总的来说</h4><p><strong>正常指令</strong>   操作64位 指令后加q了的话128位</p>
+<p><strong>长指令</strong>       指令后面加l ，结果比两个操作数要长</p>
+<p><strong>宽指令</strong>       指令后面加w 两种数据类型不一样相加减等 生成的数据类型取较宽的那个</p>
+<p><strong>窄指令</strong>       指令后面加hn 对应的长指令 加减之后 结果比原本两个一样类型的输入要窄</p>
+<p><strong>饱和指令</strong>   指令后面加q 自动限制在数据范围内</p>
+<h4 id="基本运算"><a href="#基本运算" class="headerlink" title="基本运算"></a>基本运算</h4><p><strong>乘法</strong> mul</p>
+<p><strong>乘加</strong> mla</p>
+<p><strong>加法</strong> add</p>
+<p><strong>减法</strong> sub</p>
+<p><strong>位移</strong> shl shr </p>
+<p><strong>取大小</strong> min max</p>
+<p><strong>绝对值</strong> vabs </p>
+<p><strong>取反</strong> vneg</p>
+<p>和查表有关的：tb 但只支持表格很小？unit8x8这种table + index</p>
+<h4 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h4><p>vceq （vector compare equal）</p>
+<p>vcge a&gt;&#x3D;b? (Greater equal</p>
+<p>vcle   a&lt;&#x3D;b? </p>
+<p>Vcgt a&gt;b greater than</p>
+<p>Vclt a&lt;b</p>
+<p>Vcage |a| &gt;&#x3D; |b| (vector compare absolute greater equal</p>
+<p>r &#x3D; |a - b| vabd vector absolute difference </p>
+<p>R &#x3D; a + |b -c| vaba absolute difference and accumulate</p>
+<h4 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h4><p>r &#x3D; a|(~b) vorn_s8   or not</p>
+<p>R &#x3D; ~a &amp; b vbic_s8 bitwise clear</p>
+<p>R &#x3D; a ^ b veor_s8 exclusive or</p>
+<p>R &#x3D; a | b vorr_s8 or</p>
+<p>R &#x3D; a &amp; b vand_s8 and</p>
+<p>R &#x3D; ~a vmvn_s8</p>
+<h4 id="赋值or读写"><a href="#赋值or读写" class="headerlink" title="赋值or读写"></a>赋值or读写</h4><p><strong>vdup_n_s8</strong> duplicate a scalar into every element of vector ??? Dup mov？？？</p>
+<p>Dup是把一个数据复制多份的关键词</p>
+<p><strong>Ld</strong> 则是正常load 的关键词</p>
+<p><strong>Mov</strong>是 拿到一些高位 或者地位 就是操作数和结果位宽不同？（好像也不一定 偶尔和dup等价？</p>
+<p><strong>Get</strong>是 把unit8<em>16 拆成uint8</em>8 x2 这种 位宽相同 并行个数不同 vget_high vget_low</p>
+<p>cvt convert数据类型</p>
+<p><strong>combine</strong> 把8个*2 合并成16个</p>
+<p>int8x16_t vcombine_s(int8x8_t a,int8x8_t b)</p>
+<p>create 从uint64 create uint8x8</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/" data-id="clbev6o0i0000x1fbhld5hhq8" data-title="cplusplus里数据类型的大小和存储方式" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" data-id="clp88e15c0002ppfb32b83gdo" data-title="arm intrinsic 指令查询技巧" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          cplusplus文件管理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/11/14/banding-artifact/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Markdown语法</div>
+      <div class="article-nav-title">banding artifact</div>
     </a>
   
 </nav>

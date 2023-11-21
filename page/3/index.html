@@ -71,6 +71,203 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Markdown语法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2022-12-06T08:05:07.000Z" itemprop="datePublished">2022-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h4><p><a target="_blank" rel="noopener" href="https://yuleii.github.io/2020/07/03/add-image-in-blog.html">在Jekyll博客中插入图片 - Yulei’s Sandbox</a></p>
+<h4 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/65ab196bef04">https://www.jianshu.com/p/65ab196bef04</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/06/Markdown%E8%AF%AD%E6%B3%95/" data-id="clbby48hf000039fbb3mjewwr" data-title="Markdown语法" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Shell指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/06/Shell%E6%8C%87%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2022-12-06T07:32:55.000Z" itemprop="datePublished">2022-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/06/Shell%E6%8C%87%E4%BB%A4/">Shell指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="语法基础"><a href="#语法基础" class="headerlink" title="语法基础"></a>语法基础</h3><h4 id="作为可执行程序"><a href="#作为可执行程序" class="headerlink" title="作为可执行程序"></a>作为可执行程序</h4><p>将代码保存为name.sh，并 cd 到相应目录</p>
+<p>chmod +x .&#x2F;test.sh #使脚本具有执行权限</p>
+<p>.&#x2F;test.h 运行，或者将文件拖入终端运行</p>
+<p>注意，一定要写成 .&#x2F;test.sh，而不是 test.sh，运行其它二进制的程序也一样，直接写 test.sh，linux 系统会去 PATH 里寻找有没有叫 test.sh 的，而只有 &#x2F;bin, &#x2F;sbin, &#x2F;usr&#x2F;bin，&#x2F;usr&#x2F;sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 test.sh 是会找不到命令的，要用 .&#x2F;test.sh 告诉系统说，就在当前目录找。</p>
+<p>#! 是一个约定的标记，它告诉系统这个脚本需要什么解释器（sh、bash、php等等）来执行。</p>
+<h3 id="使用模版"><a href="#使用模版" class="headerlink" title="使用模版"></a>使用模版</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;Hello World !&quot;</span><br><span class="line">ffmpeg -r 30 -i output/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output.mp4</span><br><span class="line">mkdir backlit</span><br><span class="line">ffmpeg -i backlit.mp4 -r 30 backlit/%05d.png</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html">https://www.runoob.com/linux/linux-command-manual.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/thatsit/p/shell-jiao-ben-shu-xie-gui-fan.html">Shell脚本书写规范 - That’s_it - 博客园</a></p>
+<h4 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">删除文件</span><br><span class="line">rm -r *.pdf</span><br><span class="line">但是一次性删除太多的话就会报错 zsh: argument list too long: rm 此时用</span><br><span class="line">find . -name &quot;*.pdf&quot; -print0 | xargs -0 rm</span><br><span class="line"></span><br><span class="line">移动文件</span><br><span class="line">mv folder2/*.* folder/ </span><br><span class="line">移动太多会报错</span><br><span class="line">find folder2 -name &#x27;*.*&#x27; -exec mv &#123;&#125; folder \;</span><br><span class="line">-exec runs any command, &#123;&#125; inserts the filename found, \; marks the end of the exec command.</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/11289551/argument-list-too-long-error-for-rm-cp-mv-commands">linux - Argument list too long error for rm, cp, mv commands - Stack Overflow</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">查看当前路径下文件个数（不包括下一级子目录里文件个数）</span><br><span class="line">ls -l | grep &quot;^-&quot; | wc -l</span><br><span class="line">查看当前路径下文件个数（包括下一级子目录里文件个数）</span><br><span class="line">ls -lR| grep &quot;^-&quot; | wc -l</span><br><span class="line">查看某目录下文件夹(目录)的个数（包括子目录）</span><br><span class="line">ls -lR | grep &quot;^d&quot; | wc -l</span><br><span class="line"></span><br><span class="line">命令解析：</span><br><span class="line">ls -l</span><br><span class="line">长列表输出该目录下文件信息(注意这里的文件是指目录、链接、设备文件等)，每一行对应一个文件或目录，ls -lR是列出所有文件，包括子目录。</span><br><span class="line"></span><br><span class="line">grep &quot;^-&quot;</span><br><span class="line">过滤ls的输出信息，只保留一般文件，只保留目录是grep &quot;^d&quot;。</span><br><span class="line"></span><br><span class="line">wc -l</span><br><span class="line">统计输出信息的行数，统计结果就是输出信息的行数，一行信息对应一个文件，所以就是文件的个数。</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://noahsnail.com/2017/02/07/2017-02-07-Linux%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E6%95%B0%E7%9B%AE/">Linux统计文件夹下的文件数目 | SnailTyan</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/06/Shell%E6%8C%87%E4%BB%A4/" data-id="clbbxftu80000s5fb6jfhei4q" data-title="Shell指令" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Bilateral-and-Guided-Filter" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/02/Bilateral-and-Guided-Filter/" class="article-date">
+  <time class="dt-published" datetime="2022-12-02T08:40:39.000Z" itemprop="datePublished">2022-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/02/Bilateral-and-Guided-Filter/">Bilateral and Guided Filter</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="双边滤波-for-gray-and-color-images"><a href="#双边滤波-for-gray-and-color-images" class="headerlink" title="双边滤波 for gray and color images"></a>双边滤波 for gray and color images</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-38-26-image.png"></p>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-40-06-image.png" alt="test"></p>
+<p>在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。</p>
+<h4 id="实验现象"><a href="#实验现象" class="headerlink" title="实验现象"></a>实验现象</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-49-40-image.png"></p>
+<p>如果只做色彩滤镜相当于对直方图进行压缩，也就是只做色彩滤镜相当于把全图色彩平均，向中灰度压缩。</p>
+<p>当像素相似度比较大的时候（100～300），对于小的范围参数影响不大了，因为几乎小范围内的所有数据都在像素相似度内。整图结果主要由范围半径控制。</p>
+<p>当范围半径比较大的时候，双边滤波更像是色彩相似度滤镜，表现为对直方图的压缩，现象就是偏灰。</p>
+<h4 id="常说到的导致梯度反转"><a href="#常说到的导致梯度反转" class="headerlink" title="常说到的导致梯度反转"></a>常说到的导致梯度反转</h4><p>首先，是双边滤波在做Tone Mapping时才会导致梯度反转。并不是直接用双边滤波得到保边平滑图就会出现梯度反转。</p>
+<p>双边滤波在做Tone Mapping时，<em>Fast Bilateral Filtering for the Display of High-Dynamic-Range Images</em> ，将图像分成base层和ditail 层 base &#x3D; BF（ori_img) detail &#x3D; ori_img.&#x2F;base。由于base层在边缘处加权的数据少，所以不稳定，偏向没有边缘的那一侧的值。导致的detail层也不稳定，在增强或者压缩base后，叠加detail会出现梯度反转。</p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-57-54-image.png"></p>
+<h3 id="Guided-Filter"><a href="#Guided-Filter" class="headerlink" title="Guided Filter"></a>Guided Filter</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>保边平滑，线性时间复杂度（与滤波半径无关），以及和matting Laplacian matrix理论有相似形式。可以用于：去噪，细节增强&#x2F;平滑，HDR压缩，抠图，羽化，去雾，联合双边上采样。</p>
+<h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-24-56-image.png"></p>
+<p>在一个小的局部区域，输出是guidance I 的一个线性变化，通过这个假设来确保，在局部，输出q的梯度和guidance I的梯度成比例，从而引入，或者说保留guidance I的梯度。</p>
+<p><strong>在一个局部的区域内，输出q，或者说是去噪音后的输入p，是引导图I的一个kI+b的线性变化。kI也就是，引导图的变化趋势都被保留，b是为了模拟p所在域的bias。eps控制a不能太大，这项是为了控制平滑（模糊）程度的</strong></p>
+<h4 id="公式-1"><a href="#公式-1" class="headerlink" title="公式"></a>公式</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-27-36-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-27-52-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-28-09-image.png"></p>
+<p>公式意义：</p>
+<p>当I没有梯度的时候，a等于0 ；当p没有梯度的时候，a等于0； 也就是<strong>任意一方是平坦图的时候，输出q 退化为p的两次boxfilter</strong></p>
+<p>当I有比较大的梯度，p也有比较大梯度，<strong>且他们有相关性的时候（分母一定，也就是I方差一定，Ip相关性越大分子越大），a越大，I的梯度得到保留</strong>；</p>
+<p>当引导图的方差远小于eps时，a几乎等于0，像素被平滑，也就是引导图方差相对于eps的关系决定了平滑的力度。</p>
+<p><strong>对于引导图I，滤波图p为一副图的情况</strong>，a &#x3D; 方差&#x2F;方差+eps b &#x3D; avg - a*avg。输出就变成了根据方差和eps关系，来选择性输出原图或者是avg图。对于方差比较大的边缘，输出原图的权重高，对于方差比较小的地方，输出平均图的权重高。</p>
+<p>公式几何意义：在一个局部区域内，I为横轴p为纵轴，q &#x3D; aI+b，也就是一条直线尽量拟合每一个(I,p) ,那么根据这个拟合结果，可以对原本的p有一个新的输出q。</p>
+<img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-07-13-45-24-image.png" title="" alt="" data-align="inline">
+
+<p>考虑到eps 对a的限制，输出可能更平滑一些</p>
+<img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-03-24-16-32-12-image.png" alt="" data-align="inline">
+
+<p>线性复杂度：由于一个固定方框内的均值方差可以采用box filter的优化方式变成线性复杂度，因此本算法也可以优化成线性复杂度。</p>
+<h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。简单来说，在边缘处黑度图他们不可清晰分类。</p>
+<img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-31-40-image.png" alt="" width="434">
+
+<p><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
+<p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。简单来说，在rgb色彩空间，边缘可分。</p>
+<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><ol>
+<li><p>半径不能太大。不然线性无法拟合。而且脸部要是有白色高光容易和背景墙混淆。</p>
+</li>
+<li><p>几乎完全相同颜色的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，因为本质上相同颜色不可分。于是会出现更多错误。</p>
+</li>
+<li><p>边缘处有rgb色彩重叠，会有些错分，带来就是部分引入错误，淡化原本01的强分割边界。</p>
+</li>
+</ol>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a target="_blank" rel="noopener" href="https://github.com/lisabug/guided-filter">https://github.com/lisabug/guided-filter</a></p>
+<h4 id="针对于抠图的潜在危险设计的S-Guided-Filter"><a href="#针对于抠图的潜在危险设计的S-Guided-Filter" class="headerlink" title="针对于抠图的潜在危险设计的S_Guided Filter"></a>针对于抠图的潜在危险设计的S_Guided Filter</h4><p><strong>针对于缺点2</strong>，设计了选择区域的GF，总的来说是颜色差别较大的区域Guided Filter生效，当颜色差别较小的区域不使用Guided Filter</p>
+<p>具体做法：在算引导图I 方差的时候，标记I 大于一定值的区域作为生效区域。当引导图为彩色图是，存在RR，RG，RB..等九个协方差，选取最大那个作为判定值。（因为当有一种颜色RR GG BB，或者一对颜色关系RG RB GB 可分时这个区域就可以区分）。</p>
+<p>引入的危险：阈值如何计算。太小了的话，那些高噪音的平台区域也变成working area了，太大了的话，一些本来可以使用GF的区域也失效了。</p>
+<p>测试case：尽量让浅肤色和白墙，深色头发和黑墙可以区分，不让白衣服白墙，全黑衣服和黑墙，以及高噪音全黑衣服和黑墙引入错误。</p>
+<p><strong>针对于缺点3</strong>，对GF后的结果进行了一些拉伸，让分割锐利，且剔除被分到前景的背景，但不在原基础上新增内容（可能有的前景被CNN分到了背景但是GF也无法加回来了）</p>
+<p>具体做法：</p>
+<p>•Q, Workingarea  &#x3D; GuidedFilter(guidedI,ori_mask) ;&#x2F;&#x2F;得到可分区域或者纹理复杂区域</p>
+<p>•Q是GF算法的直接结果，包含错分区域，纹理复杂区域，以及正确区域</p>
+<p>•M &#x3D; ori_mask - Q；&#x2F;&#x2F;改变值， M本身在-1～1之间</p>
+<p>•M &#x3D; M * 2 – 0.3(beta)；&#x2F;&#x2F;将改变的数据进行拉伸，后在-2.3 ～1.7之间放大改变值的。</p>
+<p>•M[M&lt;0]&#x3D; 0;  &#x2F;&#x2F; 1：不会新添加东西 2：如果改变值过小就忽视 。</p>
+<p>•M[M&gt;1] &#x3D; 1; &#x2F;&#x2F;数据合理性约束</p>
+<p>•Output &#x3D; (Workingarea &#x3D;&#x3D; TRUE)? (ori_mask – M) : ori_mask</p>
+<p>•Output &lt; 0 &#x3D; 0; &#x2F;&#x2F; 数据合理性 </p>
+<p>引入的危险：*2 - 0.3 是手调拉伸超参数。为了保证变化锐利而非自然。且舍弃了将前景补足的潜力。</p>
+<p>测试case：卷曲的头发剔除背景合理，不增加黑头发后面的复杂背景。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/02/Bilateral-and-Guided-Filter/" data-id="clbblrwxt0000qtfb98wb8158" data-title="Bilateral and Guided Filter" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo/" rel="tag">algo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-卡尔曼滤波" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" class="article-date">
@@ -519,177 +716,6 @@
 
 
   
-    <article id="post-install-asitop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/14/install-asitop/" class="article-date">
-  <time class="dt-published" datetime="2022-10-14T07:58:57.000Z" itemprop="datePublished">2022-10-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/14/install-asitop/">install asitop</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="install-asitop-但是找不到"><a href="#install-asitop-但是找不到" class="headerlink" title="install asitop 但是找不到"></a>install asitop 但是找不到</h2><p>pip3 install asitop</p>
-<h3 id="安装成功了，但是显示"><a href="#安装成功了，但是显示" class="headerlink" title="安装成功了，但是显示"></a>安装成功了，但是显示</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Installing collected packages: asitop</span><br><span class="line"></span><br><span class="line"> WARNING: The script asitop is installed in &#x27;/Users/PeppaZhu/Library/Python/3.9/bin&#x27; which is not on PATH.</span><br></pre></td></tr></table></figure>
-
-<p>然后无法运行asitop which whereis都找不到</p>
-<h3 id="需要添加环境变量"><a href="#需要添加环境变量" class="headerlink" title="需要添加环境变量"></a>需要添加环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -e &#x27;export PATH=&quot;$PATH:/Users/PeppaZhu/Library/Python/3.9/bin&quot;&#x27; &gt;&gt; $HOME/.bash_profile</span><br></pre></td></tr></table></figure>
-
-<p>然后就可以了</p>
-<p>然后下次打开咋又不行了呢</p>
-<p>需要<code>source ~/.bash_profile</code> 使得环境变量生效</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/14/install-asitop/" data-id="cl987i10a0000h7fb8c4e809j" data-title="install asitop" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-YUV-storage" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/09/26/YUV-storage/" class="article-date">
-  <time class="dt-published" datetime="2022-09-26T06:26:53.000Z" itemprop="datePublished">2022-09-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/09/26/YUV-storage/">YUV storage</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="令人迷惑的YUV存储模式"><a href="#令人迷惑的YUV存储模式" class="headerlink" title="令人迷惑的YUV存储模式"></a>令人迷惑的YUV存储模式</h2><h3 id="奇怪的知识增加了"><a href="#奇怪的知识增加了" class="headerlink" title="奇怪的知识增加了"></a>奇怪的知识增加了</h3><p>除YUV之外，经常提到的还有 YPbPr 和 YCbCr。YPbPr 指模拟分量信号(或接口)，P(Parallel)表示并行，b 下标表示蓝，r 下标表示红。YCbCr 指的是数字分量信号(或接口)，C(Chroma)表示色度。YCbCr 还可指色彩空间，YCbCr 色彩空间是 YUV 色彩空间的缩放和偏移版本。</p>
-<h3 id="YUV采样方式"><a href="#YUV采样方式" class="headerlink" title="YUV采样方式"></a>YUV采样方式</h3><p>主流的采样方式有三种，YUV4:4:4，YUV4:2:2，YUV4:2:0。这些采样方式，不压缩 Y 分量，对 UV 分量的压缩程度不同。</p>
-<h3 id="YUV存储方式"><a href="#YUV存储方式" class="headerlink" title="YUV存储方式"></a>YUV存储方式</h3><p>存储模式分成三大类：</p>
-<p><strong>packed</strong>：将 Y、U、V 分量交织存放在一起，和 RGB 的存放方式类似。内存中排列形式类似：YVYUYVYUYVYUYVYU…。在具体的存储模式命名中，packed 格式不带后缀 P。</p>
-<p><strong>planar</strong>：将 Y、U、V 的三个分量分别存放在不同的矩阵(平面)中。内存中排列形式类似：YYYYYY…，UUUUUU…，VVVVVV…。在具体的存储模式命名中，planar 格式带后缀 P。</p>
-<p><strong>semi-planar</strong>：将 Y、U、V 三个分量放在两个矩阵(平面)中。Y 占用一个平面，UV 共用一个平面。内存中排列形式类似：YYYYYY…，UVUVUV…。在具体的存储模式命名中，semi-planar 格式带后缀 SP。</p>
-<h3 id="存储方式加上采样方式"><a href="#存储方式加上采样方式" class="headerlink" title="存储方式加上采样方式"></a>存储方式加上采样方式</h3><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/782082">https://developer.aliyun.com/article/782082</a></p>
-<p>其中有些常用的</p>
-<h4 id="semi-planar-存储模式-YUV420SP"><a href="#semi-planar-存储模式-YUV420SP" class="headerlink" title="semi-planar 存储模式 YUV420SP"></a>semi-planar 存储模式 YUV420SP</h4><p>NV12：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">-------</span><br><span class="line">U V U V</span><br><span class="line">U V U V</span><br></pre></td></tr></table></figure>
-
-<p>NV21：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">-------</span><br><span class="line">V U V U</span><br><span class="line">V U V U</span><br></pre></td></tr></table></figure>
-
-<h4 id="planar-存储模式-YUV420P"><a href="#planar-存储模式-YUV420P" class="headerlink" title="planar 存储模式 YUV420P"></a>planar 存储模式 YUV420P</h4><p>YU12&#x2F;IYUV&#x2F;I420：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">-------</span><br><span class="line">U U</span><br><span class="line">U U</span><br><span class="line">---</span><br><span class="line">V V</span><br><span class="line">V V</span><br></pre></td></tr></table></figure>
-
-<p>YV12：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">Y Y Y Y</span><br><span class="line">-------</span><br><span class="line">V V</span><br><span class="line">V V</span><br><span class="line">---</span><br><span class="line">U U</span><br><span class="line">U U</span><br></pre></td></tr></table></figure>
-
-<h3 id="一段读取YUV420数据的代码"><a href="#一段读取YUV420数据的代码" class="headerlink" title="一段读取YUV420数据的代码"></a>一段读取YUV420数据的代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">class VideoCaptureYUV:</span><br><span class="line">def __init__(self, filename, size):</span><br><span class="line"></span><br><span class="line">​        self.width, self.height = size</span><br><span class="line"></span><br><span class="line">​        self.Y_len = self.width * self.height </span><br><span class="line"></span><br><span class="line">​        self.UV_len = self.width * self.height // 4</span><br><span class="line"></span><br><span class="line">​        self.f = open(filename, &#x27;rb&#x27;)</span><br><span class="line"></span><br><span class="line">​        self.Y_shape = (self.height, self.width)</span><br><span class="line"></span><br><span class="line">​        self.UV_shape = (self.height//2, self.width//2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read_raw(self):</span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.Y_len)</span><br><span class="line"></span><br><span class="line">​        Y = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        Y = Y.reshape(self.Y_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        u = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        u = u.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​        raw = self.f.read(self.UV_len)</span><br><span class="line"></span><br><span class="line">​        v = np.frombuffer(raw, dtype=np.uint8)</span><br><span class="line"></span><br><span class="line">​        v = v.reshape(self.UV_shape)</span><br><span class="line"></span><br><span class="line">​        return Y,u,v</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    def read(self):</span><br><span class="line"></span><br><span class="line">​        Y,u,v = self.read_raw()</span><br><span class="line"></span><br><span class="line">​        img = np.concatenate((Y.reshape(-1), u.reshape(-1), v.reshape(-1)))</span><br><span class="line"></span><br><span class="line">​        img = img.reshape((self.height * 3 // 2, self.width)).astype(&#x27;uint8&#x27;) # YUV 的存储格式为：I420（YYYY UUVV）</span><br><span class="line"></span><br><span class="line">​        \#print(yuv.shape)</span><br><span class="line"></span><br><span class="line">​        bgr = cv2.cvtColor(img, cv2.COLOR_YUV2BGR_I420)</span><br><span class="line"></span><br><span class="line">​        return bgr</span><br></pre></td></tr></table></figure>
-
-<p>​    </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/26/YUV-storage/" data-id="cl8ie031700013sfbdhovb393" data-title="YUV storage" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/codec/" rel="tag">codec</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-ffmpeg-record" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/09/21/ffmpeg-record/" class="article-date">
-  <time class="dt-published" datetime="2022-09-21T07:22:00.000Z" itemprop="datePublished">2022-09-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/09/21/ffmpeg-record/">ffmpeg record</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="深海巨坑ffmpeg的使用记录"><a href="#深海巨坑ffmpeg的使用记录" class="headerlink" title="深海巨坑ffmpeg的使用记录"></a>深海巨坑ffmpeg的使用记录</h2><h3 id="服务器上安装"><a href="#服务器上安装" class="headerlink" title="服务器上安装"></a>服务器上安装</h3><p>apt install ffmpeg</p>
-<h3 id="将多帧图像合成视频"><a href="#将多帧图像合成视频" class="headerlink" title="将多帧图像合成视频"></a>将多帧图像合成视频</h3><p><code>ffmpeg -r 30 -i output_video/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output_video_fullr.mp4</code></p>
-<p><code>-vf zscale=matrix=709:r=limited</code>负责转换色域，否则默认转出来是BT.601之类的SD标准。显式指定limited 色域很多种，limited显得饱和度高一些，full色域大，同样数据显得饱和度低一些</p>
-<p>这个链接 <a target="_blank" rel="noopener" href="https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html">https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html</a></p>
-<p>编码质量控制： -c:v libx264 -preset veryslow -crf 0</p>
-<h3 id="将yuv视频分png"><a href="#将yuv视频分png" class="headerlink" title="将yuv视频分png"></a>将yuv视频分png</h3><p><code>ffmpeg -s 1080x720 -pix_fmt yuv420p -i dst_1080x720_30Hz_P420.yuv -vf scale=in_range=full:out_range=full output_ori/%05d.png</code><br>-vf scale&#x3D;in_range&#x3D;full:out_range&#x3D;full 来控制色彩<br>这个链接 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv6601959/">https://www.bilibili.com/read/cv6601959/</a></p>
-<h3 id="截取视频片段"><a href="#截取视频片段" class="headerlink" title="截取视频片段"></a>截取视频片段</h3><p>按照时间截取</p>
-<p>ffmpeg -i input.mp4 -vcodec copy -acodec copy -ss 00:00:00 -to 00:00:05 cutout.mp4 -y</p>
-<p>按照帧截取</p>
-<p>ffmpeg -i input.mp4 -vf”select&#x3D;between(n,20,200)” -y -acodec copy cutout.mp4</p>
-<h3 id="将YUV转成MP4"><a href="#将YUV转成MP4" class="headerlink" title="将YUV转成MP4"></a>将YUV转成MP4</h3><p>ffmpeg -s 640x480 -pix_fmt yuv420p -i output.yuv out3.mp4</p>
-<h3 id="将MP4转YUV"><a href="#将MP4转YUV" class="headerlink" title="将MP4转YUV"></a>将MP4转YUV</h3><p>ffmpeg -i input.mp4 -s 640x480 -pix_fmt yuv420p output.yuv</p>
-<h3 id="视频分帧"><a href="#视频分帧" class="headerlink" title="视频分帧"></a>视频分帧</h3><p> ffmpeg -i backlit.mp4 -r 30 backlit&#x2F;%05d.png </p>
-<p>如果改成jpg会有严重压缩</p>
-<p>如果转化成png还有压缩的话，可以先将mp4转成yuv, yuv单帧的质量也就是图片单帧能达到的最高质量。然后将yuv视频转化成图像。</p>
-<h3 id="将视频拼接"><a href="#将视频拼接" class="headerlink" title="将视频拼接"></a>将视频拼接</h3><p><code>ffmpeg -i peppa_v3_fullr.mp4 -i peppa_v5_fullr_.mp4 -filter_complex &quot;[0:v]pad=iw*2:ih*1[a];[a][1:v]overlay=w&quot; compair_peppa_v3v5.mp4</code></p>
-<p>这个链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Gary__123456/article/details/88742705">https://blog.csdn.net/Gary__123456/article/details/88742705</a></p>
-<h3 id="转封装"><a href="#转封装" class="headerlink" title="转封装"></a>转封装</h3><p>ffmpeg -i xx.mov c:v copy  xx.mp4</p>
-<h3 id="视频resize"><a href="#视频resize" class="headerlink" title="视频resize"></a>视频resize</h3><p>ffmpeg -i testbanding.mp4 -s 1280:720 -aspect “16:9” testbanding_1280x720.mp4</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/ffmpeg-record/" data-id="cl8bbkji000003sfb18og3hk6" data-title="ffmpeg record" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -718,7 +744,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 10px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12.5px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 10px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -727,7 +753,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -740,23 +766,23 @@
       <ul>
         
           <li>
+            <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/14/banding-artifact/">banding artifact</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/01/ControlNet/">ControlNet</a>
+          </li>
+        
+          <li>
             <a href="/2023/10/24/%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5/">测试阶段</a>
           </li>
         
           <li>
             <a href="/2023/10/19/DDPM-DDIM-SDE-CompVis/">DDPM_DDIM_SDE_CompVis</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/">c的优化</a>
-          </li>
-        
-          <li>
-            <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/">函数与汇编</a>
-          </li>
-        
-          <li>
-            <a href="/2023/08/03/%E7%A7%AF%E5%88%86%E5%9B%BE%E5%92%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">积分图和滑动窗口</a>
           </li>
         
       </ul>
