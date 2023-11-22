@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>cplusplus文件管理 | Hexo</title>
+  <title>常见操作的耗时 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="123456789101112131415161718192021222324#include &lt;filesystem&gt;#include &lt;iostream&gt;namespace fs &#x3D; std::filesystem;std::string path &#x3D; &quot;&#x2F;Users&#x2F;oliverzhu&#x2F;Desktop&#x2F;test_video&#x2F;&quot;;for (const">
+  <meta name="description" content="在c release层面   分辨率 H*W 1280 720 耗时（MS） 包含基本操作    3*3 avg filter 普通写法 1.02 读写 +: 8  &#x2F; :1   5*5 avg filter 普通写法 2.54 读写 + 24 &#x2F;:1   3*3 winsum avg filter 0.93 读写 +: 2 &#x2F;: 1 other prepare fo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cplusplus文件管理">
-<meta property="og:url" content="http://example.com/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:title" content="常见操作的耗时">
+<meta property="og:url" content="http://example.com/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="123456789101112131415161718192021222324#include &lt;filesystem&gt;#include &lt;iostream&gt;namespace fs &#x3D; std::filesystem;std::string path &#x3D; &quot;&#x2F;Users&#x2F;oliverzhu&#x2F;Desktop&#x2F;test_video&#x2F;&quot;;for (const">
+<meta property="og:description" content="在c release层面   分辨率 H*W 1280 720 耗时（MS） 包含基本操作    3*3 avg filter 普通写法 1.02 读写 +: 8  &#x2F; :1   5*5 avg filter 普通写法 2.54 读写 + 24 &#x2F;:1   3*3 winsum avg filter 0.93 读写 +: 2 &#x2F;: 1 other prepare fo">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-12-28T07:30:21.000Z">
-<meta property="article:modified_time" content="2022-12-28T07:40:18.066Z">
+<meta property="article:published_time" content="2023-11-22T02:38:36.000Z">
+<meta property="article:modified_time" content="2023-11-22T06:08:49.843Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="c++">
+<meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -74,10 +74,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-cplusplus文件管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-常见操作的耗时" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" class="article-date">
-  <time class="dt-published" datetime="2022-12-28T07:30:21.000Z" itemprop="datePublished">2022-12-28</time>
+    <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/" class="article-date">
+  <time class="dt-published" datetime="2023-11-22T02:38:36.000Z" itemprop="datePublished">2023-11-22</time>
 </a>
     
   </div>
@@ -88,7 +88,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      cplusplus文件管理
+      常见操作的耗时
     </h1>
   
 
@@ -96,18 +96,143 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;filesystem&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">namespace fs = std::filesystem;</span><br><span class="line">std::string path = &quot;/Users/oliverzhu/Desktop/test_video/&quot;;</span><br><span class="line">for (const auto &amp;entry : fs::directory_iterator(path))&#123;</span><br><span class="line">        //将文件夹下所有文件名得到</span><br><span class="line">        std::string inputpath = entry.path();</span><br><span class="line">        std::string::size_type nPos1 = std::string::npos;</span><br><span class="line">        std::string::size_type nPos2 = std::string::npos;</span><br><span class="line">        nPos1 = inputpath.find_last_of(&quot;/&quot;);</span><br><span class="line">        nPos2 = inputpath.find_last_of(&quot;.&quot;);</span><br><span class="line">        //截取/开始 长度为nPos2-nPos1-1的字符串</span><br><span class="line">        std::string strPath = inputpath.substr(nPos1 + 1, nPos2-nPos1-1);</span><br><span class="line">        std::string input_path;</span><br><span class="line">        std::string output_path;</span><br><span class="line">        if (nPos2-nPos1 &gt; 1)</span><br><span class="line">        &#123;</span><br><span class="line">            // vaild input path</span><br><span class="line">            input_path = inputpath;</span><br><span class="line">            output_path = &quot;/Users/oliverzhu/Desktop/results/&quot; + strPath + &quot;.mp4&quot;;</span><br><span class="line">            std::cout &lt;&lt; input_path &lt;&lt; std::endl;</span><br><span class="line">            std::cout &lt;&lt; output_path &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://codeantenna.com/a/vhWRDy0wan">https://codeantenna.com/a/vhWRDy0wan</a></p>
+        <h3 id="在c-release层面"><a href="#在c-release层面" class="headerlink" title="在c release层面"></a>在c release层面</h3><table>
+<thead>
+<tr>
+<th>分辨率 H*W 1280 720</th>
+<th>耗时（MS）</th>
+<th>包含基本操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3*3 avg filter 普通写法</td>
+<td>1.02</td>
+<td>读写 <strong>+</strong>: 8  <strong>&#x2F;</strong> :1</td>
+</tr>
+<tr>
+<td>5*5 avg filter 普通写法</td>
+<td>2.54</td>
+<td>读写 <strong>+</strong> 24 <strong>&#x2F;</strong>:1</td>
+</tr>
+<tr>
+<td>3*3 winsum avg filter</td>
+<td>0.93</td>
+<td>读写 <strong>+</strong>: 2 <strong>&#x2F;</strong>: 1 other prepare for window</td>
+</tr>
+<tr>
+<td>5*5 winsum avg filter</td>
+<td>0.94</td>
+<td>读写 <strong>+</strong>: 2 <strong>&#x2F;</strong>: 1 other prepare for window</td>
+</tr>
+<tr>
+<td>2 to 1 down sample</td>
+<td>0.23</td>
+<td>读写</td>
+</tr>
+<tr>
+<td>1&#x2F;4 H*W upsample (video filter)</td>
+<td>1.52</td>
+<td>读写 <strong>+</strong>:4  &#x2F; :5</td>
+</tr>
+<tr>
+<td>1&#x2F;16 H*W upsample(video filter)</td>
+<td>1.51</td>
+<td>读写 <strong>+</strong>:4  &#x2F; :5</td>
+</tr>
+<tr>
+<td>1&#x2F;4 H*W upsample (specialRatio_bilinear up)</td>
+<td>0.60</td>
+<td>读写 <strong>+</strong>:4  &#x2F; :1</td>
+</tr>
+<tr>
+<td>1&#x2F;16 H*W upsample (specialRatio_bilinear up)</td>
+<td>0.44</td>
+<td>读写 <strong>+</strong>:4  &#x2F; :1</td>
+</tr>
+<tr>
+<td>3*3 avg filter 1&#x2F;4 HxW 普通写法</td>
+<td>0.26</td>
+<td></td>
+</tr>
+<tr>
+<td>5*5 avg filter 1&#x2F;4 HxW winsum</td>
+<td>0.24</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="手写汇编-armv8-加速效果"><a href="#手写汇编-armv8-加速效果" class="headerlink" title="手写汇编 armv8 加速效果"></a>手写汇编 armv8 加速效果</h3><table>
+<thead>
+<tr>
+<th>分辨率 H*W 1280 720</th>
+<th>耗时（MS）</th>
+<th>包含基本操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3*3 avg filter 普通写法</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5*5 avg filter 普通写法</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3*3 winsum avg filter</td>
+<td>0.13</td>
+<td></td>
+</tr>
+<tr>
+<td>5*5 winsum avg filter</td>
+<td>0.14</td>
+<td></td>
+</tr>
+<tr>
+<td>2 to 1 down sample</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1&#x2F;4 H*W upsample (video filter)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1&#x2F;16 H*W upsample(video filter)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1&#x2F;4 H*W upsample (specialRatio_bilinear up)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1&#x2F;16 H*W upsample (specialRatio_bilinear up)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3*3 avg filter 256x144 winsum</td>
+<td>0.01</td>
+<td></td>
+</tr>
+<tr>
+<td>5*5 avg filter  256x144 winsum</td>
+<td>0.01</td>
+<td></td>
+</tr>
+</tbody></table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" data-id="clc7ctn830000gofb6aep9hva" data-title="cplusplus文件管理" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/" data-id="clp9d6hsa00009nfb8w3hfhby" data-title="常见操作的耗时" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li></ul>
 
     </footer>
   </div>
@@ -115,19 +240,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          python超参传递
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/12/08/cplusplus%E9%87%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%B0%8F/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">cplusplus里数据类型的大小和存储方式</div>
+      <div class="article-nav-title">arm intrinsic 指令查询技巧</div>
     </a>
   
 </nav>
