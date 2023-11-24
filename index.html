@@ -93,7 +93,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-24-11-28-33-image.png" alt="" width="305" data-align="center">
+        <img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/cmake/2023-11-24-11-28-33-image.png" alt="" width="305" data-align="center">
 
 <h4 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h4><p>编译时，编译器需要的是语法的正确，函数与变量的声明的正确。对于后者，通常是你需要告诉编译器头文件的所在位置（头文件中应该只是声明，而定义应该放在C&#x2F;C++文件中），只要所有的语法正确，编译器就可以编译出中间目标文件。一般来说，每个源文件都应该对应于一个中间目标文件（ <code>.o</code> 文件或 <code>.obj</code> 文件）。</p>
 <h4 id="链接："><a href="#链接：" class="headerlink" title="链接："></a>链接：</h4><p>链接时，主要是链接函数和全局变量。所以，我们可以使用这些中间目标文件（ <code>.o</code> 文件或 <code>.obj</code> 文件）来链接我们的应用程序。链接器并不管函数所在的源文件，只管函数的中间目标文件（Object File），在大多数时候，由于源文件太多，编译生成的中间目标文件太多，而在链接时需要明显地指出中间目标文件名，这对于编译很不方便。所以，我们要给中间目标文件打个包，在Windows下这种包叫“库文件”（Library File），也就是 <code>.lib</code> 文件，在UNIX下，是Archive File，也就是 <code>.a</code> 文件。</p>
