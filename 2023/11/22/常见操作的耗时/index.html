@@ -14,7 +14,7 @@
 <meta property="og:description" content="在c release层面   分辨率 H*W 1280 720 耗时（MS） 包含基本操作    3*3 avg filter 普通写法 1.02 读写 +: 8  &#x2F; :1   5*5 avg filter 普通写法 2.54 读写 + 24 &#x2F;:1   3*3 winsum avg filter 0.93 读写 +: 2 &#x2F;: 1 other prepare fo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-22T02:38:36.000Z">
-<meta property="article:modified_time" content="2023-11-22T06:08:49.843Z">
+<meta property="article:modified_time" content="2023-11-22T06:14:09.120Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
@@ -160,7 +160,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<h3 id="手写汇编-armv8-加速效果"><a href="#手写汇编-armv8-加速效果" class="headerlink" title="手写汇编 armv8 加速效果"></a>手写汇编 armv8 加速效果</h3><table>
+<h3 id="手写单指令多数据-armv8-加速效果"><a href="#手写单指令多数据-armv8-加速效果" class="headerlink" title="手写单指令多数据 armv8 加速效果"></a>手写单指令多数据 armv8 加速效果</h3><table>
 <thead>
 <tr>
 <th>分辨率 H*W 1280 720</th>
@@ -224,6 +224,8 @@
 <td></td>
 </tr>
 </tbody></table>
+<h3 id="单指令多数据常用操作-intrinsic"><a href="#单指令多数据常用操作-intrinsic" class="headerlink" title="单指令多数据常用操作 intrinsic"></a>单指令多数据常用操作 intrinsic</h3><p>mla 乘加或者乘减比分开做要快</p>
+<p>循环费时 </p>
 
       
     </div>
@@ -239,6 +241,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CMake 简单用法
+        
+      </div>
+    </a>
   
   
     <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" id="article-nav-older" class="article-nav-link-wrap">
@@ -263,7 +274,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -273,7 +284,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12.5px;">AIGC</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 15px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12.5px;">AIGC</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 15px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -295,6 +306,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">CMake 简单用法</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/">常见操作的耗时</a>
           </li>
         
@@ -308,10 +323,6 @@
         
           <li>
             <a href="/2023/11/01/ControlNet/">ControlNet</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/24/%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5/">测试阶段</a>
           </li>
         
       </ul>

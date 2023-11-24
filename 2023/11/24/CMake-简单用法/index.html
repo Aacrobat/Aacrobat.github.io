@@ -4,15 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>Tag: 汇编 | Hexo</title>
+  <title>CMake 简单用法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/%E6%B1%87%E7%BC%96/index.html">
+  <meta name="description" content="编译：编译时，编译器需要的是语法的正确，函数与变量的声明的正确。对于后者，通常是你需要告诉编译器头文件的所在位置（头文件中应该只是声明，而定义应该放在C&#x2F;C++文件中），只要所有的语法正确，编译器就可以编译出中间目标文件。一般来说，每个源文件都应该对应于一个中间目标文件（ .o 文件或 .obj 文件）。 链接：链接时，主要是链接函数和全局变量。所以，我们可以使用这些中间目标文件（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMake 简单用法">
+<meta property="og:url" content="http://example.com/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编译：编译时，编译器需要的是语法的正确，函数与变量的声明的正确。对于后者，通常是你需要告诉编译器头文件的所在位置（头文件中应该只是声明，而定义应该放在C&#x2F;C++文件中），只要所有的语法正确，编译器就可以编译出中间目标文件。一般来说，每个源文件都应该对应于一个中间目标文件（ .o 文件或 .obj 文件）。 链接：链接时，主要是链接函数和全局变量。所以，我们可以使用这些中间目标文件（">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-24-11-28-33-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-24-11-30-50-image.png">
+<meta property="article:published_time" content="2023-11-24T02:47:38.000Z">
+<meta property="article:modified_time" content="2023-11-24T08:06:32.109Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CMake">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-24-11-28-33-image.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,77 +77,85 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-11-22T02:38:36.000Z" itemprop="datePublished">Nov 22</time>
+        <section id="main"><article id="post-CMake-简单用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-24T02:47:38.000Z" itemprop="datePublished">2023-11-24</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/">常见操作的耗时</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      CMake 简单用法
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-11-21T10:54:13.000Z" itemprop="datePublished">Nov 21</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
-    </h1>
-  
+        <img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-24-11-28-33-image.png" alt="" width="305" data-align="center">
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-08-04T06:22:38.000Z" itemprop="datePublished">Aug 4</time>
-</a>
+<h4 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h4><p>编译时，编译器需要的是语法的正确，函数与变量的声明的正确。对于后者，通常是你需要告诉编译器头文件的所在位置（头文件中应该只是声明，而定义应该放在C&#x2F;C++文件中），只要所有的语法正确，编译器就可以编译出中间目标文件。一般来说，每个源文件都应该对应于一个中间目标文件（ <code>.o</code> 文件或 <code>.obj</code> 文件）。</p>
+<h4 id="链接："><a href="#链接：" class="headerlink" title="链接："></a>链接：</h4><p>链接时，主要是链接函数和全局变量。所以，我们可以使用这些中间目标文件（ <code>.o</code> 文件或 <code>.obj</code> 文件）来链接我们的应用程序。链接器并不管函数所在的源文件，只管函数的中间目标文件（Object File），在大多数时候，由于源文件太多，编译生成的中间目标文件太多，而在链接时需要明显地指出中间目标文件名，这对于编译很不方便。所以，我们要给中间目标文件打个包，在Windows下这种包叫“库文件”（Library File），也就是 <code>.lib</code> 文件，在UNIX下，是Archive File，也就是 <code>.a</code> 文件。</p>
+<h3 id="CMake-定位"><a href="#CMake-定位" class="headerlink" title="CMake 定位"></a>CMake 定位</h3><table>
+<thead>
+<tr>
+<th>其他Make 工具</th>
+<th>CMake</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GNU Make ，QT 的 qmake ，微软的 MS nmake，BSD Make（pmake），Makepp</td>
+<td>CMake</td>
+</tr>
+<tr>
+<td>对应着不同的Makefile</td>
+<td>采用平台统一的CMakeLists.txt 生成自适应的Makefile</td>
+</tr>
+<tr>
+<td>make Makefile 编译 ：不同产商的make各不相同，也有不同的语法，但其本质都是在 “文件依赖性”上做文章</td>
+<td>make Makefile 编译</td>
+</tr>
+</tbody></table>
+<h3 id="CMake用法"><a href="#CMake用法" class="headerlink" title="CMake用法"></a>CMake用法</h3><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-11-24-11-30-50-image.png"></p>
+<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><p>工程编译规则，描述了整个工程的编译和链接等规则。其中包含了哪些文件需要编译，哪些文件不需要编译，哪些需要先编译，哪些需要重建等。</p>
+<p>在生成makefile这步时 会进行语法检查么 会进行.cpp 到.o 么 ？不会。makefile只是编译规则 还没开始编译。makefile命令中就包含了调用gcc（也可以是别的编译器）去编译某个源文件的命令。</p>
+<h3 id="Make"><a href="#Make" class="headerlink" title="Make"></a>Make</h3><p>make工具就根据makefile中的命令进行编译和链接的。生成.o 这类文件，再进一步链接生成.exe这类文件。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://www.zhaixue.cc/makefile/makefile-intro.html">Makefile 简介 - Makefile基本概念介绍 - Makefile 简明教程 | 宅学部落</a></p>
+<p><a target="_blank" rel="noopener" href="https://seisman.github.io/how-to-write-makefile/overview.html">概述 &amp;mdash; 跟我一起写Makefile 1.0 文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44498318/article/details/106219135">Linux Makefile：使用CMake生成Makefile文件_cmake写makefile-CSDN博客</a></p>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/">函数与汇编</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" data-id="clpcciaut0000aefb7gdj1iie" data-title="CMake 简单用法" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">常见操作的耗时</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
