@@ -71,6 +71,102 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-python常用指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2023-01-11T03:10:28.000Z" itemprop="datePublished">2023-01-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">python常用指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="查看pytorch版本"><a href="#查看pytorch版本" class="headerlink" title="查看pytorch版本"></a>查看pytorch版本</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">print(torch.__version__)</span><br></pre></td></tr></table></figure>
+
+<h4 id="python-文件管理"><a href="#python-文件管理" class="headerlink" title="python 文件管理"></a>python 文件管理</h4><h5 id="文件列表"><a href="#文件列表" class="headerlink" title="文件列表"></a>文件列表</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filefolder = os.listdir(root)</span><br><span class="line">filefolder.sort()</span><br><span class="line">for f in filefolder:</span><br><span class="line">    print(f)</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import shutil</span><br><span class="line"></span><br><span class="line">os.remove(path) #删除文件</span><br><span class="line">os.removedirs(path) #删除空文件夹</span><br><span class="line"></span><br><span class="line">os.rmdir(path) #删除空文件夹</span><br><span class="line">shutil.rmtree(path) #递归删除文件夹，即：删除非空文件夹</span><br></pre></td></tr></table></figure>
+
+<h5 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">with open(&#x27;./loss.txt&#x27;,&#x27;a+&#x27;) as f:   </span><br><span class="line">     for key in losssum:</span><br><span class="line">         f.write(f&quot;test_img : losses &#123;key&#125;: &#123;losssum[key]/items&#125;\n&quot;)  </span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="python-直接使用os-system"><a href="#python-直接使用os-system" class="headerlink" title="python 直接使用os.system"></a>python 直接使用os.system</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command = &#x27;ffmpeg -i ./results/%s/&#x27;%(datasetname[i]) +&#x27;%06d.png ./results&#x27;+&#x27;/%s.mp4&#x27;%(datasetname[i])</span><br><span class="line">print(command)</span><br><span class="line">os.system(command)</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/juandx/p/4962089.html">python 读写、创建 文件 - juandx - 博客园</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/01/11/python%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" data-id="cldvhmuxr0002n7fb8gqa7jex" data-title="python常用指令" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-python超参传递" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/" class="article-date">
+  <time class="dt-published" datetime="2022-12-28T07:40:56.000Z" itemprop="datePublished">2022-12-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/">python超参传递</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(&quot;-in&quot;, &quot;--inputA&quot;, help=&quot;this is parameter a&quot;, type=str, default=&quot;&quot;)</span><br><span class="line">parser.add_argument(&quot;-out&quot;, &quot;--outputB&quot;, help=&quot;this is parameter b&quot;,  type=str, default=&quot;&quot;)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">print(args.inputA)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 /Users/PeppaZhu/Desktop/studio_light/zoom_VB/test_V4_1NGF.py -in test_video_gfdebug/peppa_13test.mov -out peppa_13test_V4_4</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/12/28/python%E8%B6%85%E5%8F%82%E4%BC%A0%E9%80%92/" data-id="clc7ctn850001gofbcgdr4vfu" data-title="python超参传递" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-cplusplus文件管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/12/28/cplusplus%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" class="article-date">
@@ -419,6 +515,8 @@
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo/" rel="tag">algo</a></li></ul>
+
     </footer>
   </div>
   
@@ -557,158 +655,6 @@
 
 
   
-    <article id="post-c-程序编译过程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/24/c-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" class="article-date">
-  <time class="dt-published" datetime="2022-10-24T03:19:24.000Z" itemprop="datePublished">2022-10-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/24/c-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">c++程序编译过程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="c-程序编译过程"><a href="#c-程序编译过程" class="headerlink" title="c++ 程序编译过程"></a>c++ 程序编译过程</h2><p>总的来说分成四个阶段：预处理 编译 汇编 链接</p>
-<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><ol>
-<li>预处理器（cpp）将所有的#define删除，并且展开所有的宏定义（例如#define PI 3.14 这句在预处理阶段，后期的所有PI都会被替换成3.14）。</li>
-<li>处理所有的条件预编译指令，比如#if、#ifdef、#elif、#else、#endif等。</li>
-<li>处理#include预编译指令，将被包含的文件直接插入到预编译指令的位置。</li>
-<li>删除所有的注释。</li>
-<li>添加行号和文件标识，以便编译时产生调试用的行号及编译错误警告行号。</li>
-<li>保留所有的#pragma编译器指令，因为编译器需要使用它们。</li>
-<li>使用<code>gcc -E hello.c -o hello.i</code>命令来进行预处理， 预处理得到的另一个程序通常是以.i作为文件扩展名。</li>
-</ol>
-<p>读取源代码并对其中的以#开头的指令和特殊符号进行处理。包括宏定义，条件编译，头文件，特殊符号。将.cpp 转化成 .i</p>
-<h3 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h3><p>首先 通过词法分析和语法分析，确认所有的指令都符合语法规则。其次将其翻译成等价的中间代码表示或汇编代码。template和inline函数在此阶段处理。优化一部分是对中间代码的优化。这种优化不依赖于具体的计算机。另一种优化则主要针对目标代码的生成而进行的，和硬件有关。将 .i 转化成.s</p>
-<p>全局变量，静态全局变量，类的静态数据成员，都在编译时分配内存空间，完成初始化。</p>
-<p>而静态局部变量则是在第一次使用到的时候分配内存并且初始化。</p>
-<h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><p>将汇编代码转换成二进制机器码</p>
-<p>通常一个目标文件中至少有两个段，代码段和数据段. 将 .s 转化成.o</p>
-<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接程序的主要工作就是将有关的目标文件彼此相连接，使得所有的这些目标文件成为一个能够被操作系统装入执行的统一整体。主要分动态链接（.so)和静态链接(.a) .将 .o 转化成.out</p>
-<table>
-<thead>
-<tr>
-<th>后缀名</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.c&#x2F;.C&#x2F;.cc&#x2F;.cp&#x2F;.cpp&#x2F;.cxx&#x2F;.c++</td>
-<td>源代码文件，函数和变量的<strong>定义&#x2F;实现</strong></td>
-</tr>
-<tr>
-<td>.h</td>
-<td>头文件，函数和变量的<strong>声明</strong></td>
-</tr>
-<tr>
-<td>.ii</td>
-<td>编译预处理产生的文件</td>
-</tr>
-<tr>
-<td>.s</td>
-<td>编译产生的汇编语言文件</td>
-</tr>
-<tr>
-<td>.o (.obj in Windows)</td>
-<td>编译产生的中间目标文件</td>
-</tr>
-<tr>
-<td>.a</td>
-<td>打包目标文件的库文件</td>
-</tr>
-<tr>
-<td>.so</td>
-<td>编译产生的动态库文件</td>
-</tr>
-<tr>
-<td>.out (.exe in Windows)</td>
-<td>链接目标文件产生的可执行文件</td>
-</tr>
-</tbody></table>
-<h3 id="VC-6-0中Compile和Build的区别"><a href="#VC-6-0中Compile和Build的区别" class="headerlink" title="VC++6.0中Compile和Build的区别"></a>VC++6.0中Compile和Build的区别</h3><p>“compile”是“编译”的意思，“build”是“链接”的意思。<br><strong>compile</strong> 的作用是对你的代码进行语法检查，将你的文本程序语言转化成计算机可以运行的“01010….”形式的二进制文件。<br><strong>build</strong> 的作用是将你在程序中调用到的类库融合到你的程序中，比如你用到了printf()函数，那么内部实现该函数的类库代码就会添加到你的程序中。<br>compile过程生成“.obj”文件或”.o”文件，这个和编译器有关，vc++中是“.obj”文件。<br>build过程生成“.exe”文件。这个可以直接运行<br>理论上来说应该先点”complile”,再点”build”。不过在vc++中直接点“build”它会自动先给你compile再build</p>
-<p>参考</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011718663/article/details/118163962">https://blog.csdn.net/u011718663/article/details/118163962</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hexkang/article/details/126402730">https://blog.csdn.net/hexkang/article/details/126402730</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sxy370921/p/11726583.html">https://www.cnblogs.com/sxy370921/p/11726583.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jinhang.work/tech/cpp-building-process/">C&#x2F;C++的编译过程 | 分阶段的汇编指令</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51551385/article/details/125141435">C++中全局变量，静态变量，静态局部变量 的初始化和内存分配问题_For Nine的博客-CSDN博客</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/24/c-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" data-id="cl9mebm010000w2fb22ddge9p" data-title="c++程序编译过程" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-mac-连接网盘" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/" class="article-date">
-  <time class="dt-published" datetime="2022-10-19T08:21:18.000Z" itemprop="datePublished">2022-10-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/">mac 连接网盘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Mac-连接到服务器并在代码中访问"><a href="#Mac-连接到服务器并在代码中访问" class="headerlink" title="Mac 连接到服务器并在代码中访问"></a>Mac 连接到服务器并在代码中访问</h2><p>在go中选择 connect to severe</p>
-<p>输入服务器地址 例如<a href="ftp://10.100.116.21/">ftp://10.100.116.21</a>  smb:&#x2F;&#x2F;</p>
-<p>选择connect按钮</p>
-<p>根据输入的连接类型和地址 输入相应的账户密码即可连接</p>
-<h3 id="ftp与smb的不同"><a href="#ftp与smb的不同" class="headerlink" title="ftp与smb的不同"></a>ftp与smb的不同</h3><p>Smb 可以提供用户登入 SAMBA 主机时的身份认证，以提供不同身份者的个别数据, 所以输入的账户密码可能克ftp不同，且访问到的文件夹和ftp也不同</p>
-<h3 id="访问时"><a href="#访问时" class="headerlink" title="访问时"></a>访问时</h3><p>&#x2F;Users&#x2F;..&#x2F;..&#x2F;Volumes&#x2F;10.100.116.21&#x2F;</p>
-<p>或者直接相对路径一路..&#x2F;..&#x2F;</p>
-<h3 id="找不到时"><a href="#找不到时" class="headerlink" title="找不到时"></a>找不到时</h3><p>在 Finder 里Finder Setting 里 show Connected servers 勾选上</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/" data-id="cl9fdl2ma0003aefbazb9axfz" data-title="mac 连接网盘" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/" rel="tag">mac</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -727,7 +673,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -737,7 +683,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12.5px;">AIGC</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/algo/" style="font-size: 12.5px;">algo</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 10px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 15px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 14px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -746,7 +692,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -759,6 +705,14 @@
       <ul>
         
           <li>
+            <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">Xcode使用技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/24/intptr-VS-int32-or-int64/">intptr VS int32 or int64</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">CMake 简单用法</a>
           </li>
         
@@ -768,14 +722,6 @@
         
           <li>
             <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/14/banding-artifact/">banding artifact</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/01/ControlNet/">ControlNet</a>
           </li>
         
       </ul>

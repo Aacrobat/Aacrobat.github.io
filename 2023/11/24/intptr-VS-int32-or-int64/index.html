@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>Tag: Hydra | Hexo</title>
+  <title>intptr VS int32 or int64 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/Hydra/index.html">
+  <meta name="description" content="intptr int32    在32位机器下等同于int32 占32位，在64位机器下等同于int64 占64位 占32位   指针偏移的时候用intptr比如intptr strideS; pSrc +&#x3D; strideS此时strideS 存储的数还是一样大小，也不会超出int32的范围，至少写汇编的时候能注意到这里但是存储地址的时候 就得用intptr address &amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="intptr VS int32 or int64">
+<meta property="og:url" content="http://example.com/2023/11/24/intptr-VS-int32-or-int64/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="intptr int32    在32位机器下等同于int32 占32位，在64位机器下等同于int64 占64位 占32位   指针偏移的时候用intptr比如intptr strideS; pSrc +&#x3D; strideS此时strideS 存储的数还是一样大小，也不会超出int32的范围，至少写汇编的时候能注意到这里但是存储地址的时候 就得用intptr address &amp;#x">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-24T08:36:54.000Z">
+<meta property="article:modified_time" content="2023-11-27T01:58:20.379Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -69,39 +74,79 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-02-08T03:04:39.000Z" itemprop="datePublished">Feb 8</time>
+        <section id="main"><article id="post-intptr-VS-int32-or-int64" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/24/intptr-VS-int32-or-int64/" class="article-date">
+  <time class="dt-published" datetime="2023-11-24T08:36:54.000Z" itemprop="datePublished">2023-11-24</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/">Hydra使用</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      intptr VS int32 or int64
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <table>
+<thead>
+<tr>
+<th>intptr</th>
+<th>int32</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在32位机器下等同于int32 占32位，<br/>在64位机器下等同于int64 占64位</td>
+<td>占32位</td>
+</tr>
+<tr>
+<td>指针偏移的时候用intptr<br/>比如intptr strideS; pSrc +&#x3D; strideS<br/>此时strideS 存储的数还是一样大小，也不会超出int32的范围，至少写汇编的时候能注意到这里<br/>但是存储地址的时候 就得用intptr address &#x3D; &amp;（int a）</td>
+<td>计数的时候用int32就够了。<br/>比如for (int32 i &#x3D; 0; i &lt; (int32)120;i++)<br/>申请内存大小的时候 buffersize也是用int32<br/>运算的时候也是int32</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/24/intptr-VS-int32-or-int64/" data-id="clpqkbhxs00030lfb7nwz9f35" data-title="intptr VS int32 or int64" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Xcode使用技巧
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CMake 简单用法</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
