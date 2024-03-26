@@ -488,6 +488,7 @@
 <p>这个链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Gary__123456/article/details/88742705">https://blog.csdn.net/Gary__123456/article/details/88742705</a></p>
 <h3 id="转封装"><a href="#转封装" class="headerlink" title="转封装"></a>转封装</h3><p>ffmpeg -i xx.mov c:v copy  xx.mp4</p>
 <h3 id="视频resize"><a href="#视频resize" class="headerlink" title="视频resize"></a>视频resize</h3><p>ffmpeg -i testbanding.mp4 -s 1280:720 -aspect “16:9” testbanding_1280x720.mp4</p>
+<h3 id="一张图片转视频"><a href="#一张图片转视频" class="headerlink" title="一张图片转视频"></a>一张图片转视频</h3><p>ffmpeg -r 10 -f image2 -loop 1 -i 1.jpg -s 1080x1920 -pix_fmt yuvj420p -t 4 -vcodec libx264 1.mp4</p>
 
       
     </div>
