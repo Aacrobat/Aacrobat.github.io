@@ -71,6 +71,100 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-git-merge-vs-rebase" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/06/07/git-merge-vs-rebase/" class="article-date">
+  <time class="dt-published" datetime="2024-06-07T08:48:24.000Z" itemprop="datePublished">2024-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/06/07/git-merge-vs-rebase/">git merge vs rebase</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/w6718189/article/details/108873270">git 修改之前的某次commit 注释和常见问题和解决方法_git修改某次commit的comment-CSDN博客</a></p>
+<h3 id="git-rebase-用法详解与工作原理-Shall-We-Code"><a href="#git-rebase-用法详解与工作原理-Shall-We-Code" class="headerlink" title="git rebase 用法详解与工作原理 | Shall We Code?"></a><a target="_blank" rel="noopener" href="https://waynerv.com/posts/git-rebase-intro/">git rebase 用法详解与工作原理 | Shall We Code?</a></h3><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><p>有两个分支 branchA  branchB ，初始时，branchA在C1 节点 基于此节点，拉出branchB</p>
+<p>以下操作按照时间顺序</p>
+<p>对branchB进行修改 C2 </p>
+<p>对branchA进行修改 C3</p>
+<p>对branchB进行修改 C4</p>
+<p>将branchB merge 到branch A</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-34-10-image.png"></p>
+<p>可以看出merge的树是以不同branch体现的，不能完整体现时间顺序</p>
+<h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>此时 reset一下merge操作：</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-40-40-image.png"></p>
+<p>随后将branchB 通过rebase的方式合并到branchA</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-42-10-image.png"></p>
+<p>可以看出 <strong>先将branchA的head移动到最新的branchB，再将branchA的修改添加回branchA。合并操作不会产生新的节点</strong></p>
+<h4 id="对于单独一个分支的rebase"><a href="#对于单独一个分支的rebase" class="headerlink" title="对于单独一个分支的rebase"></a>对于单独一个分支的rebase</h4><p>假如我们对当前分支的某次历史提交执行 <code>rebase</code>，其结果就是会将这次提交之后的所有提交重新应用在当前分支，在交互模式下，即允许我们对这些提交进行更改。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-00-49-image.png"></p>
+<p>git rebase -i HEAD~4</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-02-22-image.png"></p>
+<p>可以看到后面的提交都变了ID</p>
+<p>git rebase -i HEAD~6</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-05-02-image.png"></p>
+<p>多rebase几个，但是修改还是修改同样的地方，那还是<strong>修改后的节点ID改变</strong>。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="利用rebase-修改历史提交的comment"><a href="#利用rebase-修改历史提交的comment" class="headerlink" title="利用rebase 修改历史提交的comment"></a>利用rebase 修改历史提交的comment</h3><h5 id="对于一直使用rebase操作的代码，修改历史comment十分简单，"><a href="#对于一直使用rebase操作的代码，修改历史comment十分简单，" class="headerlink" title="对于一直使用rebase操作的代码，修改历史comment十分简单，"></a>对于一直使用rebase操作的代码，修改历史comment十分简单，</h5><p>比如我想修改branchB C2 那次的log</p>
+<p>git rebase -i HEAD~3</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-51-40-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-52-42-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-52-57-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-53-36-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-54-24-image.png"></p>
+<p>这件事不会影响branchB 也不会影响branchA的提交顺序。但是会<strong>导致branchA重新增加comment的提交以及之后的提交的hashID改变</strong>。</p>
+<h5 id="对于使用merge的代码进行message修改，就比较复杂"><a href="#对于使用merge的代码进行message修改，就比较复杂" class="headerlink" title="对于使用merge的代码进行message修改，就比较复杂"></a>对于使用merge的代码进行message修改，就比较复杂</h5><p>此时要修改branchB 中C2 节点 9d3282c 的名字</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-04-37-image.png"></p>
+<p>git rebase -i HEAD~3</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-08-30-image.png"></p>
+<p>似乎列出的是branchA分支上最后三次的操作，当然也包含branchB上的</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-10-00-image.png"></p>
+<p>会失败，原因是：rebase之后相当于把branchB C2 C4两个节点的内容加入到 branchA C3这个节点后，在对比banechB C2 9d3282c 和 22279e0时 出现了不一致的问题。在此猜测 能merge成功是因为merge对比的是8f4cda7 和 22279e0。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-11-21-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-12-46-image.png"></p>
+<p>先abort这次rebase, 恢复原样</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-13-26-image.png"></p>
+<p>git rebase -i HEAD~2 去修改C4节点 message 8f4cda7 也不行， 感觉是branchA已经包含了branchB那些修改。再搞个干净的分支。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-14-30-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-15-28-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-16-24-image.png"></p>
+<h4 id="新来一个分支-验证merge的代码如何修改message"><a href="#新来一个分支-验证merge的代码如何修改message" class="headerlink" title="新来一个分支 验证merge的代码如何修改message"></a>新来一个分支 验证merge的代码如何修改message</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-25-58-image.png"></p>
+<p>现在想修改branchC newnode2 0b21277 那次message</p>
+<p>git rebase -i HEAD~2</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-26-44-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-27-40-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-28-27-image.png"></p>
+<p>首先 修改了该提交的message， 其次，也运行了rebase。 将branchC的改动接到了branchA后面 （注意 如果是rebase branchC 那么是把branchA改动接到C后面。 但是我们这里运行rebase head 也就是rebase branchA 那么 就是把C的改动接到A后面。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-31-44-image.png"></p>
+<p>反正本地rebase 不对劲就–abort</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/06/07/git-merge-vs-rebase/" data-id="clxbfs2hj00008dfb7wfv0rrm" data-title="git merge vs rebase" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Xcode使用技巧" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="article-date">
@@ -744,84 +838,6 @@
 
 
   
-    <article id="post-c的优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/" class="article-date">
-  <time class="dt-published" datetime="2023-09-25T02:41:48.000Z" itemprop="datePublished">2023-09-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/">c的优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="step1-对c-代码的优化"><a href="#step1-对c-代码的优化" class="headerlink" title="step1 对c++ 代码的优化"></a>step1 对c++ 代码的优化</h3><ol>
-<li><p>从算法逻辑上优化，整体调用逻辑，何时准备什么类型的数据。还有算法层面：比如滑动窗口和等。</p>
-</li>
-<li><p>对数据精度进行优化，例如double能变成float 的，float能拉伸成整数的。必要时标明数据的实际范围（0～10bit）这种。</p>
-</li>
-<li><p>对除法能被乘法代替的，乘法能用加法替代的，乘法能用位移替代的运算进行优化。</p>
-</li>
-<li><p>对kn ，（k+1）n这类的运算也可以优化。</p>
-</li>
-<li><p>减少if else分支语句内的内容，能合并的合并</p>
-</li>
-</ol>
-<h3 id="step2-c写汇编"><a href="#step2-c写汇编" class="headerlink" title="step2 c写汇编"></a>step2 c写汇编</h3><ol>
-<li><p>首先原则是 利用函数指针，当运行c的时候就指向c，当运行汇编时就指向汇编</p>
-</li>
-<li><p>汇编加速的原理是利用单指令多数据的方式进行加速</p>
-</li>
-<li><p>确定输入输出的尺寸，是固定还是任意，是否是偶数，8对齐 16对齐等</p>
-</li>
-<li><p>先把c转化成利用flag标识if else的语句。</p>
-</li>
-<li><p>确定每一个变量在其生命周期中，数据范围，可并行范围，能并行运算并行，不能时再拆开</p>
-</li>
-<li><p>根据运算的并行度，将常数都定义好 是u8 u16 还是u32 还是有符号的s。</p>
-</li>
-<li><p>如果大部分操作都可以在int16x8上操作 那就一次读8个 如果大部分操作都能在uint8上操作 那就一次读16个 ，以此类推。</p>
-</li>
-</ol>
-<h3 id="step3-汇编注意事项"><a href="#step3-汇编注意事项" class="headerlink" title="step3 汇编注意事项"></a>step3 汇编注意事项</h3><ol>
-<li><p>有些运算涉及负数，需要用有符号运算s</p>
-</li>
-<li><p>有些数据必须用uint 才能装下</p>
-</li>
-<li><p>作为if 条件标识的flag 再需要扩占位数时，需要用s有符号，才能补全高位</p>
-</li>
-</ol>
-<h3 id="ARM-Neon-Intrinsics-指令相关文档："><a href="#ARM-Neon-Intrinsics-指令相关文档：" class="headerlink" title="ARM Neon Intrinsics 指令相关文档："></a>ARM Neon Intrinsics 指令相关文档：</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012385733/article/details/121086734">https://blog.csdn.net/u012385733/article/details/121086734</a></p>
-<p><a target="_blank" rel="noopener" href="https://developer.arm.com/architectures/instruction-sets/intrinsics/https://developer.arm.com/architectures/instruction-sets/intrinsics/">https://developer.arm.com/architectures/instruction-sets/intrinsics/https://developer.arm.com/architectures/instruction-sets/intrinsics/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/" data-id="clmym1yv90000vxfbe9un8bxy" data-title="c的优化" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -850,7 +866,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 14px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -859,7 +875,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -870,6 +886,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/06/07/git-merge-vs-rebase/">git merge vs rebase</a>
+          </li>
         
           <li>
             <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">Xcode使用技巧</a>
@@ -885,10 +905,6 @@
         
           <li>
             <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/">常见操作的耗时</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
           </li>
         
       </ul>

@@ -71,6 +71,84 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-c的优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2023-09-25T02:41:48.000Z" itemprop="datePublished">2023-09-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/">c的优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="step1-对c-代码的优化"><a href="#step1-对c-代码的优化" class="headerlink" title="step1 对c++ 代码的优化"></a>step1 对c++ 代码的优化</h3><ol>
+<li><p>从算法逻辑上优化，整体调用逻辑，何时准备什么类型的数据。还有算法层面：比如滑动窗口和等。</p>
+</li>
+<li><p>对数据精度进行优化，例如double能变成float 的，float能拉伸成整数的。必要时标明数据的实际范围（0～10bit）这种。</p>
+</li>
+<li><p>对除法能被乘法代替的，乘法能用加法替代的，乘法能用位移替代的运算进行优化。</p>
+</li>
+<li><p>对kn ，（k+1）n这类的运算也可以优化。</p>
+</li>
+<li><p>减少if else分支语句内的内容，能合并的合并</p>
+</li>
+</ol>
+<h3 id="step2-c写汇编"><a href="#step2-c写汇编" class="headerlink" title="step2 c写汇编"></a>step2 c写汇编</h3><ol>
+<li><p>首先原则是 利用函数指针，当运行c的时候就指向c，当运行汇编时就指向汇编</p>
+</li>
+<li><p>汇编加速的原理是利用单指令多数据的方式进行加速</p>
+</li>
+<li><p>确定输入输出的尺寸，是固定还是任意，是否是偶数，8对齐 16对齐等</p>
+</li>
+<li><p>先把c转化成利用flag标识if else的语句。</p>
+</li>
+<li><p>确定每一个变量在其生命周期中，数据范围，可并行范围，能并行运算并行，不能时再拆开</p>
+</li>
+<li><p>根据运算的并行度，将常数都定义好 是u8 u16 还是u32 还是有符号的s。</p>
+</li>
+<li><p>如果大部分操作都可以在int16x8上操作 那就一次读8个 如果大部分操作都能在uint8上操作 那就一次读16个 ，以此类推。</p>
+</li>
+</ol>
+<h3 id="step3-汇编注意事项"><a href="#step3-汇编注意事项" class="headerlink" title="step3 汇编注意事项"></a>step3 汇编注意事项</h3><ol>
+<li><p>有些运算涉及负数，需要用有符号运算s</p>
+</li>
+<li><p>有些数据必须用uint 才能装下</p>
+</li>
+<li><p>作为if 条件标识的flag 再需要扩占位数时，需要用s有符号，才能补全高位</p>
+</li>
+</ol>
+<h3 id="ARM-Neon-Intrinsics-指令相关文档："><a href="#ARM-Neon-Intrinsics-指令相关文档：" class="headerlink" title="ARM Neon Intrinsics 指令相关文档："></a>ARM Neon Intrinsics 指令相关文档：</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012385733/article/details/121086734">https://blog.csdn.net/u012385733/article/details/121086734</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.arm.com/architectures/instruction-sets/intrinsics/https://developer.arm.com/architectures/instruction-sets/intrinsics/">https://developer.arm.com/architectures/instruction-sets/intrinsics/https://developer.arm.com/architectures/instruction-sets/intrinsics/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/25/c%E7%9A%84%E4%BC%98%E5%8C%96/" data-id="clmym1yv90000vxfbe9un8bxy" data-title="c的优化" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-函数与汇编" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/08/04/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B1%87%E7%BC%96/" class="article-date">
@@ -980,60 +1058,6 @@
 
 
   
-    <article id="post-Hydra使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-02-08T03:04:39.000Z" itemprop="datePublished">2023-02-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/">Hydra使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="最简单使用"><a href="#最简单使用" class="headerlink" title="最简单使用"></a>最简单使用</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install hydra-core</span><br></pre></td></tr></table></figure>
-
-<h4 id="初步测试"><a href="#初步测试" class="headerlink" title="初步测试"></a>初步测试</h4><p>目前的代码结构</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">folder</span><br><span class="line">├── conf</span><br><span class="line">│   └── recoro_train.yaml</span><br><span class="line">└── main.py</span><br></pre></td></tr></table></figure>
-
-<p>其中main.py </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from omegaconf import DictConfig, OmegaConf</span><br><span class="line">import hydra</span><br><span class="line"></span><br><span class="line">@hydra.main(config_path=&quot;./conf&quot;, config_name=&quot;recoro_train&quot;)</span><br><span class="line">def main(cfg: DictConfig):</span><br><span class="line">    running_dir = str(hydra.utils.get_original_cwd())</span><br><span class="line">    working_dir = str(Path.cwd())</span><br><span class="line">    print(f&quot;The current running directory is &#123;running_dir&#125;&quot;)</span><br><span class="line">    print(f&quot;The current working directory is &#123;working_dir&#125;&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The current running directory is C:\Users\xx\xx\xx\folder\</span><br><span class="line">The current working directory is C:\Users\xx\xx\xx\folder\outputs\2023-02-08\22-47-06</span><br></pre></td></tr></table></figure>
-
-<p>可以看到hydra运行时，会自动建立一个输出文件夹，包含日期和时间信息，然后还会直接将路径调到里面去，以方便保存脚本内的各种东西。这就是初步测试，全部都在这一行：配置的路径在”conf”，配置的文件名为”recoro_train”</p>
-<p>因此，无论在代码的任何地方，新建文件都会在working directory下 进行新建写入。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39537898/article/details/122162896#:~:text=%E4%B8%BB%E8%A6%81%E6%98%AF%E4%BB%8B%E7%BB%8Dpython%20hydra,%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%A6%86%E7%9B%96%E5%AE%83**%E3%80%82">【Python】Hydra 库使用记录_Kin__Zhang的博客-CSDN博客_python hydra</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/" data-id="cldvhmuxo0000n7fb9d0cdr25" data-title="Hydra使用" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1062,7 +1086,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 14px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -1071,7 +1095,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -1082,6 +1106,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/06/07/git-merge-vs-rebase/">git merge vs rebase</a>
+          </li>
         
           <li>
             <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">Xcode使用技巧</a>
@@ -1097,10 +1125,6 @@
         
           <li>
             <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/">常见操作的耗时</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/21/arm-intrinsic-%E6%8C%87%E4%BB%A4%E6%9F%A5%E8%AF%A2%E6%8A%80%E5%B7%A7/">arm intrinsic 指令查询技巧</a>
           </li>
         
       </ul>
