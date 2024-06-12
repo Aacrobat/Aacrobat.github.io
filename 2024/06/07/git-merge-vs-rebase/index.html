@@ -13,37 +13,37 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="git 修改之前的某次commit 注释和常见问题和解决方法_git修改某次commit的comment-CSDN博客 git rebase 用法详解与工作原理 | Shall We Code?git merge有两个分支 branchA  branchB ，初始时，branchA在C1 节点 基于此节点，拉出branchB 以下操作按照时间顺序 对branchB进行修改 C2  对branchA">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-34-10-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-40-40-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-42-10-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-00-49-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-02-22-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-05-02-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-51-40-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-52-42-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-52-57-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-53-36-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-54-24-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-04-37-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-08-30-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-10-00-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-11-21-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-12-46-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-13-26-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-14-30-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-15-28-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-16-24-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-25-58-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-26-44-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-27-40-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-28-27-image.png">
-<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-31-44-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-34-10-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-40-40-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-42-10-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-12-11-00-49-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-12-11-02-22-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-12-11-05-02-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-51-40-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-52-42-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-52-57-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-53-36-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-54-24-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-04-37-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-08-30-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-10-00-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-11-21-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-12-46-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-13-26-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-14-30-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-15-28-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-16-24-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-25-58-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-26-44-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-27-40-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-28-27-image.png">
+<meta property="og:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-31-44-image.png">
 <meta property="article:published_time" content="2024-06-07T08:48:24.000Z">
-<meta property="article:modified_time" content="2024-06-12T06:22:15.038Z">
+<meta property="article:modified_time" content="2024-06-12T06:32:24.962Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-34-10-image.png">
+<meta name="twitter:image" content="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-34-10-image.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -129,52 +129,52 @@
 <p>对branchA进行修改 C3</p>
 <p>对branchB进行修改 C4</p>
 <p>将branchB merge 到branch A</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-34-10-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-34-10-image.png"></p>
 <p>可以看出merge的树是以不同branch体现的，不能完整体现时间顺序</p>
 <h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>此时 reset一下merge操作：</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-40-40-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-40-40-image.png"></p>
 <p>随后将branchB 通过rebase的方式合并到branchA</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-17-42-10-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-17-42-10-image.png"></p>
 <p>可以看出 <strong>先将branchA的head移动到最新的branchB，再将branchA的修改添加回branchA。合并操作不会产生新的节点</strong></p>
 <h4 id="对于单独一个分支的rebase"><a href="#对于单独一个分支的rebase" class="headerlink" title="对于单独一个分支的rebase"></a>对于单独一个分支的rebase</h4><p>假如我们对当前分支的某次历史提交执行 <code>rebase</code>，其结果就是会将这次提交之后的所有提交重新应用在当前分支，在交互模式下，即允许我们对这些提交进行更改。</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-00-49-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-12-11-00-49-image.png"></p>
 <p>git rebase -i HEAD~4</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-02-22-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-12-11-02-22-image.png"></p>
 <p>可以看到后面的提交都变了ID</p>
 <p>git rebase -i HEAD~6</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-12-11-05-02-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-12-11-05-02-image.png"></p>
 <p>多rebase几个，但是修改还是修改同样的地方，那还是<strong>修改后的节点ID改变</strong>。</p>
 <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="利用rebase-修改历史提交的comment"><a href="#利用rebase-修改历史提交的comment" class="headerlink" title="利用rebase 修改历史提交的comment"></a>利用rebase 修改历史提交的comment</h3><h5 id="对于一直使用rebase操作的代码，修改历史comment十分简单，"><a href="#对于一直使用rebase操作的代码，修改历史comment十分简单，" class="headerlink" title="对于一直使用rebase操作的代码，修改历史comment十分简单，"></a>对于一直使用rebase操作的代码，修改历史comment十分简单，</h5><p>比如我想修改branchB C2 那次的log</p>
 <p>git rebase -i HEAD~3</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-51-40-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-52-42-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-52-57-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-53-36-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-18-54-24-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-51-40-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-52-42-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-52-57-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-53-36-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-18-54-24-image.png"></p>
 <p>这件事不会影响branchB 也不会影响branchA的提交顺序。但是会<strong>导致branchA重新增加comment的提交以及之后的提交的hashID改变</strong>。</p>
 <h5 id="对于使用merge的代码进行message修改，就比较复杂"><a href="#对于使用merge的代码进行message修改，就比较复杂" class="headerlink" title="对于使用merge的代码进行message修改，就比较复杂"></a>对于使用merge的代码进行message修改，就比较复杂</h5><p>此时要修改branchB 中C2 节点 9d3282c 的名字</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-04-37-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-04-37-image.png"></p>
 <p>git rebase -i HEAD~3</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-08-30-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-08-30-image.png"></p>
 <p>似乎列出的是branchA分支上最后三次的操作，当然也包含branchB上的</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-10-00-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-10-00-image.png"></p>
 <p>会失败，原因是：rebase之后相当于把branchB C2 C4两个节点的内容加入到 branchA C3这个节点后，在对比banechB C2 9d3282c 和 22279e0时 出现了不一致的问题。在此猜测 能merge成功是因为merge对比的是8f4cda7 和 22279e0。</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-11-21-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-12-46-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-11-21-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-12-46-image.png"></p>
 <p>先abort这次rebase, 恢复原样</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-13-26-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-13-26-image.png"></p>
 <p>git rebase -i HEAD~2 去修改C4节点 message 8f4cda7 也不行， 感觉是branchA已经包含了branchB那些修改。再搞个干净的分支。</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-14-30-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-15-28-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-16-24-image.png"></p>
-<h4 id="新来一个分支-验证merge的代码如何修改message"><a href="#新来一个分支-验证merge的代码如何修改message" class="headerlink" title="新来一个分支 验证merge的代码如何修改message"></a>新来一个分支 验证merge的代码如何修改message</h4><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-25-58-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-14-30-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-15-28-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-16-24-image.png"></p>
+<h4 id="新来一个分支-验证merge的代码如何修改message"><a href="#新来一个分支-验证merge的代码如何修改message" class="headerlink" title="新来一个分支 验证merge的代码如何修改message"></a>新来一个分支 验证merge的代码如何修改message</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-25-58-image.png"></p>
 <p>现在想修改branchC newnode2 0b21277 那次message</p>
 <p>git rebase -i HEAD~2</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-26-44-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-27-40-image.png"></p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-28-27-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-26-44-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-27-40-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-28-27-image.png"></p>
 <p>首先 修改了该提交的message， 其次，也运行了rebase。 将branchC的改动接到了branchA后面 （注意 如果是rebase branchC 那么是把branchA改动接到C后面。 但是我们这里运行rebase head 也就是rebase branchA 那么 就是把C的改动接到A后面。</p>
-<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2024-06-07-19-31-44-image.png"></p>
+<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/mergeandrebase/2024-06-07-19-31-44-image.png"></p>
 <p>反正本地rebase 不对劲就–abort</p>
 
       
