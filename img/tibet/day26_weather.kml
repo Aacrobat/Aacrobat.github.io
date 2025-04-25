@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="13">
+        <Style id="16">
+            <IconStyle id="17">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="18">
+                    <href>/Users/zhuhongjin/Downloads/11.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="21">
+            <IconStyle id="22">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="23">
+                    <href>/Users/zhuhongjin/Downloads/11.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="26">
+            <IconStyle id="27">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="28">
+                    <href>/Users/zhuhongjin/Downloads/11.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="31">
+            <IconStyle id="32">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="33">
+                    <href>/Users/zhuhongjin/Downloads/11.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="36">
+            <IconStyle id="37">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="38">
+                    <href>/Users/zhuhongjin/Downloads/11.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="41">
+            <IconStyle id="42">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="43">
+                    <href>/Users/zhuhongjin/Downloads/11.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Placemark id="15">
+            <name>2025-04-26天气</name>
+            <description>
+                
+        
+<![CDATA[
+        <h2>2025-04-26天气预报</h2>
+        <p>白天天气: 晴</p>
+        <p>夜间天气: 小雨</p>
+        <p>白天温度: 19℃</p>
+        <p>夜间温度: 5℃</p>
+        <p>白天风向: 南 风力: 1-3</p>
+        <p>夜间风向: 南 风力: 1-3</p>
+        ]]>                
+        
+            </description>
+            <styleUrl>#16</styleUrl>
+            <Point id="14">
+                <coordinates>90.907599,29.294506,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="20">
+            <name>2025-04-26天气</name>
+            <description>
+                
+        
+<![CDATA[
+        <h2>2025-04-26天气预报</h2>
+        <p>白天天气: 晴</p>
+        <p>夜间天气: 阵雨</p>
+        <p>白天温度: 18℃</p>
+        <p>夜间温度: 4℃</p>
+        <p>白天风向: 北 风力: 1-3</p>
+        <p>夜间风向: 北 风力: 1-3</p>
+        ]]>                
+        
+            </description>
+            <styleUrl>#21</styleUrl>
+            <Point id="19">
+                <coordinates>91.132802,29.650209,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="25">
+            <name>2025-04-26天气</name>
+            <description>
+                
+        
+<![CDATA[
+        <h2>2025-04-26天气预报</h2>
+        <p>白天天气: 晴</p>
+        <p>夜间天气: 阵雨</p>
+        <p>白天温度: 18℃</p>
+        <p>夜间温度: 4℃</p>
+        <p>白天风向: 北 风力: 1-3</p>
+        <p>夜间风向: 北 风力: 1-3</p>
+        ]]>                
+        
+            </description>
+            <styleUrl>#26</styleUrl>
+            <Point id="24">
+                <coordinates>91.098894,29.648382,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="30">
+            <name>2025-04-26天气</name>
+            <description>
+                
+        
+<![CDATA[
+        <h2>2025-04-26天气预报</h2>
+        <p>白天天气: 晴</p>
+        <p>夜间天气: 阵雨</p>
+        <p>白天温度: 18℃</p>
+        <p>夜间温度: 4℃</p>
+        <p>白天风向: 北 风力: 1-3</p>
+        <p>夜间风向: 北 风力: 1-3</p>
+        ]]>                
+        
+            </description>
+            <styleUrl>#31</styleUrl>
+            <Point id="29">
+                <coordinates>91.118463,29.654471,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="35">
+            <name>2025-04-26天气</name>
+            <description>
+                
+        
+<![CDATA[
+        <h2>2025-04-26天气预报</h2>
+        <p>白天天气: 多云</p>
+        <p>夜间天气: 小雨</p>
+        <p>白天温度: 19℃</p>
+        <p>夜间温度: 5℃</p>
+        <p>白天风向: 西南 风力: 1-3</p>
+        <p>夜间风向: 西南 风力: 1-3</p>
+        ]]>                
+        
+            </description>
+            <styleUrl>#36</styleUrl>
+            <Point id="34">
+                <coordinates>91.50373,29.32359,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="40">
+            <name>2025-04-26天气</name>
+            <description>
+                
+        
+<![CDATA[
+        <h2>2025-04-26天气预报</h2>
+        <p>白天天气: 多云</p>
+        <p>夜间天气: 小雪</p>
+        <p>白天温度: 12℃</p>
+        <p>夜间温度: -3℃</p>
+        <p>白天风向: 北 风力: 1-3</p>
+        <p>夜间风向: 北 风力: 1-3</p>
+        ]]>                
+        
+            </description>
+            <styleUrl>#41</styleUrl>
+            <Point id="39">
+                <coordinates>90.401318,28.969779,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
