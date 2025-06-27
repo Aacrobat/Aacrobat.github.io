@@ -71,6 +71,106 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-YUV-full-vs-limited-601-vs-709" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/" class="article-date">
+  <time class="dt-published" datetime="2024-06-27T06:06:52.000Z" itemprop="datePublished">2024-06-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/06/27/YUV-full-vs-limited-601-vs-709/">YUV full vs limited 601 vs 709</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h4><p>RGB 不区分 601 709 或者 full limited， 对于sRGB来说 最亮就应该是255， 最暗就应该是0。肤色要贴近真实场景，和真实场景没有色调偏移。</p>
+<h4 id="RGB-2-YUV"><a href="#RGB-2-YUV" class="headerlink" title="RGB 2 YUV"></a>RGB 2 YUV</h4><p>在rgb转化成YUV的时候，存在不同的转化公式，可以将YUV转化成 full 或者 limited，色彩空间也可以是601 或者 709</p>
+<h5 id="1-RGB-2-YUV-BT-601-full（标清）"><a href="#1-RGB-2-YUV-BT-601-full（标清）" class="headerlink" title="1. RGB 2 YUV BT.601 full（标清）"></a>1. <strong>RGB 2 YUV BT.601 full（标清）</strong></h5><ul>
+<li><p>适用于 SDTV（480i&#x2F;576i）、DVD 等。</p>
+</li>
+<li><p><strong>转换矩阵</strong>：</p>
+<p>Y&#x3D;0.299R+0.587G+0.114B</p>
+<p>U&#x3D;−0.169R−0.331G+0.500B+128</p>
+<p>V&#x3D;0.500R−0.419G−0.081B+128​</p>
+</li>
+<li><p>色度（UV）范围：<strong>0-255</strong>（Full Range 下）。</p>
+</li>
+</ul>
+<h5 id="2-RGB-2-YUV-BT-709-full（高清）"><a href="#2-RGB-2-YUV-BT-709-full（高清）" class="headerlink" title="2. RGB 2 YUV BT.709 full（高清）"></a>2. <strong>RGB 2 YUV BT.709 full（高清）</strong></h5><ul>
+<li><p>适用于 HDTV（720p&#x2F;1080p）、蓝光、流媒体等。</p>
+</li>
+<li><p><strong>转换矩阵</strong>：</p>
+<p>Y&#x3D;0.2126R+0.7152G+0.0722B</p>
+<p>U&#x3D;−0.1146R−0.3854G+0.500B+128</p>
+<p>V&#x3D;0.500R−0.4542G−0.0458B+128​</p>
+</li>
+<li><p>色度（UV）范围：<strong>0-255</strong>（Full Range 下）。</p>
+</li>
+</ul>
+<h5 id="3-BT-601-Limited-Range"><a href="#3-BT-601-Limited-Range" class="headerlink" title="3. BT.601 Limited Range"></a>3. <strong>BT.601 Limited Range</strong></h5><p>Y&#x3D;(0.299R+0.587G+0.114B)×219​&#x2F;255+16</p>
+<p>U&#x3D;(−0.169R−0.331G+0.500B)×224​&#x2F;255+128</p>
+<p>V&#x3D;(0.500R−0.419G−0.081B)×224​&#x2F;255​+128​</p>
+<p><em>注：UV 的 +128 偏移在 Limited Range 下会自动调整为 16-240。</em></p>
+<h5 id="4-BT-709-Limited-Range"><a href="#4-BT-709-Limited-Range" class="headerlink" title="4. BT.709 Limited Range"></a>4. <strong>BT.709 Limited Range</strong></h5><p>​Y&#x3D;(0.2126R+0.7152G+0.0722B)×219&#x2F;255​+16</p>
+<p>U&#x3D;(−0.1146R−0.3854G+0.500B)×224&#x2F;255​+128</p>
+<p>V&#x3D;(0.500R−0.4542G−0.0458B)×224&#x2F;255​+128​</p>
+<h5 id="为什么存在-limited"><a href="#为什么存在-limited" class="headerlink" title="为什么存在 limited"></a>为什么存在 limited</h5><ul>
+<li><p><strong>广播电视行业（BT.601&#x2F;BT.709&#x2F;BT.2020）</strong>：<br>早期的模拟电视信号为了减少噪声干扰和留出余量（如同步信号），将 YUV 的亮度（Y）限制在 <strong>16~235</strong>，色度（UV）限制在 <strong>16~240</strong>（8-bit 下），而非完整的 0~255。这一规范被数字电视（如 DVD、蓝光、有线电视）沿用，称为 <strong>Limited Range</strong> 或 <strong>TV Range</strong>。</p>
+</li>
+<li><p><strong>硬件设备优化</strong>：部分显示设备（如老式 CRT）的电路设计基于 Limited Range，直接兼容更高效。</p>
+</li>
+</ul>
+<h5 id="为什么有601-709两种色彩空间"><a href="#为什么有601-709两种色彩空间" class="headerlink" title="为什么有601 709两种色彩空间"></a>为什么有601 709两种色彩空间</h5><ul>
+<li><p><strong>BT.601（1982年制定）</strong>：<br>针对 <strong>标清电视（SDTV）</strong> 设计，分辨率主要为 <strong>480i&#x2F;576i</strong>（NTSC&#x2F;PAL），用于早期的 CRT 电视和 DVD 时代。</p>
+<ul>
+<li><p>色彩空间基于当时模拟电视的技术限制，色度采样通常为 <strong>4:2:2</strong> 或 <strong>4:2:0</strong>。</p>
+</li>
+<li><p>主要目标：兼容模拟信号，优化带宽效率。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>BT.709（1990年制定，后更新）</strong>：<br>针对 <strong>高清电视（HDTV）</strong> 设计，分辨率支持 <strong>720p&#x2F;1080i&#x2F;1080p</strong>，用于蓝光、数字电视和流媒体。</p>
+<ul>
+<li><p>色彩空间适应更高分辨率和数字显示设备（如液晶、等离子）。</p>
+</li>
+<li><p>主要目标：提升色彩表现，匹配现代显示技术。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="YUV2RGB"><a href="#YUV2RGB" class="headerlink" title="YUV2RGB"></a>YUV2RGB</h4><p>YUV有四种格式 分别是 full&#x2F;limited 601&#x2F;709，如果要转化成正确的RGB，需要采用对应的公式转化，如果采用的公式错误，可能带来色彩偏差。</p>
+<h5 id="常见色彩偏差"><a href="#常见色彩偏差" class="headerlink" title="常见色彩偏差"></a>常见色彩偏差</h5><p>如 BT.601 内容在 BT.709 显示下偏绿或饱和度过高</p>
+<p>709的内容在601下播放可能偏红，紫</p>
+<p>full的数据在limited的模式下播放，暗部亮部分会损失，对比度过强</p>
+<p>limited的数据在full的模式下播放，色彩昏暗，亮度无法达到255</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/06/27/YUV-full-vs-limited-601-vs-709/" data-id="cmceg0jik0000ywfba5hi7e1n" data-title="YUV full vs limited 601 vs 709" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-git-merge-vs-rebase" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/06/07/git-merge-vs-rebase/" class="article-date">
@@ -747,102 +847,11 @@
 
 
   
-    <article id="post-DDPM-DDIM-SDE-CompVis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/10/19/DDPM-DDIM-SDE-CompVis/" class="article-date">
-  <time class="dt-published" datetime="2023-10-19T05:47:25.000Z" itemprop="datePublished">2023-10-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/19/DDPM-DDIM-SDE-CompVis/">DDPM_DDIM_SDE_CompVis</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="DDPM"><a href="#DDPM" class="headerlink" title="DDPM"></a>DDPM</h3><p><em>Denoising Diffusion Probabilistic Models</em></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/betterlmy/ddpm_abarankab">https://github.com/betterlmy/ddpm_abarankab</a></p>
-<h4 id="公式原理"><a href="#公式原理" class="headerlink" title="公式原理"></a>公式原理</h4><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-04-57-image.png" title="" alt="" data-align="center">
-
-<h6 id="正向一步步加噪音："><a href="#正向一步步加噪音：" class="headerlink" title="正向一步步加噪音："></a>正向一步步加噪音：</h6><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-06-18-image.png" title="" alt="" data-align="center">
-
-<p>beta是一个设定好的和t有关的超参数，噪音就是随机高斯噪音</p>
-<h6 id="正向一步得到加噪结果"><a href="#正向一步得到加噪结果" class="headerlink" title="正向一步得到加噪结果"></a>正向一步得到加噪结果</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-15-37-image.png"></p>
-<h6 id="网络训练去噪器"><a href="#网络训练去噪器" class="headerlink" title="网络训练去噪器"></a>网络训练去噪器</h6><h6 id="估计出当前噪音，得到Xt-1"><a href="#估计出当前噪音，得到Xt-1" class="headerlink" title="估计出当前噪音，得到Xt-1"></a>估计出当前噪音，得到Xt-1</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-23-image.png"></p>
-<h6 id="总的来说"><a href="#总的来说" class="headerlink" title="总的来说"></a>总的来说</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-14-40-53-image.png"></p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h6 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-02-26-image.png"></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-02-36-image.png"></p>
-<h6 id="推理过程"><a href="#推理过程" class="headerlink" title="推理过程"></a>推理过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-05-08-image.png"></p>
-<h3 id="DDIM"><a href="#DDIM" class="headerlink" title="DDIM"></a>DDIM</h3><p><em>DENOISING</em> <em>DIFFUSION</em> <em>IMPLICIT</em> <em>MODELS</em></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ermongroup/ddim">https://github.com/ermongroup/ddim</a></p>
-<h4 id="论文原理"><a href="#论文原理" class="headerlink" title="论文原理"></a>论文原理</h4><p>DDPM在采样的时候，需要利用到xt-1 扩散到xt的知识，导致sample速度过慢，而DDIM可以只利用predicted X0 Xt，去求Xt-1，这样就不要求一步步采样了。</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-02-20-image.png"></p>
-<h6 id="reverse过程"><a href="#reverse过程" class="headerlink" title="reverse过程"></a>reverse过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-10-28-image.png"></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><h6 id="训练过程，和DDPM一样"><a href="#训练过程，和DDPM一样" class="headerlink" title="训练过程，和DDPM一样"></a>训练过程，和DDPM一样</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-15-41-04-image.png"></p>
-<h6 id="推理过程-1"><a href="#推理过程-1" class="headerlink" title="推理过程"></a>推理过程</h6><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-19-17-13-30-image.png"></p>
-<h3 id="SDE"><a href="#SDE" class="headerlink" title="SDE"></a>SDE</h3><h4 id="论文原理-1"><a href="#论文原理-1" class="headerlink" title="论文原理"></a>论文原理</h4><h5 id="SDE时间上连续-，正向和逆向推导过程"><a href="#SDE时间上连续-，正向和逆向推导过程" class="headerlink" title="SDE时间上连续 ，正向和逆向推导过程"></a>SDE时间上连续 ，正向和逆向推导过程</h5><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-16-57-36-image.png"></p>
-<h5 id="涵盖了之前的score-base-和ddpm"><a href="#涵盖了之前的score-base-和ddpm" class="headerlink" title="涵盖了之前的score base 和ddpm"></a>涵盖了之前的score base 和ddpm</h5><p><strong>score base VE</strong></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-20-image.png"></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-29-image.png"></p>
-<p><strong>ddpm VP</strong></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-45-41-image.png"></p>
-<p>结合上述两种扩散方式 提出<strong>sub-VP SDE</strong> 目的是<em>which perform particularly well on</em></p>
-<p><em>likelihoods</em></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-30-17-46-19-image.png"></p>
-<h5 id="PC采样："><a href="#PC采样：" class="headerlink" title="PC采样："></a>PC采样：</h5><p>用SDE数值求解预测出结果，再用分数估计修正结果。这部分也有一些实验性结论，比如correct一步还是n步。结合了两种采样方式 *unifies and improves over existing sampling methods for score-based models.</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-31-09-46-38-image.png"></p>
-<h5 id="PC的原因"><a href="#PC的原因" class="headerlink" title="PC的原因"></a>PC的原因</h5><p>纠正离散步长不准确？</p>
-<h5 id="ODE"><a href="#ODE" class="headerlink" title="ODE"></a>ODE</h5><p>就是一种和SDE有同样边缘概率分布的采样方式  likelihood <em>fast adaptive sampling via black-box ODE solvers, flexible data manipulation via latent codes, a uniquely identifiable encoding, and notably, exact likelihood computation.</em></p>
-<h5 id="controllable-generation"><a href="#controllable-generation" class="headerlink" title="controllable generation"></a>controllable generation</h5><p>对于score模型 只要知道了 每个时刻condition 的score 就可以根据condition生成图片了，总之就是额外或者利用domain信息，得到一个跟condition有关的score，放到采样过程中就行。主要应用有，分类图片生成，图片补全，图片上色。</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-31-10-57-01-image.png"></p>
-<p>这里这些condition都是sample时候加进去的，不涉及估计score的那个训练阶段。</p>
-<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><h5 id="怎么训练分数网络"><a href="#怎么训练分数网络" class="headerlink" title="怎么训练分数网络"></a>怎么训练分数网络</h5><p>score 本质上还是和noise z相关的的一个估计</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-27-11-22-43-image.png"></p>
-<h5 id="怎么采样"><a href="#怎么采样" class="headerlink" title="怎么采样"></a>怎么采样</h5><p>PC采样的框架</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-10-26-19-05-37-image.png"></p>
-<p>不同数值求解器的predictor</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-11-01-10-00-40-image.png"></p>
-<p>不同数值求解器的correcter,只截取了部分 还有很多</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/DDPM/2023-11-01-10-04-05-image.png"></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Dd4y1A7oz/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83">https://www.bilibili.com/video/BV1Dd4y1A7oz/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19M411z7hS/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83">https://www.bilibili.com/video/BV19M411z7hS/?spm_id_from=333.999.0.0&amp;vd_source=857061537338948659f6d0f1f3868d83</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jg411Q7bQ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=857061537338948659f6d0f1f3868d83">https://www.bilibili.com/video/BV1jg411Q7bQ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=857061537338948659f6d0f1f3868d83</a></p>
-<h3 id="CompVis"><a href="#CompVis" class="headerlink" title="CompVis"></a>CompVis</h3><h4 id="论文思想"><a href="#论文思想" class="headerlink" title="论文思想"></a>论文思想</h4><p><em>High-Resolution Image Synthesis with Latent Diffusion Models</em></p>
-<p>利用预先训练好的encoder decoder，将图像映射到latent space上再做DM，这样节省计算资源，因此可以训练高清图片。</p>
-<p>在去噪器的结构里加入<em>cross-attention layers</em> 实现更丰富的控制生成。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/CompVis/latent-diffusion">https://github.com/CompVis/latent-diffusion</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/19/DDPM-DDIM-SDE-CompVis/" data-id="clofdh9ep0000n8fb7d6b0tdk" data-title="DDPM_DDIM_SDE_CompVis" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -856,7 +865,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -866,7 +875,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -888,6 +897,10 @@
       <ul>
         
           <li>
+            <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/">YUV full vs limited 601 vs 709</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/07/git-merge-vs-rebase/">git merge vs rebase</a>
           </li>
         
@@ -903,10 +916,6 @@
             <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">CMake 简单用法</a>
           </li>
         
-          <li>
-            <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/">常见操作的耗时</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -920,7 +929,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 John Doe<br>
+      &copy; 2025 John Doe<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -71,6 +71,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-优雅的python深度学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2023-02-08T10:58:15.000Z" itemprop="datePublished">2023-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">优雅的python深度学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="根目录下"><a href="#根目录下" class="headerlink" title="根目录下"></a>根目录下</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">conf</span><br><span class="line">    train.yaml</span><br><span class="line">    test.yaml</span><br><span class="line">data</span><br><span class="line">    __init__.py           //最外层 get_dataset（dataset_name)</span><br><span class="line">    datasets.py           //各种个样dataset（paired unpaired combaind..)</span><br><span class="line">    transform.py          //制作dataset的时候，用到的数据变化 比如norm crop等</span><br><span class="line">    utils.py              //读取 加载 图片类型转化 padding等data用到的工具</span><br><span class="line"></span><br><span class="line">model</span><br><span class="line">    vgg19.weight</span><br><span class="line"></span><br><span class="line">models</span><br><span class="line">    auxiliary.py          //作为特征提取或者vggloss 辅助网络</span><br><span class="line">    discriminators.py     //组成鉴别器的不同组件 以及不同鉴别器</span><br><span class="line">    generators.py         //组成生成器的不同组件 以及不同生成器</span><br><span class="line">    losses.py             //比较复杂的loss 例如GAN perceptual loss</span><br><span class="line">    engan.py              //实验的完整网络和对比网络 由G和D和loss共同构成</span><br><span class="line">    utils.py              //初始化网络 初始化权重等 models部分用到的工具</span><br><span class="line">outputs</span><br><span class="line">    实验输出</span><br><span class="line">utils</span><br><span class="line">    metrics.py            //一些评价指标</span><br><span class="line">    utils.py              //系统时间啊 get device啊</span><br><span class="line">    visualize.py          //图片可视化和保存 </span><br><span class="line"></span><br><span class="line">eval.py</span><br><span class="line">train.py</span><br><span class="line">test.py</span><br><span class="line">README.md</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/08/%E4%BC%98%E9%9B%85%E7%9A%84python%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" data-id="cldvla5cj0000n7fb1mctg6w2" data-title="优雅的python深度学习" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Hydra使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/02/08/Hydra%E4%BD%BF%E7%94%A8/" class="article-date">
@@ -583,63 +624,11 @@
 
 
   
-    <article id="post-git在干什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="article-date">
-  <time class="dt-published" datetime="2022-11-17T06:20:48.000Z" itemprop="datePublished">2022-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/">git在干什么</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" alt="Git"></p>
-<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><p>1.0 如果在本地有更新，但是没有commit， pull会失败 ？不会，如果本地有更新，但是远程没有更新，pull好像没啥区别。</p>
-<p>1.1 但是不是远程有更新，本地也有更新，并且本地没有commit这时候pull才会失败？</p>
-<p>1.2 正常来说，需要commit将本地更新记录到本地仓库 或者 checkout . 把本地跟新的退回</p>
-<p>2 假设本地我修改了A文件，别人在远方修改了B文件，我commit后pull，B文件会被更新，但是A文件我的修改不会丢失</p>
-<p>3 假设本地我修改了A文件，别人在远方修改了A文件，我commit后pull会失败，需要git pull origin sara-ep-attlit –rebase </p>
-<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/27718f0741d8">https://www.jianshu.com/p/27718f0741d8</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82">https://blog.csdn.net/lzxlfly/article/details/103837258#:~:text=git%20pull%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%BB%8E,%E5%8F%96%E4%B8%8B%E6%9D%A5%E7%9A%84commitid%E8%AE%B0%E5%BD%95%E3%80%82</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2020-05-20-3">https://www.jiqizhixin.com/articles/2020-05-20-3</a></p>
-<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">http://chuquan.me/2022/05/21/understand-principle-of-git/</a></p>
-<p><a target="_blank" rel="noopener" href="https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html">https://xiaowenxia.github.io/git-inside/2020/12/06/git-internal.objects/index.html</a></p>
-<p><a target="_blank" rel="noopener" href="http://chuquan.me/2022/05/21/understand-principle-of-git/">深入理解 Git 底层实现原理 | 楚权的世界</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" data-id="claqkc6780000m1fbbib43qzj" data-title="git在干什么" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -653,7 +642,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codec/" rel="tag">codec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -663,7 +652,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/codec/" style="font-size: 10px;">codec</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -685,6 +674,10 @@
       <ul>
         
           <li>
+            <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/">YUV full vs limited 601 vs 709</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/07/git-merge-vs-rebase/">git merge vs rebase</a>
           </li>
         
@@ -700,10 +693,6 @@
             <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">CMake 简单用法</a>
           </li>
         
-          <li>
-            <a href="/2023/11/22/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E7%9A%84%E8%80%97%E6%97%B6/">常见操作的耗时</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -717,7 +706,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 John Doe<br>
+      &copy; 2025 John Doe<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
