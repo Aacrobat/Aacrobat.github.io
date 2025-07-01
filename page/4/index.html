@@ -71,6 +71,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-卡尔曼滤波" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" class="article-date">
+  <time class="dt-published" datetime="2022-11-17T07:53:56.000Z" itemprop="datePublished">2022-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/">卡尔曼滤波</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="卡尔曼滤波"><a href="#卡尔曼滤波" class="headerlink" title="卡尔曼滤波"></a>卡尔曼滤波</h3><h4 id="更通用的，一个变量（状态）的卡尔曼滤波"><a href="#更通用的，一个变量（状态）的卡尔曼滤波" class="headerlink" title="更通用的，一个变量（状态）的卡尔曼滤波"></a>更通用的，一个变量（状态）的卡尔曼滤波</h4><p>就是利用历史数据（根据状态转移方法）预测新数据，并且根据当前观测的新数据值，和其不确定性，综合修正预测的数据。</p>
+<h4 id="干了这么"><a href="#干了这么" class="headerlink" title="干了这么"></a>干了这么</h4><p>如果有两个系统对一个数据（高度，位置或者其他的）都有测量或者说是观测，但是都不准。那如何通过这两个不准的东西得到一个更准的结果。</p>
+<p>更简单的说法：怎么去求两个数据的加权平均</p>
+<p>如何通俗并尽可能详细地解释卡尔曼滤波？ - Kent Zeng的回答 - 知乎 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23971601/answer/26254459">https://www.zhihu.com/question/23971601/answer/26254459</a></p>
+<h3 id="翻译理解"><a href="#翻译理解" class="headerlink" title="翻译理解"></a>翻译理解</h3><p>接下来按照</p>
+<p><a target="_blank" rel="noopener" href="https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/">https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/</a></p>
+<p>一文简单翻译理解一下 这是一个多变量 运动定位系统</p>
+<h4 id="what-is-it-？"><a href="#what-is-it-？" class="headerlink" title="what is it ？"></a>what is it ？</h4><p>你有一个不准确但是可以观测的，连续变化的系统。此外，你还能对着干观测值进行一些<strong>科学的</strong>推论。但是也不准。通过卡尔曼滤波（合理的对不准确的推理和不准确的观测结果加权），可以得到一个更准确的当前值的结果。</p>
+<h4 id="what-can-we-do-with-a-Kalman-filter"><a href="#what-can-we-do-with-a-Kalman-filter" class="headerlink" title="what can we do with a Kalman filter"></a>what can we do with a Kalman filter</h4><p>假设你有一个小机器人，这个机器人在森林里行走，需要定位。</p>
+<p>这个小机器人有一个状态，这个状态包括了当前位置和当前速度。这个速度是某种码表里可以读出来的。此外，这个机器人还有一个GPS定位，表明了当前的位置。不管是GPS还是速度都是不太准的的。怎么得到更准确的当前位置呢？</p>
+<h4 id="how-a-Kalman-filter-sees-your-problem"><a href="#how-a-Kalman-filter-sees-your-problem" class="headerlink" title="how a Kalman filter sees your problem"></a>how a Kalman filter sees your problem</h4><p>我们有两个连续变化的数据（假设都服从高斯分布），位置和速度，虽然这些都不准，方差衡量了不同变量各自的不确定性，协方差衡量了他们之间的关系。</p>
+<h4 id="Describe-the-problem-with-martics"><a href="#Describe-the-problem-with-martics" class="headerlink" title="Describe the problem with martics"></a>Describe the problem with martics</h4><p>我们可以得到，当前状态的（速度和位置）的均值，然后和这两个变量之间的斜方差矩阵</p>
+<p>下一步，我们可以通过p &#x3D; p + vt 得到下一次的位置，速度预测。<strong>这步就是科学推倒得到的合理的预测</strong>。同时更新均值和其斜方差。</p>
+<p>此外，考虑再复杂一些，我们加入外力（加速度）和不确定性。</p>
+<p>最终影响下一次状态的均值的是，当前状态以及外力，影响下一次斜方差的是当前斜方差，不确定噪音。</p>
+<h4 id="Refining-the-estimate-with-measures"><a href="#Refining-the-estimate-with-measures" class="headerlink" title="Refining the estimate with measures"></a>Refining the estimate with measures</h4><p>我们可以通过<strong>直接读数，得到一个位置速度分布的概率</strong>。我们还可以通过<strong>科学推倒得到</strong>一个速度位置分布的概率。那将这两个概率<strong>相乘归一化</strong>，就是更准的概率了。</p>
+<h4 id="putting-it-all-together"><a href="#putting-it-all-together" class="headerlink" title="putting it all together"></a>putting it all together</h4><p>新的位置等于 根据老位置预测出来的新位置，以及新位置读数的加权。加权值由推倒公式，读数概率等原始数据共同决定。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/PengWon/article/details/134115339">信号去噪之卡尔曼滤波_卡尔曼滤波 去噪-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_16213463/7545080">卡尔曼滤波去噪python_mob64ca12f7e7cf的技术博客_51CTO博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1829708">【译】图解卡尔曼滤波(Kalman Filter)-腾讯云开发者社区-腾讯云</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/11/17/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/" data-id="claqkc6790001m1fbbh8f7cty" data-title="卡尔曼滤波" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo/" rel="tag">algo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-git在干什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/11/17/git%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88/" class="article-date">
@@ -636,46 +696,6 @@
 
 
   
-    <article id="post-firstPage-md" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/08/18/firstPage-md/" class="article-date">
-  <time class="dt-published" datetime="2022-08-18T09:35:59.000Z" itemprop="datePublished">2022-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/08/18/firstPage-md/">firstPage.md</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><p>开始写博客</p>
-<p>经常想一些东西，经常重复做一些东西，但是很少去记录。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/08/18/firstPage-md/" data-id="cl6yunanu0000dofb5k6wdq5w" data-title="firstPage.md" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -704,7 +724,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 16px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 18px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -713,7 +733,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -724,6 +744,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/06/30/CLAHE/">CLAHE</a>
+          </li>
         
           <li>
             <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/">YUV full vs limited 601 vs 709</a>
@@ -739,10 +763,6 @@
         
           <li>
             <a href="/2023/11/24/intptr-VS-int32-or-int64/">intptr VS int32 or int64</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/24/CMake-%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">CMake 简单用法</a>
           </li>
         
       </ul>
