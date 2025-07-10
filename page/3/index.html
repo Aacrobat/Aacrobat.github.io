@@ -71,6 +71,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-常用loss合集" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/" class="article-date">
+  <time class="dt-published" datetime="2023-02-19T03:12:50.000Z" itemprop="datePublished">2023-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/">常用loss合集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="TV-loss"><a href="#TV-loss" class="headerlink" title="TV loss"></a>TV loss</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class TVLoss(nn.Module):</span><br><span class="line">    def __init__(self,TVLoss_weight=1):</span><br><span class="line">        super(TVLoss,self).__init__()</span><br><span class="line">        self.TVLoss_weight = TVLoss_weight</span><br><span class="line"></span><br><span class="line">    def forward(self,x):</span><br><span class="line">        batch_size = x.size()[0]</span><br><span class="line">        h_x = x.size()[2]</span><br><span class="line">        w_x = x.size()[3]</span><br><span class="line">        count_h = self._tensor_size(x[:,:,1:,:]) #channel * (h-1) * w</span><br><span class="line">        count_w = self._tensor_size(x[:,:,:,1:]) #channel * h * (w-1)</span><br><span class="line">        h_tv = torch.pow((x[:,:,1:,:]-x[:,:,:h_x-1,:]),2).sum()</span><br><span class="line">        w_tv = torch.pow((x[:,:,:,1:]-x[:,:,:,:w_x-1]),2).sum()</span><br><span class="line">        return self.TVLoss_weight*2*(h_tv/count_h+w_tv/count_w)/batch_size</span><br><span class="line"></span><br><span class="line">    def _tensor_size(self,t): </span><br><span class="line">        return t.size()[1]*t.size()[2]*t.size()[3]</span><br></pre></td></tr></table></figure>
+
+<p>个人理解 *2 的意思是TV是四个方向的，所以两个方向计算下来需要 * 2</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/19/%E5%B8%B8%E7%94%A8loss%E5%90%88%E9%9B%86/" data-id="cleathji00000xffbcsr8d2pc" data-title="常用loss合集" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-将测试图片网页展示" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/02/13/%E5%B0%86%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87%E7%BD%91%E9%A1%B5%E5%B1%95%E7%A4%BA/" class="article-date">
@@ -509,106 +552,6 @@
 
 
   
-    <article id="post-Bilateral-and-Guided-Filter" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/12/02/Bilateral-and-Guided-Filter/" class="article-date">
-  <time class="dt-published" datetime="2022-12-02T08:40:39.000Z" itemprop="datePublished">2022-12-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/12/02/Bilateral-and-Guided-Filter/">Bilateral and Guided Filter</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="双边滤波-for-gray-and-color-images"><a href="#双边滤波-for-gray-and-color-images" class="headerlink" title="双边滤波 for gray and color images"></a>双边滤波 for gray and color images</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>在滤波加权的时候计算几何相似度和光学相似度，在亮度差别大的地方不进行平均加权，从而达到保边。</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-38-26-image.png"></p>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-40-06-image.png" alt="test"></p>
-<p>在上述公式中，k代表正则化，c(.)代表几何相似度，也就是距离, s(.) 代表光学相似度，可以是色彩的差，亮度的差等。</p>
-<h4 id="实验现象"><a href="#实验现象" class="headerlink" title="实验现象"></a>实验现象</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-49-40-image.png"></p>
-<p>如果只做色彩滤镜相当于对直方图进行压缩，也就是只做色彩滤镜相当于把全图色彩平均，向中灰度压缩。</p>
-<p>当像素相似度比较大的时候（100～300），对于小的范围参数影响不大了，因为几乎小范围内的所有数据都在像素相似度内。整图结果主要由范围半径控制。</p>
-<p>当范围半径比较大的时候，双边滤波更像是色彩相似度滤镜，表现为对直方图的压缩，现象就是偏灰。</p>
-<h4 id="常说到的导致梯度反转"><a href="#常说到的导致梯度反转" class="headerlink" title="常说到的导致梯度反转"></a>常说到的导致梯度反转</h4><p>首先，是双边滤波在做Tone Mapping时才会导致梯度反转。并不是直接用双边滤波得到保边平滑图就会出现梯度反转。</p>
-<p>双边滤波在做Tone Mapping时，<em>Fast Bilateral Filtering for the Display of High-Dynamic-Range Images</em> ，将图像分成base层和ditail 层 base &#x3D; BF（ori_img) detail &#x3D; ori_img.&#x2F;base。由于base层在边缘处加权的数据少，所以不稳定，偏向没有边缘的那一侧的值。导致的detail层也不稳定，在增强或者压缩base后，叠加detail会出现梯度反转。</p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-17-57-54-image.png"></p>
-<h3 id="Guided-Filter"><a href="#Guided-Filter" class="headerlink" title="Guided Filter"></a>Guided Filter</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>保边平滑，线性时间复杂度（与滤波半径无关），以及和matting Laplacian matrix理论有相似形式。可以用于：去噪，细节增强&#x2F;平滑，HDR压缩，抠图，羽化，去雾，联合双边上采样。</p>
-<h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-24-56-image.png"></p>
-<p>在一个小的局部区域，输出是guidance I 的一个线性变化，通过这个假设来确保，在局部，输出q的梯度和guidance I的梯度成比例，从而引入，或者说保留guidance I的梯度。</p>
-<p><strong>在一个局部的区域内，输出q，或者说是去噪音后的输入p，是引导图I的一个kI+b的线性变化。kI也就是，引导图的变化趋势都被保留，b是为了模拟p所在域的bias。eps控制a不能太大，这项是为了控制平滑（模糊）程度的</strong></p>
-<h4 id="公式-1"><a href="#公式-1" class="headerlink" title="公式"></a>公式</h4><p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-27-36-image.png"></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-27-52-image.png"></p>
-<p><img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-02-18-28-09-image.png"></p>
-<p>公式意义：</p>
-<p>当I没有梯度的时候，a等于0 ；当p没有梯度的时候，a等于0； 也就是<strong>任意一方是平坦图的时候，输出q 退化为p的两次boxfilter</strong></p>
-<p>当I有比较大的梯度，p也有比较大梯度，<strong>且他们有相关性的时候（分母一定，也就是I方差一定，Ip相关性越大分子越大），a越大，I的梯度得到保留</strong>；</p>
-<p>当引导图的方差远小于eps时，a几乎等于0，像素被平滑，也就是引导图方差相对于eps的关系决定了平滑的力度。</p>
-<p><strong>对于引导图I，滤波图p为一副图的情况</strong>，a &#x3D; 方差&#x2F;方差+eps b &#x3D; avg - a*avg。输出就变成了根据方差和eps关系，来选择性输出原图或者是avg图。对于方差比较大的边缘，输出原图的权重高，对于方差比较小的地方，输出平均图的权重高。</p>
-<p>公式几何意义：在一个局部区域内，I为横轴p为纵轴，q &#x3D; aI+b，也就是一条直线尽量拟合每一个(I,p) ,那么根据这个拟合结果，可以对原本的p有一个新的输出q。</p>
-<img src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-07-13-45-24-image.png" title="" alt="" data-align="inline">
-
-<p>考虑到eps 对a的限制，输出可能更平滑一些</p>
-<img title="" src="file:///Users/PeppaZhu/Library/Application%20Support/marktext/images/2023-03-24-16-32-12-image.png" alt="" data-align="inline">
-
-<p>线性复杂度：由于一个固定方框内的均值方差可以采用box filter的优化方式变成线性复杂度，因此本算法也可以优化成线性复杂度。</p>
-<h4 id="实验现象-1"><a href="#实验现象-1" class="headerlink" title="实验现象"></a>实验现象</h4><p>参数： GuidedFilter(guided,10,0.000001)，对于引导图是黑白图像，输出会引入边缘处其他梯度，会导致有些边缘模糊。模糊可能是因为，第一，p在该区域不全为0，有梯度变化。引导图在该区域有梯度，a有值，再加上a的平均，导致在边缘区域加入了引导图。第二，引入边缘处的梯度就是不完全的加权加了一部分原图的自然结果。且a并不是1，是-1～11的数据。简单来说，在边缘处黑度图他们不可清晰分类。</p>
-<img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-31-40-image.png" alt="" width="434">
-
-<p><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-51-46-image.png" alt="" width="198"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-26-image.png" alt="" width="199"><img title="" src="https://github.com/Aacrobat/Aacrobat.github.io/raw/master/img/filter/2022-12-05-10-38-41-image.png" alt="" width="199"></p>
-<p>对于引导图是彩色图，其结果好转。彩色图在计算时，a是引导图三通道3*3方差 * （I * P), 也就是单独通道颜色不匹配（哪怕亮度匹配），a依旧很小。防止引入相同亮度不同颜色的边缘信息。简单来说，在rgb色彩空间，边缘可分。</p>
-<h4 id="抠图潜在危险"><a href="#抠图潜在危险" class="headerlink" title="抠图潜在危险"></a>抠图潜在危险</h4><ol>
-<li><p>半径不能太大。不然线性无法拟合。而且脸部要是有白色高光容易和背景墙混淆。</p>
-</li>
-<li><p>几乎完全相同颜色的边缘信息会引入。比如白色衣服白色墙体。黑色头发黑色椅子，因为本质上相同颜色不可分。于是会出现更多错误。</p>
-</li>
-<li><p>边缘处有rgb色彩重叠，会有些错分，带来就是部分引入错误，淡化原本01的强分割边界。</p>
-</li>
-</ol>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a target="_blank" rel="noopener" href="https://github.com/lisabug/guided-filter">https://github.com/lisabug/guided-filter</a></p>
-<h4 id="针对于抠图的潜在危险设计的S-Guided-Filter"><a href="#针对于抠图的潜在危险设计的S-Guided-Filter" class="headerlink" title="针对于抠图的潜在危险设计的S_Guided Filter"></a>针对于抠图的潜在危险设计的S_Guided Filter</h4><p><strong>针对于缺点2</strong>，设计了选择区域的GF，总的来说是颜色差别较大的区域Guided Filter生效，当颜色差别较小的区域不使用Guided Filter</p>
-<p>具体做法：在算引导图I 方差的时候，标记I 大于一定值的区域作为生效区域。当引导图为彩色图是，存在RR，RG，RB..等九个协方差，选取最大那个作为判定值。（因为当有一种颜色RR GG BB，或者一对颜色关系RG RB GB 可分时这个区域就可以区分）。</p>
-<p>引入的危险：阈值如何计算。太小了的话，那些高噪音的平台区域也变成working area了，太大了的话，一些本来可以使用GF的区域也失效了。</p>
-<p>测试case：尽量让浅肤色和白墙，深色头发和黑墙可以区分，不让白衣服白墙，全黑衣服和黑墙，以及高噪音全黑衣服和黑墙引入错误。</p>
-<p><strong>针对于缺点3</strong>，对GF后的结果进行了一些拉伸，让分割锐利，且剔除被分到前景的背景，但不在原基础上新增内容（可能有的前景被CNN分到了背景但是GF也无法加回来了）</p>
-<p>具体做法：</p>
-<p>•Q, Workingarea  &#x3D; GuidedFilter(guidedI,ori_mask) ;&#x2F;&#x2F;得到可分区域或者纹理复杂区域</p>
-<p>•Q是GF算法的直接结果，包含错分区域，纹理复杂区域，以及正确区域</p>
-<p>•M &#x3D; ori_mask - Q；&#x2F;&#x2F;改变值， M本身在-1～1之间</p>
-<p>•M &#x3D; M * 2 – 0.3(beta)；&#x2F;&#x2F;将改变的数据进行拉伸，后在-2.3 ～1.7之间放大改变值的。</p>
-<p>•M[M&lt;0]&#x3D; 0;  &#x2F;&#x2F; 1：不会新添加东西 2：如果改变值过小就忽视 。</p>
-<p>•M[M&gt;1] &#x3D; 1; &#x2F;&#x2F;数据合理性约束</p>
-<p>•Output &#x3D; (Workingarea &#x3D;&#x3D; TRUE)? (ori_mask – M) : ori_mask</p>
-<p>•Output &lt; 0 &#x3D; 0; &#x2F;&#x2F; 数据合理性 </p>
-<p>引入的危险：*2 - 0.3 是手调拉伸超参数。为了保证变化锐利而非自然。且舍弃了将前景补足的潜力。</p>
-<p>测试case：卷曲的头发剔除背景合理，不增加黑头发后面的复杂背景。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/02/Bilateral-and-Guided-Filter/" data-id="clbblrwxt0000qtfb98wb8158" data-title="Bilateral and Guided Filter" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algo/" rel="tag">algo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -627,7 +570,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transformer/" rel="tag">transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -637,7 +580,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 18px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 18px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/transformer/" style="font-size: 10px;">transformer</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -646,7 +589,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -663,6 +606,10 @@
           </li>
         
           <li>
+            <a href="/2024/07/09/Swin-Transformer-and-SwinIR/">Swin Transformer and SwinIR</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/">YUV full vs limited 601 vs 709</a>
           </li>
         
@@ -672,10 +619,6 @@
         
           <li>
             <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">Xcode使用技巧</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/24/intptr-VS-int32-or-int64/">intptr VS int32 or int64</a>
           </li>
         
       </ul>

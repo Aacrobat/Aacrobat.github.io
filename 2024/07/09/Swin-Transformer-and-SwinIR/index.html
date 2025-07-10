@@ -4,15 +4,29 @@
   <meta charset="utf-8">
   
   
-  <title>Archives: 2022/10 | Hexo</title>
+  <title>Swin Transformer and SwinIR | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2022/10/index.html">
+  <meta name="description" content="图像多头注意力基础Vit   也就是固定patch的感受野是16*16像素，然后根据输入分辨率的变化，patch总数变多。 transformer分成计算MHA 和MLP MHA把 196个 768维度patch投影到qkv 每个patch独立，但是采用相同nn.linear（dim, dim * 3, bias&#x3D;qkv_bias)参数计算qkv，所有patch的qk再计算相关度的到19">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swin Transformer and SwinIR">
+<meta property="og:url" content="http://example.com/2024/07/09/Swin-Transformer-and-SwinIR/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="图像多头注意力基础Vit   也就是固定patch的感受野是16*16像素，然后根据输入分辨率的变化，patch总数变多。 transformer分成计算MHA 和MLP MHA把 196个 768维度patch投影到qkv 每个patch独立，但是采用相同nn.linear（dim, dim * 3, bias&#x3D;qkv_bias)参数计算qkv，所有patch的qk再计算相关度的到19">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-18-12-01-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-18-12-22-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-19-15-35-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-14-35-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-22-37-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-24-17-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-25-55-image.png">
+<meta property="og:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-19-38-29-image.png">
+<meta property="article:published_time" content="2024-07-09T09:10:13.000Z">
+<meta property="article:modified_time" content="2025-07-10T02:20:00.428Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="transformer">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-18-12-01-image.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,134 +83,111 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-10-31T02:13:28.000Z" itemprop="datePublished">Oct 31</time>
+        <section id="main"><article id="post-Swin-Transformer-and-SwinIR" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/09/Swin-Transformer-and-SwinIR/" class="article-date">
+  <time class="dt-published" datetime="2024-07-09T09:10:13.000Z" itemprop="datePublished">2024-07-09</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/31/git-%E6%8C%87%E4%BB%A4/">git 指令</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      Swin Transformer and SwinIR
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/10/24/c-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-10-24T03:19:24.000Z" itemprop="datePublished">Oct 24</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/24/c-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">c++程序编译过程</a>
-    </h1>
-  
+        <h1 id="图像多头注意力基础Vit"><a href="#图像多头注意力基础Vit" class="headerlink" title="图像多头注意力基础Vit"></a>图像多头注意力基础Vit</h1><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-18-12-01-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-18-12-22-image.png"></p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-19-15-35-image.png"></p>
+<p>也就是固定patch的感受野是16*16像素，然后根据输入分辨率的变化，patch总数变多。</p>
+<p>transformer分成计算MHA 和MLP</p>
+<p>MHA把 196个 768维度patch投影到qkv 每个patch独立，但是采用相同nn.linear（dim, dim * 3, bias&#x3D;qkv_bias)参数计算qkv，所有patch的qk再计算相关度的到196*196 的相关度矩阵attn，attn再和v计算，得到196 * 768维度的结果，这个结果是每个patch都考虑到了全局其他patch影响后的结果。</p>
+<pre><code> class Attention(nn.Module):
+ &quot;&quot;&quot;Multi-head self-attention (MHSA)&quot;&quot;&quot;
+ def __init__(self, dim, num_heads=8, qkv_bias=False, attn_drop=0., proj_drop=0.):
+ super().__init__()
+ self.num_heads = num_heads
+ head_dim = dim // num_heads
+ self.scale = head_dim ** -0.5 # 缩放因子 (√d_k)
+    self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)  # Q, K, V 投影
+    self.attn_drop = nn.Dropout(attn_drop)
+    self.proj = nn.Linear(dim, dim)  # 输出投影
+    self.proj_drop = nn.Dropout(proj_drop)
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-10-19T08:21:18.000Z" itemprop="datePublished">Oct 19</time>
-</a>
+def forward(self, x):
+    B, N, C = x.shape  # [batch_size, num_patches, embed_dim]
+    qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+    q, k, v = qkv.unbind(0)  # [B, num_heads, N, head_dim]
+
+    attn = (q @ k.transpose(-2, -1)) * self.scale  # QK^T / √d_k
+    attn = attn.softmax(dim=-1)
+    attn = self.attn_drop(attn)
+
+    x = (attn @ v).transpose(1, 2).reshape(B, N, C)  # 合并多头
+    x = self.proj(x)
+    x = self.proj_drop(x)
+    return x
+</code></pre>
+<p>MLP模块再对每个patch做两次次nn.linear</p>
+<p>总计算量 不算batch，假设一共有N个patch MHA中 patch<em>patch  + patch * dim</em>dim 在MLP模块为patch * dim*dim</p>
+<h1 id="Swin-transformer"><a href="#Swin-transformer" class="headerlink" title="Swin transformer"></a>Swin transformer</h1><p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-14-35-image.png"></p>
+<h2 id="主要贡献"><a href="#主要贡献" class="headerlink" title="主要贡献"></a>主要贡献</h2><ol>
+<li><p>由于自然语言中，一个单词就是一个token，但是在视觉问题中，一个像素还是3*3个像素块还是更大的像素块被看作一个token不确定，所以需要层次化的，多尺度的结构，类似Unet那样，不同的感受野当作一个token，计算attention。所以本文提出了层次化的结构。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-22-37-image.png"></p>
+</li>
+<li><p>图片往往都是高清的，全局做attention计算量太大，因此提出了滑动窗口做attention，并且提出了shift windows，更好处理边缘的patch。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-24-17-image.png"></p>
+</li>
+</ol>
+<h2 id="整体网络结构"><a href="#整体网络结构" class="headerlink" title="整体网络结构"></a>整体网络结构</h2><p>逐步下采样，窗口的多头attention和shift 窗口的attention交替进行。</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-17-25-55-image.png"></p>
+<h2 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h2><p>相对位置编码</p>
+<h1 id="SwinIR"><a href="#SwinIR" class="headerlink" title="SwinIR"></a>SwinIR</h1><p>多个任务共用 shallow feature 和 deep feature 提取，不同任务不容的reconstruction模块，backbone是RSTL</p>
+<p><img src="/Users/PeppaZhu/Library/Application%20Support/marktext/images/2025-07-09-19-38-29-image.png"></p>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/19/mac-%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%9B%98/">mac 连接网盘</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/10/19/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A02/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-10-19T07:57:39.000Z" itemprop="datePublished">Oct 19</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/07/09/Swin-Transformer-and-SwinIR/" data-id="cmcwrg4wm0000wzfb7vjl50vq" data-title="Swin Transformer and SwinIR" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/19/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A02/">c++ 散乱学习 迭代器</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/10/17/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-10-17T06:10:03.000Z" itemprop="datePublished">Oct 17</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/17/c-%E6%95%A3%E4%B9%B1%E5%AD%A6%E4%B9%A0/">c++ 散乱学习之关键字</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/10/14/install-asitop/" class="archive-article-date">
-  <time class="dt-published" datetime="2022-10-14T07:58:57.000Z" itemprop="datePublished">Oct 14</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/14/install-asitop/">install asitop</a>
-    </h1>
-  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/transformer/" rel="tag">transformer</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/06/30/CLAHE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CLAHE
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">YUV full vs limited 601 vs 709</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>

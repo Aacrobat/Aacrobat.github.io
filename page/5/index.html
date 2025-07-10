@@ -71,6 +71,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ffmpeg-record" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/09/21/ffmpeg-record/" class="article-date">
+  <time class="dt-published" datetime="2022-09-21T07:22:00.000Z" itemprop="datePublished">2022-09-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/09/21/ffmpeg-record/">ffmpeg record</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="深海巨坑ffmpeg的使用记录"><a href="#深海巨坑ffmpeg的使用记录" class="headerlink" title="深海巨坑ffmpeg的使用记录"></a>深海巨坑ffmpeg的使用记录</h2><h3 id="服务器上安装"><a href="#服务器上安装" class="headerlink" title="服务器上安装"></a>服务器上安装</h3><p>apt install ffmpeg</p>
+<h3 id="将多帧图像合成视频"><a href="#将多帧图像合成视频" class="headerlink" title="将多帧图像合成视频"></a>将多帧图像合成视频</h3><p><code>ffmpeg -r 30 -i output_video/%05d.jpg -vcodec libx264 -vf zscale=matrix=709:r=full output_video_fullr.mp4</code></p>
+<p><code>-vf zscale=matrix=709:r=limited</code>负责转换色域，否则默认转出来是BT.601之类的SD标准。显式指定limited 色域很多种，limited显得饱和度高一些，full色域大，同样数据显得饱和度低一些</p>
+<p>这个链接 <a target="_blank" rel="noopener" href="https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html">https://fireattack.github.io/blog/2018/07/03/ffmpeg-commands.html</a></p>
+<p>编码质量控制： -c:v libx264 -preset veryslow -crf 0</p>
+<h3 id="将yuv视频分png"><a href="#将yuv视频分png" class="headerlink" title="将yuv视频分png"></a>将yuv视频分png</h3><p><code>ffmpeg -s 1080x720 -pix_fmt yuv420p -i dst_1080x720_30Hz_P420.yuv -vf scale=in_range=full:out_range=full output_ori/%05d.png</code><br>-vf scale&#x3D;in_range&#x3D;full:out_range&#x3D;full 来控制色彩<br>这个链接 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv6601959/">https://www.bilibili.com/read/cv6601959/</a></p>
+<h3 id="截取视频片段"><a href="#截取视频片段" class="headerlink" title="截取视频片段"></a>截取视频片段</h3><p>按照时间截取</p>
+<p>ffmpeg -i input.mp4 -vcodec copy -acodec copy -ss 00:00:00 -to 00:00:05 cutout.mp4 -y</p>
+<p>按照帧截取</p>
+<p>ffmpeg -i input.mp4 -vf”select&#x3D;between(n,20,200)” -y -acodec copy cutout.mp4</p>
+<h3 id="将YUV转成MP4"><a href="#将YUV转成MP4" class="headerlink" title="将YUV转成MP4"></a>将YUV转成MP4</h3><p>ffmpeg -s 640x480 -pix_fmt yuv420p -i output.yuv out3.mp4</p>
+<h3 id="将MP4转YUV"><a href="#将MP4转YUV" class="headerlink" title="将MP4转YUV"></a>将MP4转YUV</h3><p>ffmpeg -i input.mp4 -s 640x480 -pix_fmt yuv420p output.yuv</p>
+<h3 id="视频分帧"><a href="#视频分帧" class="headerlink" title="视频分帧"></a>视频分帧</h3><p> ffmpeg -i backlit.mp4 -r 30 backlit&#x2F;%05d.png </p>
+<p>如果改成jpg会有严重压缩</p>
+<p>如果转化成png还有压缩的话，可以先将mp4转成yuv, yuv单帧的质量也就是图片单帧能达到的最高质量。然后将yuv视频转化成图像。</p>
+<h3 id="将视频拼接"><a href="#将视频拼接" class="headerlink" title="将视频拼接"></a>将视频拼接</h3><p><code>ffmpeg -i peppa_v3_fullr.mp4 -i peppa_v5_fullr_.mp4 -filter_complex &quot;[0:v]pad=iw*2:ih*1[a];[a][1:v]overlay=w&quot; compair_peppa_v3v5.mp4</code></p>
+<p>这个链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Gary__123456/article/details/88742705">https://blog.csdn.net/Gary__123456/article/details/88742705</a></p>
+<h3 id="转封装"><a href="#转封装" class="headerlink" title="转封装"></a>转封装</h3><p>ffmpeg -i xx.mov c:v copy  xx.mp4</p>
+<h3 id="视频resize"><a href="#视频resize" class="headerlink" title="视频resize"></a>视频resize</h3><p>ffmpeg -i testbanding.mp4 -s 1280:720 -aspect “16:9” testbanding_1280x720.mp4</p>
+<h3 id="一张图片转视频"><a href="#一张图片转视频" class="headerlink" title="一张图片转视频"></a>一张图片转视频</h3><p>ffmpeg -r 10 -f image2 -loop 1 -i 1.jpg -s 1080x1920 -pix_fmt yuvj420p -t 4 -vcodec libx264 1.mp4</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/09/21/ffmpeg-record/" data-id="cl8bbkji000003sfb18og3hk6" data-title="ffmpeg record" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-firstPage-md" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/08/18/firstPage-md/" class="article-date">
@@ -180,7 +240,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AIGC/" rel="tag">AIGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMake/" rel="tag">CMake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hydra/" rel="tag">Hydra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdow/" rel="tag">Markdow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retinex/" rel="tag">Retinex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/" rel="tag">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YUV/" rel="tag">YUV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algo/" rel="tag">algo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/software-install/" rel="tag">software_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transformer/" rel="tag">transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试</a></li></ul>
     </div>
   </div>
 
@@ -190,7 +250,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 18px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
+      <a href="/tags/AIGC/" style="font-size: 12px;">AIGC</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CMake/" style="font-size: 10px;">CMake</a> <a href="/tags/Hydra/" style="font-size: 10px;">Hydra</a> <a href="/tags/Markdow/" style="font-size: 10px;">Markdow</a> <a href="/tags/Retinex/" style="font-size: 10px;">Retinex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/YUV/" style="font-size: 12px;">YUV</a> <a href="/tags/algo/" style="font-size: 18px;">algo</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 16px;">git</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software-install/" style="font-size: 10px;">software_install</a> <a href="/tags/transformer/" style="font-size: 10px;">transformer</a> <a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 12px;">优化</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 14px;">汇编</a> <a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">测试</a>
     </div>
   </div>
 
@@ -199,7 +259,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li></ul>
     </div>
   </div>
 
@@ -216,6 +276,10 @@
           </li>
         
           <li>
+            <a href="/2024/07/09/Swin-Transformer-and-SwinIR/">Swin Transformer and SwinIR</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/27/YUV-full-vs-limited-601-vs-709/">YUV full vs limited 601 vs 709</a>
           </li>
         
@@ -225,10 +289,6 @@
         
           <li>
             <a href="/2023/12/04/Xcode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">Xcode使用技巧</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/24/intptr-VS-int32-or-int64/">intptr VS int32 or int64</a>
           </li>
         
       </ul>
